@@ -1,0 +1,25 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.opendb
+*.VC.db
+
+# Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild*/
+[Ll]ogs/
+UserSettings/
+MemoryCaptures/
+CrashReports/
+*.unitypackage
+
+# Rider/VS Code(선택)
+.idea/
+.vscode/
+
+# OS
+Thumbs.db
+.DS_Store
