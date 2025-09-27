@@ -49,4 +49,3 @@ public class MobileHorizontalMover : MonoBehaviour
         return Mathf.Lerp(xLimits.x, xLimits.y, t);
     }
 }
-//
