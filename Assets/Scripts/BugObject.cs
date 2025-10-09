@@ -69,9 +69,9 @@ public class FallingObject : MonoBehaviour
    
         if (rd != null)
         {
-            rd.isKinematic = true;
             rd.linearVelocity = Vector3.zero;
             rd.angularVelocity = Vector3.zero;
+            rd.isKinematic = true;
         }
         if (col)
         {
