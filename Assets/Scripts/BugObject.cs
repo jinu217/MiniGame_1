@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class FallingObject : MonoBehaviour
+public class BugObject : MonoBehaviour
 {
     public float spawnPosX;
     public float spawnPosY = 0.5f;
@@ -11,80 +11,94 @@ public class FallingObject : MonoBehaviour
     public int bugDamage = 2;
 
     public Player player;
-
+    public AutoShooter autoShooter;
 
     public bool isArrive;
-    public void Arrive() 
-    {
-        isArrive = true; 
-    }
+    public void Arrive() => isArrive = true;
 
     bool isHiding;
 
     Rigidbody rd;
     Collider col;
-    Renderer[] rends;  // ¿ÀºêÁ§Æ® º¸ÀÌ°Ô, ¼û±â°Ô
+    Renderer[] rends;
 
     void Awake()
     {
-        rd = GetComponent<Rigidbody>();    
+        rd = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
         rends = GetComponentsInChildren<Renderer>(true);
-        if (rd != null)
-        {
-            rd.isKinematic = false; // ¹°¸® ¿µÇâ ºñÈ°¼ºÈ­
-        }
+        if (rd != null) rd.isKinematic = false;
     }
 
-    void FixedUpdate() 
+    void FixedUpdate()
     {
         if (rd != null && !isHiding)
         {
-            rd.linearVelocity = Vector3.forward * bugSpeed;  
+            rd.linearVelocity = Vector3.back * bugSpeed; // Z- ë°©í–¥ ì „ì§„
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (isHiding)
-        {
-            return;
-        }
-        
+        if (isHiding) return;
 
-        if (collision.gameObject.CompareTag("ArrivePoint")) // ¼±¿¡ ´ê¾ÒÀ» ¶§
+        var hitRoot = collision.collider.transform.root;
+
+        if (hitRoot.CompareTag("PlayerBullet"))
         {
             Hide(transform.position);
-            player.playerHp = player.playerHp - bugDamage;
+            var rb = collision.rigidbody;
+            Destroy(rb ? rb.gameObject : collision.collider.gameObject);
+            return;
+        }
+
+        if (collision.collider.CompareTag("ArrivePoint") || collision.collider.CompareTag("Player"))
+        {
+            Hide(transform.position);
+            player.playerHp -= bugDamage;
             Debug.Log(player.playerHp);
         }
     }
 
-    public void Hide(Vector3 spawnPos) // ¿ÀºêÁ§Æ® ¼û±â±â
+    void OnTriggerEnter(Collider other)
+    {
+        if (isHiding) return;
+
+        var hitRoot = other.transform.root;
+
+        if (hitRoot.CompareTag("PlayerBullet"))
+        {
+            Hide(transform.position);
+            var rb = other.attachedRigidbody;
+            Destroy(rb ? rb.gameObject : other.gameObject);
+            return;
+        }
+
+        if (other.CompareTag("ArrivePoint") || other.CompareTag("Player"))
+        {
+            Hide(transform.position);
+            player.playerHp -= bugDamage;
+            Debug.Log(player.playerHp);
+        }
+    }
+
+    public void Hide(Vector3 spawnPos)
     {
         if (isHiding) return;
         isHiding = true;
         isArrive = true;
 
-   
         if (rd != null)
         {
-            rd.isKinematic = true;
             rd.linearVelocity = Vector3.zero;
             rd.angularVelocity = Vector3.zero;
+            rd.isKinematic = true;
         }
-        if (col)
-        {
-            col.enabled = false;
-        }
-
+        if (col) col.enabled = false;
 
         if (rends != null)
         {
-            foreach (var r in rends)
-            {
-                if (r) r.enabled = false;
-            }
+            foreach (var r in rends) if (r) r.enabled = false;
         }
 
         StartCoroutine(HideRoutine(spawnPos));
@@ -93,39 +107,23 @@ public class FallingObject : MonoBehaviour
     IEnumerator HideRoutine(Vector3 spawnPos)
     {
         int frameCount = 0;
-
         while (frameCount < 20)
         {
             spawnPosX = Random.Range(-2f, 2f);
             frameCount++;
             yield return null;
         }
-        
-        // ¸®½ºÆù: X¸¸ ·£´ý, Y,Z °íÁ¤
+
         transform.position = new Vector3(spawnPosX, spawnPosY, spawnPosZ);
 
-        // ´Ù½Ã º¸ÀÌ±â
         if (rends != null)
         {
-            foreach (var r in rends)
-            {
-                if (r) r.enabled = true;
-            }
-                
+            foreach (var r in rends) if (r) r.enabled = true;
         }
-            
-        if (col)
-        {
-            col.enabled = true;
-        }
+        if (col) col.enabled = true;
 
-        if (rd != null)
-        {
-            rd.isKinematic = false;
-        }
-            
+        if (rd != null) rd.isKinematic = false;
 
         isHiding = false;
-
     }
 }
