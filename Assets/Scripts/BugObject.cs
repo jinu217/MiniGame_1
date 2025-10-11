@@ -58,27 +58,17 @@ public class BugObject : MonoBehaviour
 
             Debug.Log(killCount);
 
-            if (killCount % 3 == 0) // (임시) 킬 카운트에 따른 버그 추가 생성
+            if (killCount % 5 == 0) // (임시) 킬 카운트에 따른 버그 추가 생성
             {
                 Spawn();
             }
+        }
 
-            var hitRoot = other.transform.root;
-
-            if (hitRoot.CompareTag("PlayerBullet"))
-            {
-                Hide(transform.position);
-                var rb = other.attachedRigidbody;
-                Destroy(rb ? rb.gameObject : other.gameObject);
-                return;
-            }
-
-            if (other.CompareTag("ArrivePoint") || other.CompareTag("Player"))
-            {
-                Hide(transform.position);
-                player.playerHp -= bugDamage;
-                Debug.Log(player.playerHp);
-            }
+        if (other.CompareTag("ArrivePoint") || other.CompareTag("Player"))
+        {
+            Hide(transform.position);
+            player.playerHp -= bugDamage;
+            Debug.Log(player.playerHp);
         }
     }
 
