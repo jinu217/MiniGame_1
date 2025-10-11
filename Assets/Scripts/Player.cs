@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player: MonoBehaviour
+public class Player : MonoBehaviour
 {
     [Header("Move Settings")]
     [Tooltip("목표 위치로 수렴하는 시간(값이 클수록 더 느리게/부드럽게)")]
@@ -10,8 +10,11 @@ public class Player: MonoBehaviour
     public Vector2 xLimits = new Vector2(-5f, 5f);
 
     public int playerHp = 34;
+    public int skillPoint = 0;
     float _targetX;
     float _velX;
+
+    public SlidePanel panel;
 
     void Start()
     {
@@ -49,4 +52,25 @@ public class Player: MonoBehaviour
         float t = Mathf.InverseLerp(0f, Screen.width, screenX); // 0~1
         return Mathf.Lerp(xLimits.x, xLimits.y, t);
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PlusPanel"))
+        {
+            panel = other.GetComponent<SlidePanel>();
+            skillPoint += panel.panelPoint;
+            Debug.Log("스킬 포인트: " + skillPoint);
+            Destroy(other.gameObject);
+        }
+        if (other.CompareTag("MinusPanel"))
+        {
+            panel = other.GetComponent<SlidePanel>();
+            skillPoint += panel.panelPoint;
+            if (skillPoint < 0f) skillPoint = 0;
+            Debug.Log("스킬 포인트: " + skillPoint);
+            Destroy(other.gameObject);
+        }
+    }
+
+
 }

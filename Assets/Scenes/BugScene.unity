@@ -133,7 +133,6 @@ GameObject:
   - component: {fileID: 111763940}
   - component: {fileID: 111763946}
   - component: {fileID: 111763945}
-  - component: {fileID: 111763944}
   - component: {fileID: 111763947}
   m_Layer: 6
   m_Name: Player
@@ -234,29 +233,6 @@ Transform:
   - {fileID: 181437096}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &111763944
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 111763939}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &111763945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,6 +248,8 @@ MonoBehaviour:
   smoothTime: 0.1
   xLimits: {x: -5, y: 5}
   playerHp: 34
+  skillPoint: 0
+  panel: {fileID: 0}
 --- !u!54 &111763946
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -360,7 +338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2078256660427142629, guid: 47737c96635761041a68d577434c581e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2078256660427142629, guid: 47737c96635761041a68d577434c581e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -536,10 +514,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPosX: 0
-  spawnPosY: 0.2
+  spawnPosY: 0.5
   spawnPosZ: 25
   bugSpeed: 10
   bugDamage: 1
+  killCount: 0
+  bugObject: {fileID: 1899205877}
   player: {fileID: 111763945}
   autoShooter: {fileID: 0}
   isArrive: 0
