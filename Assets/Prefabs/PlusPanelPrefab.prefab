@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4374676416636708979}
   m_Layer: 8
   m_Name: PlusPanelPrefab
-  m_TagString: Untagged
+  m_TagString: PlusPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

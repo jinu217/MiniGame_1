@@ -1,17 +1,23 @@
 using System.Collections;
+using Unity.Android.Types;
 using UnityEngine;
 
 public class BugObject : MonoBehaviour
 {
     public float spawnPosX;
     public float spawnPosY = 0.5f;
-    public float spawnPosZ = 0f;
+    public float spawnPosZ = 25f;
 
-    public float bugSpeed = 2f;
-    public int bugDamage = 2;
+    public float bugSpeed = 10f;
+    public int bugDamage = 1;
 
+    public int killCount = 0;
+
+
+    public GameObject bugObject;
     public Player player;
     public AutoShooter autoShooter;
+
 
     public bool isArrive;
     public void Arrive() => isArrive = true;
@@ -28,6 +34,7 @@ public class BugObject : MonoBehaviour
         col = GetComponent<Collider>();
         rends = GetComponentsInChildren<Renderer>(true);
         if (rd != null) rd.isKinematic = false;
+
     }
 
     void FixedUpdate()
@@ -38,40 +45,23 @@ public class BugObject : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (isHiding) return;
-
-        var hitRoot = collision.collider.transform.root;
-
-        if (hitRoot.CompareTag("PlayerBullet"))
-        {
-            Hide(transform.position);
-            var rb = collision.rigidbody;
-            Destroy(rb ? rb.gameObject : collision.collider.gameObject);
-            return;
-        }
-
-        if (collision.collider.CompareTag("ArrivePoint") || collision.collider.CompareTag("Player"))
-        {
-            Hide(transform.position);
-            player.playerHp -= bugDamage;
-            Debug.Log(player.playerHp);
-        }
-    }
 
     void OnTriggerEnter(Collider other)
     {
         if (isHiding) return;
 
-        var hitRoot = other.transform.root;
 
-        if (hitRoot.CompareTag("PlayerBullet"))
+        if (other.CompareTag("PlayerBullet"))
         {
             Hide(transform.position);
-            var rb = other.attachedRigidbody;
-            Destroy(rb ? rb.gameObject : other.gameObject);
-            return;
+            killCount++;
+
+            Debug.Log(killCount);
+
+            if (killCount % 5 == 0) // (임시) 킬 카운트에 따른 버그 추가 생성
+            {
+                Spawn();
+            }
         }
 
         if (other.CompareTag("ArrivePoint") || other.CompareTag("Player"))
@@ -80,6 +70,58 @@ public class BugObject : MonoBehaviour
             player.playerHp -= bugDamage;
             Debug.Log(player.playerHp);
         }
+    }
+
+
+    // 복제 매커니즘
+    public void Spawn()
+    {
+        Debug.Log("생성");
+        // isSpawn = true;
+        int attemptCount = 0;
+
+        float cloneX;
+        var allBug = FindObjectsByType<BugObject>(FindObjectsSortMode.None); //모든 BugObject 찾기
+        do
+        {
+            attemptCount++;
+            cloneX = Random.Range(-2f, 2f);
+            foreach (var otherBug in allBug)
+            {
+                if (otherBug == this) continue; // 자기 자신 제외
+
+                float otherX = otherBug.transform.position.x;
+
+                if (Mathf.Abs(cloneX - otherX) < 0.5f) // 0.5f 이내면 겹침
+                {
+                    break;
+                }
+
+            }
+        }
+        while (attemptCount < 30);
+
+        Vector3 clonePos = new Vector3(cloneX, spawnPosY, spawnPosZ);
+
+        GameObject bug = Instantiate(this.gameObject, clonePos, transform.rotation);
+
+        // 복제된 오브젝트 Rigid, Collider, Renderer 초기화
+        Rigidbody cloneRb = bug.GetComponent<Rigidbody>();
+        if (cloneRb)
+        {
+            cloneRb.isKinematic = false;
+        }
+
+        Collider cloneCol = bug.GetComponent<Collider>();
+        if (cloneCol) cloneCol.enabled = true;
+
+        Renderer[] cloneRends = bug.GetComponentsInChildren<Renderer>(true);
+        foreach (var r in cloneRends)
+        {
+            if (r) r.enabled = true;
+        }
+
+        //isSpawn = false;
     }
 
     public void Hide(Vector3 spawnPos)

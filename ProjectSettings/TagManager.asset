@@ -9,6 +9,8 @@ TagManager:
   - PlayerBullet
   - BossBullet
   - Undefined
+  - PlusPanel
+  - MinusPanel
   layers:
   - Default
   - TransparentFX
