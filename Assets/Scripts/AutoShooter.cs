@@ -43,7 +43,7 @@ public class AutoShooter : MonoBehaviour
             rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
 
             // ✅ 각 FirePoint의 방향으로 발사
-            rb.velocity = point.forward * bulletSpeed;
+            rb.linearVelocity = point.forward * bulletSpeed;
 
             // Collider(Trigger)
             Collider col = bullet.GetComponent<Collider>();
