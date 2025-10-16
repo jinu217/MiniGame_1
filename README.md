@@ -10,7 +10,7 @@ git fetch origin
 git switch develop  
 git pull origin develop  
 
-  ## 작업완료 후 브랜치 생성 및 푸시
+  ## 작업완료 후 브랜치 생성 및 푸시  
 git switch develop  
 git switch -c (생성할 브랜치명)    # 브랜치명 feature/(작업한 기능)로 통일해서 생성 ex) feature/boss, feature/bug  
 git add .  
