@@ -19,11 +19,11 @@ MonoBehaviour:
     pattern: 4
     startAtSeconds: 0
     fireInterval: 3
-    projectileSpeed: 30
+    projectileSpeed: 25
     volleyCount: 2
   - name: 
     pattern: 4
     startAtSeconds: 20
     fireInterval: 2
-    projectileSpeed: 45
+    projectileSpeed: 40
     volleyCount: 3
