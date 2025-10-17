@@ -14,7 +14,7 @@ public enum BossPatternType {
 
 [System.Serializable]
 public struct BossPhase {
-    public string name;              // UI 표시용 (예: Phase1)
+    public string name;              // UI 표시용
     public BossPatternType pattern;  // 패턴 타입
     public float startAtSeconds;     // 이 시간 이후 적용
     public float fireInterval;       // 발사 간격

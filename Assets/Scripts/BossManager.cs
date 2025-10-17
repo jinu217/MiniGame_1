@@ -6,15 +6,11 @@ public class BossManager : MonoBehaviour
     [Header("Config")]
     public BossConfig config;
     public Transform spawnPoint;
-    [Tooltip("보스전 제한시간(초)")]
     public float timeLimit = 35f;
 
     [Header("Pattern Overrides")]
-    [Tooltip("켜면 페이즈의 fireInterval로 덮어씀, 끄면 인스펙터 값 유지")]
     public bool overrideInterval = true;
-    [Tooltip("켜면 페이즈의 projectileSpeed로 덮어씀, 끄면 인스펙터 값 유지")]
     public bool overrideSpeed = true;
-    [Tooltip("켜면 페이즈의 volleyCount로 덮어씀, 끄면 인스펙터 값 유지")]
     public bool overrideVolley = true;
 
     BossBase boss;
@@ -64,15 +60,14 @@ public class BossManager : MonoBehaviour
         {
             timer += Time.deltaTime;
 
-            // 다음 페이즈로 여러 단계 건너뛸 수 있으니 while로 처리
             while (currentPhaseIndex + 1 < config.phases.Length &&
                    timer >= config.phases[currentPhaseIndex + 1].startAtSeconds)
             {
                 ApplyPhase(currentPhaseIndex + 1);
             }
 
-            if (boss.IsDead) { OnBossDefeated(); yield break; }
-            if (timer >= timeLimit) { OnTimeOver(); yield break; }
+            if (boss.IsDead) { Debug.Log("Boss Down!"); yield break; }
+            if (timer >= timeLimit) { Debug.Log("Time Over"); yield break; }
 
             yield return null;
         }
@@ -83,26 +78,10 @@ public class BossManager : MonoBehaviour
         currentPhaseIndex = index;
         var p = config.phases[index];
 
-        // 토글에 따라 덮어쓸 값/유지할 값 분기
-        float interval = overrideInterval ? p.fireInterval : 0f;     // 0 → BossBase가 인스펙터 유지
-        float speed    = overrideSpeed    ? p.projectileSpeed : 0f;  // 0 → BossBase가 인스펙터 유지
-        int   volley   = overrideVolley   ? p.volleyCount     : 0;   // 0 → BossBase가 인스펙터 유지
+        float interval = overrideInterval ? p.fireInterval    : 0f;
+        float speed    = overrideSpeed    ? p.projectileSpeed : 0f;
+        int   volleyCt = overrideVolley   ? p.volleyCount     : 0;
 
-        boss.SetPattern(p.pattern, interval, speed, volley);
-
-        // TODO: UI 연출 (페이즈 전환 알림)
-        // PhaseBanner.Show(p.displayName, 1.0f);
-    }
-
-    void OnBossDefeated()
-    {
-        Debug.Log("Boss Down!");
-        // TODO: 보상/다음 스테이지
-    }
-
-    void OnTimeOver()
-    {
-        Debug.Log("Time Over");
-        // TODO: 실패 처리
+        boss.SetPattern(p.pattern, interval, speed, volleyCt);
     }
 }
