@@ -7,7 +7,7 @@ public class AutoShooter : MonoBehaviour
     public Transform firePoint;       // 기본 총구 위치
     public Transform[] firePoints;    // 스프레드 등 다중 발사 지원
     public float bulletSpeed = 15f;   // 총알 속도
-    public float fireRate = 0.25f;    // 발사 간격(초)
+    public float fireRate = 0.5f;    // 발사 간격(초)
 
     float _nextFireTime;
 
@@ -31,7 +31,7 @@ public class AutoShooter : MonoBehaviour
         {
             if (!point) continue;
 
-            // ✅ 각 FirePoint를 기준으로 총알 생성
+            // 각 FirePoint를 기준으로 총알 생성
             GameObject bullet = Instantiate(bulletPrefab, point.position, point.rotation);
             bullet.tag = "PlayerBullet";
 
@@ -42,7 +42,7 @@ public class AutoShooter : MonoBehaviour
             rb.isKinematic = false;
             rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
 
-            // ✅ 각 FirePoint의 방향으로 발사
+            // 각 FirePoint의 방향으로 발사
             rb.linearVelocity = point.forward * bulletSpeed;
 
             // Collider(Trigger)
@@ -50,8 +50,24 @@ public class AutoShooter : MonoBehaviour
             if (col == null) col = bullet.AddComponent<SphereCollider>();
             col.isTrigger = true;
 
+            //총알 충돌 처리 스크립트 추가
+            if (bullet.GetComponent<BulletCollision>() == null)
+                bullet.AddComponent<BulletCollision>();
+
             // 자동 제거
             Destroy(bullet, 5f);
+        }
+    }
+
+    public class BulletCollision : MonoBehaviour
+    {
+        void OnTriggerEnter(Collider other)
+        {
+            // "Obstacle" 태그를 가진 오브젝트에 닿으면 총알 삭제
+            if (other.CompareTag("Obstacle"))
+            {
+                Destroy(gameObject);       // 총알 삭제
+            }
         }
     }
 }

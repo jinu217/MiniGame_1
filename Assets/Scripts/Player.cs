@@ -8,11 +8,12 @@ public class Player : MonoBehaviour
 
     [Header("X 이동 한계 (월드 좌표)")]
     public Vector2 xLimits = new Vector2(-5f, 5f);
-
-    public int playerHp = 34;
-    public int skillPoint = 0;
     float _targetX;
     float _velX;
+
+    [Header("플레이어 변수")]
+    public int playerHp = 34;
+    public int skillPoint = 0;
 
     public SlidePanel panel;
 
