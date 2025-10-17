@@ -8,6 +8,7 @@ public class SpreadFireController : MonoBehaviour
     public AutoShooter shooter;       // AutoShooter 연결
     public Transform baseFirePoint;   // 기준 FirePoint (정면)
     public Button spreadButton;       // UI 버튼 (없으면 null 가능)
+    public Player player;
 
     [Header("Spread Settings")]
     public float spreadAngle = 45f;   // 좌우 각도(±)
@@ -23,14 +24,35 @@ public class SpreadFireController : MonoBehaviour
             spreadButton.onClick.AddListener(Activate);
     }
 
+    void Update()
+    {
+        // skillPoint가 가득 차면 버튼 자동 활성화
+        if (player != null && spreadButton != null)
+        {
+            if (player.skillPoint >= player.maxSkillPoint && !isActive)
+                spreadButton.interactable = true;
+            else
+                spreadButton.interactable = false;
+        }
+    }
+
     public void Activate()
     {
-        if (!isActive) StartCoroutine(SpreadRoutine());
+        if (!isActive && player != null && player.skillPoint >= player.maxSkillPoint)
+        {
+            StartCoroutine(SpreadRoutine());
+        }
     }
 
     IEnumerator SpreadRoutine()
     {
         isActive = true;
+
+        if (player != null)
+            player.skillPoint = player.skillPoint - player.maxSkillPoint;
+
+        if (spreadButton != null)
+            spreadButton.interactable = false;
 
         // 좌/우 FirePoint 생성 (부모 동일, 위치/회전은 base 복제)
         leftPoint = Instantiate(baseFirePoint, baseFirePoint.parent);
@@ -60,4 +82,6 @@ public class SpreadFireController : MonoBehaviour
 
         isActive = false;
     }
+
 }
+

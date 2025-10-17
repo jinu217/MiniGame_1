@@ -10,7 +10,8 @@ public class Player : MonoBehaviour
     public Vector2 xLimits = new Vector2(-5f, 5f);
 
     public int playerHp = 34;
-    public int skillPoint = 0;
+    public int skillPoint = 0;       // 현재 스킬 포인트
+    public int maxSkillPoint = 5;    // 최대 포인트
     float _targetX;
     float _velX;
 

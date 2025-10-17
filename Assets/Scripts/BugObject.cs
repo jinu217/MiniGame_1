@@ -58,6 +58,12 @@ public class BugObject : MonoBehaviour
 
             Debug.Log(killCount);
 
+            if (player != null)
+            {
+                player.skillPoint++;
+                player.skillPoint = Mathf.Clamp(player.skillPoint, 0, player.maxSkillPoint);
+            }
+
             if (killCount % 5 == 0) // (임시) 킬 카운트에 따른 버그 추가 생성
             {
                 Spawn();
