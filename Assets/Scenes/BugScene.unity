@@ -653,6 +653,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestBug
       objectReference: {fileID: 0}
+    - target: {fileID: 3875794281152686887, guid: 47737c96635761041a68d577434c581e, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088247320419788479, guid: 47737c96635761041a68d577434c581e, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4965076394248983210, guid: 47737c96635761041a68d577434c581e, type: 3}
       propertyPath: m_UseGravity
       value: 0
