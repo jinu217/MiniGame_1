@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8075009528327112158}
   - component: {fileID: 1158888898354452611}
   - component: {fileID: 5907919833618657757}
-  - component: {fileID: -6252557678699113631}
+  - component: {fileID: 1490390859253410365}
   m_Layer: 9
-  m_Name: Boss3_test
+  m_Name: Boss_test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,7 +140,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-6252557678699113631
+--- !u!114 &1490390859253410365
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,22 +149,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5269137041177322464}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1dbdf412583ae444bb444f6d95ce0ab, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b8f0fd06a1a7044ca95d506c4dce7c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 5891923430366357518}
   projectilePrefab: {fileID: 1431659776582274526, guid: 66487f71e281a5644b837968d3466aea, type: 3}
   hp: 0
   fireInterval: 2
-  projSpeed: 15
+  projSpeed: 150
   volley: 1
-  p1Gap: 0.12
-  p2Gap: 0.15
-  p2StartScale: 0.25
-  p2EndScale: 2.5
-  p2GrowDuration: 1.15
-  p2AccelPerSecond: 35
-  p2InitialSpeedRate: 0.5
 --- !u!1 &6456301016380435622
 GameObject:
   m_ObjectHideFlags: 0
