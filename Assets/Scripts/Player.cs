@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
     float _velX;
 
     [Header("플레이어 변수")]
-    public int playerHp = 34;
     public int skillPoint = 0;
 
     public SlidePanel panel;

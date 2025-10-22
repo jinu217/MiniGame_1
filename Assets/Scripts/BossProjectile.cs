@@ -27,8 +27,8 @@ public class BossProjectile : MonoBehaviour
             var player = other.GetComponent<Player>();
             if (player != null)
             {
-                player.playerHp -= damage; // HP 감소
-                if (player.playerHp <= 0)
+                GameManager.gameManager.playerHp -= damage; // HP 감소 // Modify: player.playerHp -> GameManager.gameManager.playerHp
+                if (GameManager.gameManager.playerHp <= 0) // Modify: player.playerHp -> GameManager.gameManager.playerHp 
                 {
                     // TODO: GameOver 처리 (씬 전환, UI 등)
                     Debug.Log("Player Dead!");
