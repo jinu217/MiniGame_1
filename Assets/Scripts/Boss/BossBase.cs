@@ -15,7 +15,7 @@ public class BossBase : MonoBehaviour
 
     [Header("Fire Settings")]
     [SerializeField] protected float fireInterval = 2f;
-    [SerializeField] protected float projSpeed = 15f;
+    [SerializeField] protected float projSpeed = 150f;
     [SerializeField] protected int volley = 1;
 
     Coroutine fireRoutine;
@@ -23,7 +23,6 @@ public class BossBase : MonoBehaviour
     public virtual void Init(int maxHP)
     {
         hp = maxHP;
-
         var rb = GetComponent<Rigidbody>();
         if (!rb)
         {
@@ -36,80 +35,101 @@ public class BossBase : MonoBehaviour
     public virtual void SetPattern(BossPatternType type, float interval, float speed, int volleyCount)
     {
         pattern = type;
-        if (interval > 0f) fireInterval = interval;
-        if (speed    > 0f) projSpeed    = speed;
-        if (volleyCount >= 1) volley    = volleyCount;
+        if (interval > 0) fireInterval = interval;
+        if (speed > 0) projSpeed = speed;
+        if (volleyCount > 0) volley = volleyCount;
 
-        if (fireRoutine == null && gameObject.activeInHierarchy)
-            fireRoutine = StartCoroutine(FireLoop());
+        if (fireRoutine != null) StopCoroutine(fireRoutine);
+        fireRoutine = StartCoroutine(FireLoop());
     }
 
     IEnumerator FireLoop()
     {
-        float t = 0f;
         while (!IsDead)
         {
-            t += Time.deltaTime;
-            if (t >= fireInterval)
-            {
-                t = 0f;
-                FireOnce();
-            }
-            yield return null;
+            FireOnce();  // 🔹 실제 발사 로직
+            yield return new WaitForSeconds(fireInterval);
+        }
+
+        Debug.Log($"[BossBase] FireLoop running - interval: {fireInterval}, speed: {projSpeed}");
+
+    }
+
+    // 🔸 패턴별 로직은 여기서 오버라이드할 수 있음
+    protected virtual void FireOnce()
+    {
+        switch (pattern)
+        {
+            case BossPatternType.Straight:
+                FireTowardPlayer();
+                break;
+            case BossPatternType.DiagonalRandom:
+                FireDiagonal();
+                break;
+            case BossPatternType.Circle:
+                FireCircle();
+                break;
+            case BossPatternType.Mixed:
+                FireMixed();
+                break;
         }
     }
 
-    // 기본 동작: 플레이어 방향으로 동시 N발
-    protected virtual void FireOnce()
+    // 🔸 공통 발사 유틸리티 (자식도 재사용 가능)
+    protected void FireTowardPlayer()
     {
-        if (firePoint == null || projectilePrefab == null) return;
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (!player) return;
+        Vector3 dir = player.transform.position - firePoint.position;
+        dir.y = 0;
+        dir.Normalize();
+        SpawnBullet(dir);
+    }
 
-        Vector3 dir = GetDirToPlayer3D();
-        if (dir == Vector3.zero) return;
+    protected void FireDiagonal()
+    {
+        Vector3 dir = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, -0.5f)).normalized;
+        SpawnBullet(dir);
+    }
 
-        int count = Mathf.Max(1, volley);
+    protected void FireCircle()
+    {
+        int count = Mathf.Max(6, volley * 2);
         for (int i = 0; i < count; i++)
+        {
+            float a = 360f * i / count;
+            Vector3 dir = new Vector3(Mathf.Sin(a * Mathf.Deg2Rad), 0f, Mathf.Cos(a * Mathf.Deg2Rad));
             SpawnBullet(dir);
+        }
+    }
+
+    protected void FireMixed()
+    {
+        FireTowardPlayer();
+        FireDiagonal();
     }
 
     protected void SpawnBullet(Vector3 dir)
     {
-        var go = Instantiate(projectilePrefab, firePoint.position, Quaternion.LookRotation(dir));
+        var go = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
         var rb = go.GetComponent<Rigidbody>() ?? go.AddComponent<Rigidbody>();
         rb.useGravity = false;
-        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        rb.isKinematic = false;
         rb.linearVelocity = dir * projSpeed;
+        Destroy(go, 10f);
     }
 
-    protected Vector3 GetDirToPlayer3D()
+    protected virtual void OnTriggerEnter(Collider other)
     {
-        var player = GameObject.FindGameObjectWithTag("Player");
-        if (!player || !firePoint) return Vector3.zero;
-        return (player.transform.position - firePoint.position).normalized;
-    }
-
-    // ---- 공통 직선 발사 유틸 ----
-    // 동시에 N발
-    protected void FireStraightSimul(int count)
-    {
-        Vector3 dir = GetDirToPlayer3D();
-        if (dir == Vector3.zero) return;
-
-        count = Mathf.Max(1, count);
-        for (int i = 0; i < count; i++) SpawnBullet(dir);
-    }
-
-    // gap 간격으로 줄지어 N발
-    protected IEnumerator FireStraightSeq(int count, float gap)
-    {
-        Vector3 dir = GetDirToPlayer3D();
-        if (dir == Vector3.zero) yield break;
-
-        count = Mathf.Max(1, count);
-        for (int i = 0; i < count; i++)
+        if (other.CompareTag("PlayerBullet"))
         {
-            SpawnBullet(dir);
-            if (i < count - 1) yield return new WaitForSeconds(gap);
+            hp--;
+            Destroy(other.gameObject);
+            if (IsDead)
+            {
+                StopAllCoroutines();
+                Destroy(gameObject);
+            }
         }
     }
 }
