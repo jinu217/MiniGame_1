@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a92bfa5bb4abe50428fd02a5c0ff438f, type: 3}
+  m_Name: "Boss_\uD300\uBE4C\uB7F0"
+  m_EditorClassIdentifier: 
+  bossPrefab: {fileID: 5269137041177322464, guid: e9b64f281806bea4db8862f19f22dd41, type: 3}
+  maxHP: 50
+  phases:
+  - name: 
+    pattern: 0
+    startAtSeconds: 0
+    fireInterval: 3
+    projectileSpeed: 30
+    volleyCount: 3
+  - name: 
+    pattern: 3
+    startAtSeconds: 20
+    fireInterval: 2
+    projectileSpeed: 42
+    volleyCount: 3
