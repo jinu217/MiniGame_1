@@ -1,13 +1,11 @@
 using System.Collections;
 using Unity.Android.Types;
 using UnityEngine;
-
-public class BugObject : MonoBehaviour
+public class HealKit : MonoBehaviour
 {
-    public float bugSpeed = 10f;
-    public int bugDamage = 1;
-    
-    public int killCount = 0;
+    public float healKitSpeed = 10f;
+    public int healValue = 1;
+
 
     public bool isArrive;
     public void Arrive() => isArrive = true;
@@ -31,7 +29,7 @@ public class BugObject : MonoBehaviour
     {
         if (rd != null && !isHiding)
         {
-            rd.linearVelocity = Vector3.back * bugSpeed; // Z- ë°©í–¥ ì „ì§„
+            rd.linearVelocity = Vector3.back * healKitSpeed; // Z- ¹æÇâ ÀüÁø
         }
 
     }
@@ -44,16 +42,14 @@ public class BugObject : MonoBehaviour
 
         if (other.CompareTag("PlayerBullet"))
         {
-            killCount++;
             Destroy(gameObject);
+            GameManager.gameManager.playerHp += healValue;
         }
 
         if (other.CompareTag("ArrivePoint") || other.CompareTag("Player"))
         {
-            GameManager.gameManager.playerHp -= bugDamage;
             Destroy(gameObject);
         }
     }
-
 
 }

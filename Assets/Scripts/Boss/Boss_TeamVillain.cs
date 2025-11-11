@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-
+ 
 public class Boss_TeamVillain : BossBase
 {
     [Header("Mixed Settings (20s 이후)")]

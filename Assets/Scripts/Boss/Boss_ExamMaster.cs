@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-
+ 
 public class Boss_ExamMaster : BossBase
 {
     [Header("Phase1 (Basic)")]

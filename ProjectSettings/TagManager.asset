@@ -11,6 +11,7 @@ TagManager:
   - Undefined
   - PlusPanel
   - MinusPanel
+  - HealKit
   layers:
   - Default
   - TransparentFX

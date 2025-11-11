@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-
+ 
 public class BossBase : MonoBehaviour
 {
     [Header("Refs")]
@@ -33,6 +33,19 @@ public class BossBase : MonoBehaviour
         }
     }
 
+    public void TakeDamage(int dmg)
+    {
+        if (IsDead) return;
+        hp -= Mathf.Max(1, dmg);
+        if (hp <= 0) Die();
+    }
+
+    protected virtual void Die()
+    {
+        // TODO: 연출/보상
+        Destroy(gameObject);
+    }
+
     public virtual void SetPattern(BossPatternType type, float interval, float speed, int volleyCount)
     {
         pattern = type;
@@ -59,7 +72,6 @@ public class BossBase : MonoBehaviour
         }
     }
 
-    // 기본 동작: 플레이어 방향으로 동시 N발
     protected virtual void FireOnce()
     {
         if (firePoint == null || projectilePrefab == null) return;
@@ -88,8 +100,6 @@ public class BossBase : MonoBehaviour
         return (player.transform.position - firePoint.position).normalized;
     }
 
-    // ---- 공통 직선 발사 유틸 ----
-    // 동시에 N발
     protected void FireStraightSimul(int count)
     {
         Vector3 dir = GetDirToPlayer3D();
@@ -99,7 +109,6 @@ public class BossBase : MonoBehaviour
         for (int i = 0; i < count; i++) SpawnBullet(dir);
     }
 
-    // gap 간격으로 줄지어 N발
     protected IEnumerator FireStraightSeq(int count, float gap)
     {
         Vector3 dir = GetDirToPlayer3D();
