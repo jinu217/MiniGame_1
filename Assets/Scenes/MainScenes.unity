@@ -922,7 +922,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1260979383}
   timeLimit: 35
   overrideInterval: 1
-  overrideSpeed: 0
+  overrideSpeed: 1
   overrideVolley: 1
 --- !u!4 &923242687
 Transform:
