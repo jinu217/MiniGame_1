@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a92bfa5bb4abe50428fd02a5c0ff438f, type: 3}
-  m_Name: "Boss_\uC911\uAC04\uACE0\uC0AC"
+  m_Name: "Boss5_\uAD50\uC218\uB2D8"
   m_EditorClassIdentifier: 
-  bossPrefab: {fileID: 5269137041177322464, guid: 2062fe2e70a7c4a4a83847bd6e838fd4, type: 3}
-  maxHP: 50
+  bossPrefab: {fileID: 5269137041177322464, guid: 1ea847dbef5a9fc4f86e4d60221ea812, type: 3}
+  maxHP: 90
   phases:
   - name: 
     pattern: 0
     startAtSeconds: 0
-    fireInterval: 2.5
-    projectileSpeed: 35
+    fireInterval: 2.3
+    projectileSpeed: 33
     volleyCount: 4
   - name: 
     pattern: 3
     startAtSeconds: 20
-    fireInterval: 1.8
-    projectileSpeed: 45
+    fireInterval: 1.7
+    projectileSpeed: 43
     volleyCount: 4

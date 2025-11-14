@@ -11,6 +11,11 @@ public class BossBase : MonoBehaviour
     [SerializeField] int hp;
     public bool IsDead => hp <= 0;
 
+    // ✅ UI / 다른 시스템에서 읽어갈 수 있는 프로퍼티
+    public int CurrentHP => hp;
+    public int MaxHP { get; private set; }
+    public float HpNormalized => MaxHP > 0 ? (float)hp / MaxHP : 0f;
+
     protected BossPatternType pattern;
 
     [Header("Fire Settings")]
@@ -22,7 +27,8 @@ public class BossBase : MonoBehaviour
 
     public virtual void Init(int maxHP)
     {
-        hp = maxHP;
+        MaxHP = maxHP;
+        hp    = maxHP;
 
         var rb = GetComponent<Rigidbody>();
         if (!rb)
@@ -37,7 +43,11 @@ public class BossBase : MonoBehaviour
     {
         if (IsDead) return;
         hp -= Mathf.Max(1, dmg);
-        if (hp <= 0) Die();
+        if (hp <= 0)
+        {
+            hp = 0;
+            Die();
+        }
     }
 
     protected virtual void Die()
@@ -49,9 +59,9 @@ public class BossBase : MonoBehaviour
     public virtual void SetPattern(BossPatternType type, float interval, float speed, int volleyCount)
     {
         pattern = type;
-        if (interval > 0f) fireInterval = interval;
-        if (speed    > 0f) projSpeed    = speed;
-        if (volleyCount >= 1) volley    = volleyCount;
+        if (interval > 0f)      fireInterval = interval;
+        if (speed    > 0f)      projSpeed    = speed;
+        if (volleyCount >= 1)   volley       = volleyCount;
 
         if (fireRoutine == null && gameObject.activeInHierarchy)
             fireRoutine = StartCoroutine(FireLoop());

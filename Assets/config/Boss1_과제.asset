@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a92bfa5bb4abe50428fd02a5c0ff438f, type: 3}
-  m_Name: "Boss_\uACFC\uC81C"
+  m_Name: "Boss1_\uACFC\uC81C"
   m_EditorClassIdentifier: 
   bossPrefab: {fileID: 5269137041177322464, guid: 1fdc632c944a7d84b9e1c4a6173f64b6, type: 3}
   maxHP: 50
@@ -24,6 +24,6 @@ MonoBehaviour:
   - name: 
     pattern: 4
     startAtSeconds: 20
-    fireInterval: 2
-    projectileSpeed: 40
+    fireInterval: 2.5
+    projectileSpeed: 35
     volleyCount: 3

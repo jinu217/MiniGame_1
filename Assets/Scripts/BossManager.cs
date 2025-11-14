@@ -22,6 +22,20 @@ public class BossManager : MonoBehaviour
     int currentPhaseIndex = -1;
     Coroutine battleRoutine;
 
+    // ✅ UI나 다른 시스템에서 접근하기 위한 싱글톤 & 현재 보스
+    public static BossManager Instance { get; private set; }
+    public BossBase CurrentBoss => boss;
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
+
     void Start()
     {
         if (config == null || config.bossPrefab == null || config.phases == null || config.phases.Length == 0)
@@ -84,9 +98,9 @@ public class BossManager : MonoBehaviour
         var p = config.phases[index];
 
         // 토글에 따라 덮어쓸 값/유지할 값 분기
-        float interval = overrideInterval ? p.fireInterval : 0f;     // 0 → BossBase가 인스펙터 유지
-        float speed    = overrideSpeed    ? p.projectileSpeed : 0f;  // 0 → BossBase가 인스펙터 유지
-        int   volley   = overrideVolley   ? p.volleyCount     : 0;   // 0 → BossBase가 인스펙터 유지
+        float interval = overrideInterval ? p.fireInterval    : 0f; // 0 → 인스펙터 값 유지
+        float speed    = overrideSpeed    ? p.projectileSpeed : 0f;
+        int   volley   = overrideVolley   ? p.volleyCount     : 0;
 
         boss.SetPattern(p.pattern, interval, speed, volley);
 
