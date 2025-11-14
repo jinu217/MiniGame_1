@@ -16,6 +16,7 @@ public class HealKit : MonoBehaviour
     Collider col;
     Renderer[] rends;
 
+
     void Awake()
     {
         rd = GetComponent<Rigidbody>();
