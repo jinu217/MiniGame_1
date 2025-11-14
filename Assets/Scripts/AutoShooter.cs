@@ -21,6 +21,8 @@ public class AutoShooter : MonoBehaviour
         }
     }
 
+    /// </test>
+    
     void Fire()
     {
         // firePoints가 비어 있으면 기본 firePoint만 사용
