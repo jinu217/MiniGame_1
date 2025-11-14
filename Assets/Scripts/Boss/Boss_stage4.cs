@@ -3,22 +3,28 @@ using System.Collections;
 
 public class Boss_Stage4 : BossBase
 {
-    [Header("Common (Grow+Accel)")]
-    [SerializeField] float startScale       = 0.25f; // 3스테이지처럼 작게 시작
-    [SerializeField] float endScale         = 1.0f;  // 점점 커짐 (Inspector에서 3~10도 가능)
-    [SerializeField] float growDuration     = 0.9f;  // 성장 완료 시간
-    [SerializeField] float accelPerSecond   = 14f;   // 진행 방향 가속
-    [SerializeField] float initialSpeedRate = 0.45f; // 초기 속도 배율 (projSpeed * 이 값)
+    [Header("Common (Grow + Accelerate)")]
+    [SerializeField] float startScale       = 0.25f;
+    [SerializeField] float endScale         = 1.0f;   // Inspector에서 3~10 추천
+    [SerializeField] float growDuration     = 0.9f;
+    [SerializeField] float accelPerSecond   = 14f;
+    [SerializeField] float initialSpeedRate = 0.45f;  // projSpeed * rate
 
-    [Header("Phase1 (Straight like Stage3)")]
-    [SerializeField] float p1Gap = 0.12f;   // 줄사격 간격(초)
+    [Header("Phase1 (Straight 4-burst)")]
+    [SerializeField] float p1Gap       = 0.12f; // 4연발 내부 간격
+    [SerializeField] int   p1VolleyFix = 4;     // 4로 고정
 
-    [Header("Phase2 (Alternate: Straight ↔ Fan)")]
-    [SerializeField] float p2StraightGap = 0.12f; // 직선 줄사격 간격
-    [SerializeField] int   fanCount      = 5;     // 부채꼴 발수
-    [SerializeField] float fanTotalAngle = 15f;   // 부채꼴 총각도
+    [Header("Phase2 (4-burst → Delay1 → Fan x2 → Delay2 반복)")]
+    [SerializeField] int   p2VolleyFix        = 4;     // 4발 고정
+    [SerializeField] float p2StraightGap      = 0.12f; // 4연발 내부 간격
+    [SerializeField] float p2DelayAfterStraight = 0.8f; // ✅ 딜레이1(직선 이후)
+    [SerializeField] int   fanCount           = 5;     // 부채꼴 동시 발사 수
+    [SerializeField] float fanTotalAngle      = 20f;   // 부채꼴 총 각도
+    [SerializeField] int   fanRepeats         = 2;     // 부채꼴 2연발
+    [SerializeField] float fanRepeatGap       = 0.25f; // 부채꼴 사이 간격
+    [SerializeField] float p2DelayAfterFan    = 1.1f;  // ✅ 딜레이2(부채꼴 이후) — 딜레이1보다 조금 길게
 
-    bool doStraightThisTime = true; // 2페이즈에서 번갈아 토글
+    Coroutine phase2Routine;
 
     protected override void FireOnce()
     {
@@ -26,19 +32,15 @@ public class Boss_Stage4 : BossBase
 
         switch (pattern)
         {
-            // Phase1: 3스테이지와 동일(직선 줄사격 + 성장/가속)
+            // Phase1: 직선 4연발(모두 성장/가속)
             case BossPatternType.Straight:
-                StartCoroutine(FireStraightSeq_Grow(Mathf.Max(1, volley), p1Gap));
+                StartCoroutine(FireStraightSeq_Grow(p1VolleyFix, p1Gap));
                 break;
 
-            // Phase2: 직선(성장) 1번 → 부채꼴(성장) 1번 번갈아
+            // Phase2: 4연발 → (딜레이1) → 부채꼴 2연발 → (딜레이2) → 반복
             case BossPatternType.Mixed:
-                if (doStraightThisTime)
-                    StartCoroutine(FireStraightSeq_Grow(Mathf.Max(1, volley), p2StraightGap));
-                else
-                    FireFanAtPlayer_Grow(fanCount, fanTotalAngle);
-
-                doStraightThisTime = !doStraightThisTime;
+                if (phase2Routine == null)
+                    phase2Routine = StartCoroutine(Phase2Loop());
                 break;
 
             default:
@@ -47,7 +49,34 @@ public class Boss_Stage4 : BossBase
         }
     }
 
-    // ===== Helpers =====
+    IEnumerator Phase2Loop()
+    {
+        // 딜레이2가 딜레이1보다 짧게 세팅돼 있으면 최소한 같게 맞춰서 리듬 유지
+        if (p2DelayAfterFan < p2DelayAfterStraight)
+            p2DelayAfterFan = p2DelayAfterStraight + 0.1f;
+
+        while (true)
+        {
+            // ① 직선 4연발
+            yield return StartCoroutine(FireStraightSeq_Grow(p2VolleyFix, p2StraightGap));
+
+            // ② 딜레이1
+            if (p2DelayAfterStraight > 0f)
+                yield return new WaitForSeconds(p2DelayAfterStraight);
+
+            // ③ 부채꼴 2연발
+            for (int r = 0; r < fanRepeats; r++)
+            {
+                FireFanAtPlayer_Grow(fanCount, fanTotalAngle);
+                if (r < fanRepeats - 1 && fanRepeatGap > 0f)
+                    yield return new WaitForSeconds(fanRepeatGap);
+            }
+
+            // ④ 딜레이2 (딜레이1보다 조금 길게)
+            if (p2DelayAfterFan > 0f)
+                yield return new WaitForSeconds(p2DelayAfterFan);
+        }
+    }
 
     IEnumerator FireStraightSeq_Grow(int count, float gap)
     {
@@ -57,7 +86,8 @@ public class Boss_Stage4 : BossBase
         for (int i = 0; i < count; i++)
         {
             SpawnBulletGrowAccel(dir);
-            if (i < count - 1) yield return new WaitForSeconds(gap);
+            if (i < count - 1 && gap > 0f)
+                yield return new WaitForSeconds(gap);
         }
     }
 
@@ -80,18 +110,24 @@ public class Boss_Stage4 : BossBase
 
     void SpawnBulletGrowAccel(Vector3 dir)
     {
-        // 1) 스폰
         var go = Instantiate(projectilePrefab, firePoint.position, Quaternion.LookRotation(dir));
 
-        // 2) 물리
         var rb = go.GetComponent<Rigidbody>() ?? go.AddComponent<Rigidbody>();
         rb.useGravity = false;
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         rb.linearVelocity = dir * (projSpeed * Mathf.Clamp01(initialSpeedRate));
 
-        // 3) 성장/가속
         var grow = go.GetComponent<BulletGrowAndAccelerate>() ?? go.AddComponent<BulletGrowAndAccelerate>();
         grow.Configure(startScale, endScale, growDuration, accelPerSecond, 6f);
-        grow.BeginGrow(); // ‘작→대’ 성장 시작
+        grow.BeginGrow();
+    }
+
+    void OnDisable()
+    {
+        if (phase2Routine != null)
+        {
+            StopCoroutine(phase2Routine);
+            phase2Routine = null;
+        }
     }
 }
