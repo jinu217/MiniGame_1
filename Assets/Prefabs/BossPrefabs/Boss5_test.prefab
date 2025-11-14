@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8075009528327112158}
   - component: {fileID: 1158888898354452611}
   - component: {fileID: 5907919833618657757}
-  - component: {fileID: 4075504250596530393}
+  - component: {fileID: 5950388345510865804}
   m_Layer: 9
-  m_Name: Boss4_test
+  m_Name: Boss5_test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,7 +140,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4075504250596530393
+--- !u!114 &5950388345510865804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5269137041177322464}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 355ae58ed0ad8564eb2f7517a1ce8540, type: 3}
+  m_Script: {fileID: 11500000, guid: d28d34443fef4d64fbd7307e9ad2fec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 5891923430366357518}
@@ -158,21 +158,29 @@ MonoBehaviour:
   fireInterval: 2
   projSpeed: 15
   volley: 1
-  startScale: 0.25
-  endScale: 2.5
   growDuration: 1.15
-  accelPerSecond: 35
-  initialSpeedRate: 0.5
-  p1Gap: 0.12
-  p1VolleyFix: 4
-  p2VolleyFix: 5
-  p2StraightGap: 0.15
-  p2DelayAfterStraight: 0.8
+  accelPerSecond: 14
+  initialSpeedRate: 0.45
+  bulletLife: 6
+  p1VolleyCount: 4
+  p1InnerShotGap: 0.08
+  p1SegmentGap: 0.4
+  p1LoopDelay: 1
+  p1ShrinkStartScale: 1.2
+  p1ShrinkEndScale: 0.5
+  p1GrowStartScale: 0.25
+  p1GrowEndScale: 2
   fanCount: 5
   fanTotalAngle: 25
   fanRepeats: 2
-  fanRepeatGap: 0.25
-  p2DelayAfterFan: 1.1
+  fanInnerGap: 0.12
+  p2SegmentGap: 0.4
+  p2LoopDelay: 1
+  p2ShrinkStartScale: 1.2
+  p2ShrinkEndScale: 0.5
+  p2GrowStartScale: 0.25
+  p2GrowEndScale: 2
+  phase2StartDelay: 2
 --- !u!1 &6456301016380435622
 GameObject:
   m_ObjectHideFlags: 0

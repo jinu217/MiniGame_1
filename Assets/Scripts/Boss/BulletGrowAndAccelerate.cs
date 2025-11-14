@@ -16,22 +16,26 @@ public class BulletGrowAndAccelerate : MonoBehaviour
     Coroutine growRoutine;
 
     // Boss에서 호출: 파라미터 세팅
-    public void Configure(float startScale, float endScale, float growDuration, float accelPerSecond, float maxLifetime = 6f)
-    {
-        this.startScale = Mathf.Max(0.01f, startScale);
-        this.endScale   = Mathf.Max(this.startScale + 0.001f, endScale); // 최소 증가 보장
-        this.growDur    = Mathf.Max(0.01f, growDuration);
-        this.accel      = Mathf.Max(0f,    accelPerSecond);
-        this.lifeMax    = Mathf.Max(0.1f,  maxLifetime);
+public void Configure(float startScale, float endScale, float growDuration, float accelPerSecond, float maxLifetime = 6f)
+{
+    this.startScale = Mathf.Max(0.01f, startScale);
+    this.endScale   = Mathf.Max(0.01f, endScale);   // ✅ 둘 다 0.01 이상만 보장
 
-        // 시작 배율 즉시 반영
-        currentS = this.startScale;
-        transform.localScale = Vector3.one * currentS;
+    // start와 end가 거의 같으면 살짝만 차이 줌
+    if (Mathf.Approximately(this.startScale, this.endScale))
+        this.endScale = this.startScale + 0.001f;
 
-        // 수명 타이머 리셋
-        CancelInvoke(nameof(DestroySelf));
-        if (lifeMax > 0f) Invoke(nameof(DestroySelf), lifeMax);
-    }
+    this.growDur  = Mathf.Max(0.01f, growDuration);
+    this.accel    = Mathf.Max(0f,    accelPerSecond);
+    this.lifeMax  = Mathf.Max(0.1f,  maxLifetime);
+
+    currentS = this.startScale;
+    transform.localScale = Vector3.one * currentS;
+
+    CancelInvoke(nameof(DestroySelf));
+    if (lifeMax > 0f) Invoke(nameof(DestroySelf), lifeMax);
+}
+
 
     void Awake()
     {
