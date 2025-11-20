@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class Player : MonoBehaviour
     void Update()
     {
 #if UNITY_EDITOR || UNITY_STANDALONE
+        //UI 클릭 시 이동 금지 
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return;
+
         // 에디터/PC: 마우스 버튼을 누르고 있는 동안 화면 X 절대좌표를 범위로 매핑
         if (Input.GetMouseButton(0))
         {
@@ -34,6 +39,10 @@ public class Player : MonoBehaviour
         if (Input.touchCount > 0)
         {
             Touch t = Input.GetTouch(0);
+             //UI 터치 시 이동 금지 (모바일)
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(t.fingerId))
+                return;
+
             if (t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary || t.phase == TouchPhase.Began)
             {
                 _targetX = Mathf.Clamp(ScreenToRange(t.position.x), xLimits.x, xLimits.y);

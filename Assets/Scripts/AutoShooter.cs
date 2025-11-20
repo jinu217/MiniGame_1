@@ -9,6 +9,14 @@ public class AutoShooter : MonoBehaviour
     public float bulletSpeed = 15f;   // 총알 속도
     public float fireRate = 0.5f;    // 발사 간격(초)
 
+    [Header("Sound Settings")]
+    public AudioClip PlayerShootSound; // 총소리 클립
+    public AudioClip SpreadShootSound; // 스프레드 모드 총소리 클립
+    public AudioSource audioSource; // 재생용 AudioSource
+
+    [HideInInspector]
+    public bool isSpreadMode = false;
+
     float _nextFireTime;
 
     void Update()
@@ -57,8 +65,17 @@ public class AutoShooter : MonoBehaviour
                 bullet.AddComponent<BulletCollision>();
 
             // 자동 제거
-            Destroy(bullet, 5f);
+            Destroy(bullet, 5f); 
         }
+        //플레이어 총소리
+        if (audioSource != null)
+        {
+            if (isSpreadMode && SpreadShootSound != null)
+                audioSource.PlayOneShot(SpreadShootSound, 1f);     //스프레드 모드 소리, 볼륨 값
+            else if (PlayerShootSound != null)
+                audioSource.PlayOneShot(PlayerShootSound, 1f);     // 기본 소리, 볼륨 값
+        }
+
     }
 
     public class BulletCollision : MonoBehaviour

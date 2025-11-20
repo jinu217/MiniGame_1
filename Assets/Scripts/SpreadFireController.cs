@@ -10,7 +10,7 @@ public class SpreadFireController : MonoBehaviour
     public Button spreadButton;       // UI 버튼 (없으면 null 가능)
 
     [Header("Spread Settings")]
-    public float spreadAngle = 45f;   // 좌우 각도(±)
+    public float spreadAngle = 30f;   // 좌우 각도(±)
     public float spreadDuration = 5f; // 유지 시간
     public float lateralOffset = 0.15f;// 좌우 포인트 가로 오프셋(겹침 방지)
 
@@ -31,6 +31,9 @@ public class SpreadFireController : MonoBehaviour
     IEnumerator SpreadRoutine()
     {
         isActive = true;
+
+        //AutoShooter에 스프레드 모드 시작 알림
+        shooter.isSpreadMode = true;
 
         // 좌/우 FirePoint 생성 (부모 동일, 위치/회전은 base 복제)
         leftPoint = Instantiate(baseFirePoint, baseFirePoint.parent);
@@ -57,6 +60,9 @@ public class SpreadFireController : MonoBehaviour
         if (leftPoint) Destroy(leftPoint.gameObject);
         if (rightPoint) Destroy(rightPoint.gameObject);
         shooter.firePoints = new Transform[] { baseFirePoint };
+
+        //AutoShooter에 스프레드 모드 종료 알림
+        shooter.isSpreadMode = false;
 
         isActive = false;
     }
