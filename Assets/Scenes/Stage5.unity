@@ -1927,7 +1927,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 616a665f7d4d68b4fb787ce83fdb9aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  config: {fileID: 11400000, guid: 091d6eee22772904c9c3b2d62948d20b, type: 2}
+  config: {fileID: 11400000, guid: c8ea3ce68cced96479c72a7d287df51d, type: 2}
   spawnPoint: {fileID: 1260979383}
   timeLimit: 35
   overrideInterval: 1

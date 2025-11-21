@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class BossManager : MonoBehaviour
 {
@@ -63,6 +64,15 @@ public class BossManager : MonoBehaviour
         battleRoutine = StartCoroutine(BattleLoop());
     }
 
+    void Update()
+    {
+        if (boss != null)
+        {
+            Debug.Log($"[Boss HP] {boss.CurrentHP} / {boss.MaxHP}");
+        }
+    }
+
+
     void OnDisable()
     {
         if (battleRoutine != null)
@@ -111,7 +121,30 @@ public class BossManager : MonoBehaviour
     void OnBossDefeated()
     {
         Debug.Log("Boss Down!");
-        // TODO: 보상/다음 스테이지
+
+        // 현재 씬 이름
+        string current = SceneManager.GetActiveScene().name;
+
+        // Stage 뒤의 숫자 추출
+        int stageNum = 0;
+        if (current.Contains("Stage"))
+        {
+            string numStr = current.Replace("Stage", "");
+            int.TryParse(numStr, out stageNum);
+        }
+
+        // 다음 스테이지 이름
+        string nextScene = "Stage" + (stageNum + 1);
+
+        // 마지막 스테이지라면 엔딩이나 스타트로 이동할 수 있음 (선택)
+        if (stageNum >= 5)
+        {
+            SceneManager.LoadScene("Start");  // 임시
+            return;
+        }
+
+        // 다음 스테이지 로드
+        SceneManager.LoadScene(nextScene);
     }
 
     void OnTimeOver()
