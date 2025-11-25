@@ -7,7 +7,7 @@ public class HPMeasure : MonoBehaviour
     public Image hpFillImage;   // HP바 Fill 이미지
     public TMP_Text hpText;     // HP 수치 표시용 Text (TextMeshPro)
     
-    public float maxHP = 100;
+    public int maxHP = 100;
 
     void Start()
     {
@@ -17,10 +17,10 @@ public class HPMeasure : MonoBehaviour
 
     void Update()
     {
-        // 테스트: 스페이스바 누르면 체력 10 감소
+        // 테스트: 스페이스바 누르면 체력 2 감소
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            TakeDamage(10);
+            TakeDamage(2);
         }
     }
 
@@ -36,10 +36,9 @@ public class HPMeasure : MonoBehaviour
     void UpdateHPBar()
     {
         if (hpFillImage != null)
-            hpFillImage.fillAmount = GameManager.gameManager.playerHp / maxHP;
+            hpFillImage.fillAmount = (float)GameManager.gameManager.playerHp / maxHP;
 
         if (hpText != null)
             hpText.text = GameManager.gameManager.playerHp + " / " + maxHP;
-        // 예: 80 / 100
     }
 }

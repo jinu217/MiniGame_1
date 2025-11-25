@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager gameManager;
 
     public float playTime = 0f;
-    public float playerHp;
+    public int playerHp;
 
     [Header("Player Damage")]
     public int playerBaseDamage = 1;    
