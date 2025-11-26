@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     public float playTime = 0f;
     public int playerHp;
 
+    public int plusPanelPoint;
+    public int minusPanelPoint;
+
     [Header("Player Damage")]
     public int playerBaseDamage = 1;    
     public float damageMultiplier = 1f;
