@@ -4,8 +4,7 @@ using Unity.VisualScripting;
 
 public class PanelPairSpawnerSimple : MonoBehaviour
 {
-    public GameManager gameManager;
-    
+
     int[] plusPointRange = { 1, 2, 3 };
     int[] minusPointRange = { -1, -2 };
 
@@ -45,8 +44,8 @@ public class PanelPairSpawnerSimple : MonoBehaviour
             plusPoint = plusPointRange[Random.Range(0, plusPointRange.Length)];
             minusPoint = minusPointRange[Random.Range(0, minusPointRange.Length)];
 
-            gameManager.plusPanelPoint = plusPoint;
-            gameManager.minusPanelPoint = minusPoint;
+            GameManager.gameManager.plusPanelPoint = plusPoint;
+            GameManager.gameManager.minusPanelPoint = minusPoint;
             
             switch (plusPoint)
             {

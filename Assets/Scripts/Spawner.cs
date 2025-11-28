@@ -7,9 +7,9 @@ public class Spawner : MonoBehaviour
     public float spawnPosX;
     public float spawnPosY = 0.5f;
     public float spawnPosZ = 25f;
-    public float bugSpawnCycle = 1f;
+    public float bugSpawnCycle = 1f; 
 
-    public float healKitSpawnCycle = 2f;
+    public float healKitSpawnCycle = 2f; // 힐킷 스폰사이클은 게임 플레이 시간이 지날수록 점점 적게 나오게 설정
 
     public GameObject bugObject;
     public GameObject healKit;

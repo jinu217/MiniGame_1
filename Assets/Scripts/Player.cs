@@ -3,7 +3,6 @@ using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
-    public GameManager gameManager;
     [Header("Move Settings")]
     [Tooltip("목표 위치로 수렴하는 시간(값이 클수록 더 느리게/부드럽게)")]
     public float smoothTime = 0.1f;
@@ -14,7 +13,8 @@ public class Player : MonoBehaviour
     float _velX;
 
     [Header("플레이어 변수")]
-    public int skillPoint = 0;
+    public int skillPoint = 2; // 스테이지별 기본 스킬 포인트 = 2
+    int skillPointMax = 10;
 
     public SlidePanel panel;
 
@@ -54,6 +54,11 @@ public class Player : MonoBehaviour
         Vector3 pos = transform.position;
         pos.x = Mathf.SmoothDamp(pos.x, _targetX, ref _velX, smoothTime);
         transform.position = pos;
+
+        if (skillPoint > skillPointMax)
+        {
+            skillPoint = skillPointMax;
+        }        
     }
 
     // 화면 가로(0 ~ Screen.width)를 xLimits 범위로 선형 매핑
@@ -68,14 +73,14 @@ public class Player : MonoBehaviour
         if (other.CompareTag("PlusPanel"))
         {
             panel = other.GetComponent<SlidePanel>();
-            skillPoint += gameManager.plusPanelPoint;
+            skillPoint += GameManager.gameManager.plusPanelPoint;
             Debug.Log("스킬 포인트: " + skillPoint); 
             Destroy(other.gameObject); 
         }
         if (other.CompareTag("MinusPanel"))
         {
             panel = other.GetComponent<SlidePanel>();
-            skillPoint += gameManager.minusPanelPoint;
+            skillPoint += GameManager.gameManager.minusPanelPoint;
             if (skillPoint < 0f) skillPoint = 0;
             Debug.Log("스킬 포인트: " + skillPoint);
             Destroy(other.gameObject);
