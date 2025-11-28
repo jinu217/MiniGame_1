@@ -66,7 +66,10 @@ public class BossManager : MonoBehaviour
 
     void Update()
     {
-        
+        if (boss != null)
+        {
+            Debug.Log($"[Boss HP] {boss.CurrentHP} / {boss.MaxHP}");
+        }
     }
 
 

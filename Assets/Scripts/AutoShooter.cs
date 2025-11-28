@@ -71,9 +71,9 @@ public class AutoShooter : MonoBehaviour
         if (audioSource != null)
         {
             if (isSpreadMode && SpreadShootSound != null)
-                audioSource.PlayOneShot(SpreadShootSound, 0.5f);     //스프레드 모드 소리, 볼륨 값
+                audioSource.PlayOneShot(SpreadShootSound, 1f);     //스프레드 모드 소리, 볼륨 값
             else if (PlayerShootSound != null)
-                audioSource.PlayOneShot(PlayerShootSound, 0.5f);     // 기본 소리, 볼륨 값
+                audioSource.PlayOneShot(PlayerShootSound, 1f);     // 기본 소리, 볼륨 값
         }
 
     }
