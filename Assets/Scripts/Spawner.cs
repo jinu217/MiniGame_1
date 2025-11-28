@@ -116,6 +116,7 @@ public class Spawner : MonoBehaviour
         }
     }
     
+
     IEnumerator BugSpawnRoutine()
     {
         while (true)

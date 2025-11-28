@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
+    public GameManager gameManager;
     [Header("Move Settings")]
     [Tooltip("목표 위치로 수렴하는 시간(값이 클수록 더 느리게/부드럽게)")]
     public float smoothTime = 0.1f;
@@ -67,14 +68,14 @@ public class Player : MonoBehaviour
         if (other.CompareTag("PlusPanel"))
         {
             panel = other.GetComponent<SlidePanel>();
-            skillPoint += panel.panelPoint;
-            Debug.Log("스킬 포인트: " + skillPoint);
-            Destroy(other.gameObject);
+            skillPoint += gameManager.plusPanelPoint;
+            Debug.Log("스킬 포인트: " + skillPoint); 
+            Destroy(other.gameObject); 
         }
         if (other.CompareTag("MinusPanel"))
         {
             panel = other.GetComponent<SlidePanel>();
-            skillPoint += panel.panelPoint;
+            skillPoint += gameManager.minusPanelPoint;
             if (skillPoint < 0f) skillPoint = 0;
             Debug.Log("스킬 포인트: " + skillPoint);
             Destroy(other.gameObject);

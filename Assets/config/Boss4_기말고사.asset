@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "Boss4_\uAE30\uB9D0\uACE0\uC0AC"
   m_EditorClassIdentifier: 
   bossPrefab: {fileID: 5269137041177322464, guid: 6a2a172f22bc4754abe1b63b3c0ca6b7, type: 3}
-  maxHP: 80
+  maxHP: 10
   phases:
   - name: 
     pattern: 0
