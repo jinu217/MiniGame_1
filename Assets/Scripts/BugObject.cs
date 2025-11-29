@@ -5,9 +5,8 @@ using UnityEngine;
 public class BugObject : MonoBehaviour
 {
     public float bugSpeed = 10f;
-    public int bugDamage = 1;
     
-    public int killCount = 0;
+    //public int killCount = 0;
 
     public bool isArrive;
     public void Arrive() => isArrive = true;
@@ -46,13 +45,13 @@ public class BugObject : MonoBehaviour
 
         if (other.CompareTag("PlayerBullet"))
         {
-            killCount++;
+            //killCount++;
             Destroy(gameObject);
         }
 
         if (other.CompareTag("ArrivePoint") || other.CompareTag("Player"))
         {
-            GameManager.gameManager.playerHp -= bugDamage;
+            GameManager.gameManager.playerHp -= GameManager.gameManager.bugDamage;
             Destroy(gameObject);
         }
     }

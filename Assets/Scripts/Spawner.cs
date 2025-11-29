@@ -7,9 +7,7 @@ public class Spawner : MonoBehaviour
     public float spawnPosX;
     public float spawnPosY = 0.5f;
     public float spawnPosZ = 25f;
-    public float bugSpawnCycle = 1f;
 
-    public float healKitSpawnCycle = 2f;
 
     public GameObject bugObject;
     public GameObject healKit;
@@ -120,7 +118,7 @@ public class Spawner : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(bugSpawnCycle);
+            yield return new WaitForSeconds(GameManager.gameManager.bugSpawnCycle);
             BugSpawn();
         }
     }
@@ -129,7 +127,7 @@ public class Spawner : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(healKitSpawnCycle);
+            yield return new WaitForSeconds(GameManager.gameManager.healKitSpawnCycle);
             HealKitSpawn();
             
         }

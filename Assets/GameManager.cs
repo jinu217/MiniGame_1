@@ -5,17 +5,30 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager;
 
+    
     public float playTime = 0f;
+
+    [Header("Player Info")]
     public float playerHp;
+    public int skillPoint = 0;
 
     [Header("Player Damage")]
-    public int playerBaseDamage = 1;    
+    public int playerBaseDamage = 1;
     public float damageMultiplier = 1f;
+
+    [Header("Bug Info")]
+    public float bugSpawnCycle = 1f;
+    public int bugDamage = 1;
+
+    [Header("Healkit Info")]
+    public float healKitSpawnCycle = 2f;
+    public int healValue = 1;
 
     public int CurrentPlayerDamage
         => Mathf.Max(1, Mathf.RoundToInt(playerBaseDamage * damageMultiplier));
 
     public bool isGameOver = false;
+    public bool isStageClear = false; // 씬전환에서 가져야가 할 정보
 
     void Awake()
     {
@@ -26,16 +39,17 @@ public class GameManager : MonoBehaviour
         }
         gameManager = this;
 
-
         DontDestroyOnLoad(gameObject);
     }
 
     void Update()
-    {
-        if (isGameOver == true) return;
+    {   
+        playTime += Time.deltaTime;
 
-        playTime += Time.deltaTime;  
+        if (isGameOver == true) return; // 플레이어 체력이 0이 되면 true
 
+        if (isStageClear == true) return; // 보스의 체력이 0이 되면 true
 
+        
     }
 }

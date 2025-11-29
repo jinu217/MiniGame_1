@@ -4,8 +4,6 @@ using UnityEngine;
 public class HealKit : MonoBehaviour
 {
     public float healKitSpeed = 10f;
-    public int healValue = 1;
-
 
     public bool isArrive;
     public void Arrive() => isArrive = true;
@@ -44,7 +42,7 @@ public class HealKit : MonoBehaviour
         if (other.CompareTag("PlayerBullet"))
         {
             Destroy(gameObject);
-            GameManager.gameManager.playerHp += healValue;
+            GameManager.gameManager.playerHp += GameManager.gameManager.healValue;
         }
 
         if (other.CompareTag("ArrivePoint") || other.CompareTag("Player"))

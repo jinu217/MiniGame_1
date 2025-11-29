@@ -12,8 +12,7 @@ public class Player : MonoBehaviour
     float _targetX;
     float _velX;
 
-    [Header("플레이어 변수")]
-    public int skillPoint = 0;
+
 
     public SlidePanel panel;
 
@@ -67,16 +66,16 @@ public class Player : MonoBehaviour
         if (other.CompareTag("PlusPanel"))
         {
             panel = other.GetComponent<SlidePanel>();
-            skillPoint += panel.panelPoint;
-            Debug.Log("스킬 포인트: " + skillPoint);
+            GameManager.gameManager.skillPoint += panel.panelPoint;
+            Debug.Log("스킬 포인트: " + GameManager.gameManager.skillPoint);
             Destroy(other.gameObject);
         }
         if (other.CompareTag("MinusPanel"))
         {
             panel = other.GetComponent<SlidePanel>();
-            skillPoint += panel.panelPoint;
-            if (skillPoint < 0f) skillPoint = 0;
-            Debug.Log("스킬 포인트: " + skillPoint);
+            GameManager.gameManager.skillPoint += panel.panelPoint;
+            if (GameManager.gameManager.skillPoint < 0f) GameManager.gameManager.skillPoint = 0;
+            Debug.Log("스킬 포인트: " + GameManager.gameManager.skillPoint);
             Destroy(other.gameObject);
         }
     }
