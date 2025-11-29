@@ -12,10 +12,7 @@ public class Player : MonoBehaviour
     float _targetX;
     float _velX;
 
-
-
     public SlidePanel panel;
-
     void Start()
     {
         _targetX = transform.position.x;
@@ -66,14 +63,14 @@ public class Player : MonoBehaviour
         if (other.CompareTag("PlusPanel"))
         {
             panel = other.GetComponent<SlidePanel>();
-            GameManager.gameManager.skillPoint += panel.panelPoint;
+            GameManager.gameManager.skillPoint += GameManager.gameManager.plusPanelPoint;
             Debug.Log("스킬 포인트: " + GameManager.gameManager.skillPoint);
             Destroy(other.gameObject);
         }
         if (other.CompareTag("MinusPanel"))
         {
             panel = other.GetComponent<SlidePanel>();
-            GameManager.gameManager.skillPoint += panel.panelPoint;
+            GameManager.gameManager.skillPoint += GameManager.gameManager.minusPanelPoint;
             if (GameManager.gameManager.skillPoint < 0f) GameManager.gameManager.skillPoint = 0;
             Debug.Log("스킬 포인트: " + GameManager.gameManager.skillPoint);
             Destroy(other.gameObject);

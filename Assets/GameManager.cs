@@ -4,7 +4,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager;
-
+    public PanelPairSpawnerSimple panel;
     
     public float playTime = 0f;
 
@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
     [Header("Healkit Info")]
     public float healKitSpawnCycle = 2f;
     public int healValue = 1;
+
+    [Header("Pannel Info")]
+    public int plusPanelPoint;
+    public int minusPanelPoint;
 
     public int CurrentPlayerDamage
         => Mathf.Max(1, Mathf.RoundToInt(playerBaseDamage * damageMultiplier));
@@ -45,7 +49,8 @@ public class GameManager : MonoBehaviour
     void Update()
     {   
         playTime += Time.deltaTime;
-
+        plusPanelPoint = panel.plusPoint;
+        minusPanelPoint = panel.minusPoint;
         if (isGameOver == true) return; // 플레이어 체력이 0이 되면 true
 
         if (isStageClear == true) return; // 보스의 체력이 0이 되면 true
