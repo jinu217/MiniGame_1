@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Player Info")]
     public float playerHp;
-    public int skillPoint = 0;
+    public int skillPoint = 1;
 
     [Header("Player Damage")]
     public int playerBaseDamage = 1;

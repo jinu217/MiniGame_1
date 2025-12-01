@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -58,24 +59,57 @@ public class Player : MonoBehaviour
         return Mathf.Lerp(xLimits.x, xLimits.y, t);
     }
 
+    int GetMaxSkillPointForCurrentStage()
+    {
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // 1, 2, 3 스테이지: 최대 10
+        if (sceneIndex >= 1 && sceneIndex <= 3)
+            return 10;
+
+        // 4, 5 스테이지: 최대 12
+        if (sceneIndex == 4 || sceneIndex == 5)
+            return 12;
+
+        // 그 외 씬은 기본값 10 (필요하면 수정 가능)
+        return 10;
+    }
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("PlusPanel"))
         {
             panel = other.GetComponent<SlidePanel>();
-            GameManager.gameManager.skillPoint += GameManager.gameManager.plusPanelPoint;
-            Debug.Log("스킬 포인트: " + GameManager.gameManager.skillPoint);
+
+            GameManager gm = GameManager.gameManager;
+            gm.skillPoint += gm.plusPanelPoint;
+
+            // ▼ 스테이지별 최대치 적용
+            int maxSkill = GetMaxSkillPointForCurrentStage();
+            if (gm.skillPoint > maxSkill)
+                gm.skillPoint = maxSkill;
+
+            Debug.Log("스킬 포인트: " + gm.skillPoint);
             Destroy(other.gameObject);
         }
+
         if (other.CompareTag("MinusPanel"))
         {
             panel = other.GetComponent<SlidePanel>();
-            GameManager.gameManager.skillPoint += GameManager.gameManager.minusPanelPoint;
-            if (GameManager.gameManager.skillPoint < 0f) GameManager.gameManager.skillPoint = 0;
-            Debug.Log("스킬 포인트: " + GameManager.gameManager.skillPoint);
+
+            GameManager gm = GameManager.gameManager;
+            gm.skillPoint += gm.minusPanelPoint;
+
+            // ▼ 먼저 0 미만 방지
+            if (gm.skillPoint < 0)
+                gm.skillPoint = 0;
+
+            // ▼ 그 다음 스테이지별 최대치 적용
+            int maxSkill = GetMaxSkillPointForCurrentStage();
+            if (gm.skillPoint > maxSkill)
+                gm.skillPoint = maxSkill;
+
+            Debug.Log("스킬 포인트: " + gm.skillPoint);
             Destroy(other.gameObject);
         }
     }
-
-
 }

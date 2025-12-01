@@ -14,11 +14,18 @@ public class SpreadFireController : MonoBehaviour
     public float spreadDuration = 5f; // 유지 시간
     public float lateralOffset = 0.15f;// 좌우 포인트 가로 오프셋(겹침 방지)
 
+    [Header("Damage Buff Settings")]
+    public float spreadDamageMultiplier = 2f;   // 스프레드 중에 곱해줄 배율 (2배)
+    GameManager gm;
+    float originalDamageMultiplier = 1f;
+
     Transform leftPoint, rightPoint;
     bool isActive = false;
 
     void Start()
     {
+        gm = GameManager.gameManager;
+
         if (spreadButton != null)
             spreadButton.onClick.AddListener(Activate);
     }
@@ -34,6 +41,13 @@ public class SpreadFireController : MonoBehaviour
 
         //AutoShooter에 스프레드 모드 시작 알림
         shooter.isSpreadMode = true;
+
+        // 데미지 2배 적용
+        if (gm != null)
+        {
+            originalDamageMultiplier = gm.damageMultiplier;
+            gm.damageMultiplier = originalDamageMultiplier * spreadDamageMultiplier;
+        }
 
         // 좌/우 FirePoint 생성 (부모 동일, 위치/회전은 base 복제)
         leftPoint = Instantiate(baseFirePoint, baseFirePoint.parent);
@@ -60,6 +74,12 @@ public class SpreadFireController : MonoBehaviour
         if (leftPoint) Destroy(leftPoint.gameObject);
         if (rightPoint) Destroy(rightPoint.gameObject);
         shooter.firePoints = new Transform[] { baseFirePoint };
+
+        //데미지 복구
+        if (gm != null)
+        {
+            gm.damageMultiplier = originalDamageMultiplier;
+        }
 
         //AutoShooter에 스프레드 모드 종료 알림
         shooter.isSpreadMode = false;

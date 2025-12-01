@@ -1,4 +1,6 @@
+using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AutoShooter : MonoBehaviour
 {
@@ -18,6 +20,26 @@ public class AutoShooter : MonoBehaviour
     public bool isSpreadMode = false;
 
     float _nextFireTime;
+
+    [Header("Stage Damage Settings")]
+    public bool useStageDamage = true;   // 켜고 끄는 스위치
+    public float StageDamage = 1f;       // 스테이지별 기본 데미지 계수
+
+    GameManager gm;
+
+    void Awake()
+    {
+        // GameManager 참조
+        gm = GameManager.gameManager;
+
+        if (gm == null)
+            gm = FindFirstObjectByType<GameManager>();  
+
+        if (gm == null)
+            gm = FindAnyObjectByType<GameManager>();
+
+        ApplyStageDamage();  // 시작 시 한 번만 적용
+    }
 
     void Update()
     {
@@ -88,5 +110,20 @@ public class AutoShooter : MonoBehaviour
                 Destroy(gameObject);       // 총알 삭제
             }
         }
+    }
+    void ApplyStageDamage()
+    {
+        if (!useStageDamage || gm == null) return;
+
+        // 씬 인덱스 가져오기
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        //씬 인데스*스테이지 데미지
+        float finalMultiplier = sceneIndex * StageDamage;
+
+        // 게임매니저의 damageMultiplier에 최종 데미지 반영
+        gm.damageMultiplier = finalMultiplier;
+
+        Debug.Log($"[AutoShooter] sceneIndex={sceneIndex}, StageDamage={StageDamage}, damageMultiplier={gm.damageMultiplier}");
     }
 }
