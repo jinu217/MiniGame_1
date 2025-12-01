@@ -17,6 +17,7 @@ public class HPMeasure : MonoBehaviour
 
     void Update()
     {
+        UpdateHPBar();
         // 테스트: 스페이스바 누르면 체력 10 감소
         if (Input.GetKeyDown(KeyCode.Space))
         {

@@ -1711,14 +1711,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 989048763}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45b86f417d21b7746b6cbb611b99d27c, type: 3}
+  m_Script: {fileID: 11500000, guid: 14eabfc1be5e2714cbddf16763593a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ammoIconPrefab: {fileID: 7264001484374044982, guid: 568cba18b4faf26438d78bbeb068f27c, type: 3}
   ammoContainer: {fileID: 989048764}
   iconHeight: 32
   spacing: 5
-  spawnInterval: 0.2
+  iconUpdateTerm: 0.1
 --- !u!1 &1080677338
 GameObject:
   m_ObjectHideFlags: 0

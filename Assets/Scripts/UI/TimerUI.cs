@@ -16,12 +16,26 @@ public class TimerUI : MonoBehaviour
     private float timeLeft = 0f;   // 남은 시간
     private bool isRunning = false; // 타이머가 작동 중인지 여부
 
+    // GameManager의 playTime과 연동
+    private GameManager gameManager;
+
+    void Awake()
+    {
+        gameManager = FindFirstObjectByType<GameManager>();
+        if (gameManager != null)
+        {
+            gameManager.playTime = timeLeft;
+        }
+    }
+
     // 외부(다른 스크립트)에서 타이머를 시작할 때 호출하는 함수
     public void StartTimer(float seconds)
     {
         timeLeft = Mathf.Max(0, seconds); // 시간이 0보다 작아지지 않게 안전하게 설정
         isRunning = true;                 // 타이머 작동 시작
         UpdateUI();                       // 시작하자마자 UI 갱신
+        if (gameManager != null)
+            gameManager.playTime = timeLeft;
     }
 
     // 타이머를 중지하고 싶을 때 사용하는 함수 (선택 기능)
@@ -42,6 +56,10 @@ public class TimerUI : MonoBehaviour
             isRunning = false; // 타이머 중지
             OnTimerEnd(); // 타이머 종료 시 실행될 함수 호출
         }
+
+        // GameManager의 playTime에 연동
+        if (gameManager != null)
+            gameManager.playTime = timeLeft;
 
         UpdateUI(); // 매 프레임 UI 업데이트
     }
@@ -76,5 +94,7 @@ public class TimerUI : MonoBehaviour
         timeLeft = Mathf.Max(0, seconds);
         isRunning = true;
         UpdateUI();
+        if (gameManager != null)
+            gameManager.playTime = timeLeft;
     }
 }
