@@ -1,11 +1,16 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    // ì‹±ê¸€í†¤
     public static GameManager gameManager;
+    public static GameManager Instance => gameManager;
+
+    // ê° ìŠ¤í…Œì´ì§€ì— ìˆëŠ” íŒ¨ë„ ìŠ¤í¬ë„ˆ
     public PanelPairSpawnerSimple panel;
-    
+
     public float playTime = 0f;
 
     [Header("Player Info")]
@@ -32,29 +37,58 @@ public class GameManager : MonoBehaviour
         => Mathf.Max(1, Mathf.RoundToInt(playerBaseDamage * damageMultiplier));
 
     public bool isGameOver = false;
-    public bool isStageClear = false; // ¾ÀÀüÈ¯¿¡¼­ °¡Á®¾ß°¡ ÇÒ Á¤º¸
+    public bool isStageClear = false;
 
     void Awake()
     {
-        if(gameManager != null && gameManager != this)
+        if (gameManager != null && gameManager != this)
         {
             Destroy(gameObject);
             return;
         }
-        gameManager = this;
 
+        gameManager = this;
         DontDestroyOnLoad(gameObject);
     }
 
+    void OnEnable()
+    {
+        // ì”¬ì´ ë°”ë€” ë•Œë§ˆë‹¤ panel ë‹¤ì‹œ ì°¾ê¸°
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void Start()
+    {
+        // ì²˜ìŒ ì”¬ì—ì„œë„ í•œ ë²ˆ ì°¾ì•„ì£¼ê¸°
+        if (panel == null)
+        {
+            panel = FindAnyObjectByType<PanelPairSpawnerSimple>();
+        }
+    }
+
+    // ìƒˆ ì”¬ ë¡œë“œë  ë•Œ í˜¸ì¶œë¨
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        panel = FindAnyObjectByType<PanelPairSpawnerSimple>();
+    }
+
     void Update()
-    {   
+    {
         playTime += Time.deltaTime;
-        plusPanelPoint = panel.plusPoint;
-        minusPanelPoint = panel.minusPoint;
-        if (isGameOver == true) return; // ÇÃ·¹ÀÌ¾î Ã¼·ÂÀÌ 0ÀÌ µÇ¸é true
 
-        if (isStageClear == true) return; // º¸½ºÀÇ Ã¼·ÂÀÌ 0ÀÌ µÇ¸é true
+        // panelì´ ì—†ìœ¼ë©´(í•´ë‹¹ ì”¬ì— ì•ˆ ë‘ì—ˆê±°ë‚˜ ì•„ì§ ëª» ì°¾ì•˜ìœ¼ë©´) ê·¸ëƒ¥ ê±´ë„ˆë›°ê¸°
+        if (panel != null)
+        {
+            plusPanelPoint = panel.plusPoint;
+            minusPanelPoint = panel.minusPoint;
+        }
 
-        
+        if (isGameOver) return;
+        if (isStageClear) return;
     }
 }

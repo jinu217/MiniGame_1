@@ -37,39 +37,64 @@ public class BossManager : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
+void Start()
+{
+    if (config == null)
     {
-        if (config == null || config.bossPrefab == null || config.phases == null || config.phases.Length == 0)
-        {
-            Debug.LogError("[BossManager] Config/Prefab/Phases 누락!");
-            enabled = false;
-            return;
-        }
-
-        var spawnPos = spawnPoint ? spawnPoint.position : transform.position;
-        var go = Instantiate(config.bossPrefab, spawnPos, Quaternion.identity);
-
-        boss = go.GetComponent<BossBase>();
-        if (boss == null)
-        {
-            Debug.LogError("[BossManager] BossBase 컴포넌트가 프리팹에 없음!");
-            enabled = false;
-            return;
-        }
-
-        boss.Init(config.maxHP);
-
-        timer = 0f;
-        ApplyPhase(0);
-        battleRoutine = StartCoroutine(BattleLoop());
+        Debug.LogError("[BossManager] Config가 null이에요! 씬에서 config를 할당했는지 확인");
+        enabled = false;
+        return;
     }
+
+    if (config.bossPrefab == null)
+    {
+        Debug.LogError("[BossManager] bossPrefab이 null이에요! BossConfig 안에 프리팹 넣어야 함");
+        enabled = false;
+        return;
+    }
+
+    if (config.phases == null || config.phases.Length == 0)
+    {
+        Debug.LogError("[BossManager] Phases가 비어있어요!");
+        enabled = false;
+        return;
+    }
+
+    var spawnPos = spawnPoint ? spawnPoint.position : transform.position;
+
+    Debug.Log($"[BossManager] {config.name} 으로 보스 생성 시도, prefab={config.bossPrefab.name}");
+
+    var go = Instantiate(config.bossPrefab, spawnPos, Quaternion.identity);
+
+    if (go == null)
+    {
+        Debug.LogError("[BossManager] Instantiate 결과가 null입니다. bossPrefab 레퍼런스를 확인하세요!");
+        enabled = false;
+        return;
+    }
+
+    boss = go.GetComponent<BossBase>();
+    if (boss == null)
+    {
+        Debug.LogError("[BossManager] BossBase 컴포넌트가 프리팹에 없음! 프리팹에 BossBase 상속 스크립트 붙였는지 확인");
+        enabled = false;
+        return;
+    }
+
+    boss.Init(config.maxHP);
+
+    timer = 0f;
+    ApplyPhase(0);
+    battleRoutine = StartCoroutine(BattleLoop());
+}
+
 
     void Update()
     {
-        if (boss != null)
-        {
-            Debug.Log($"[Boss HP] {boss.CurrentHP} / {boss.MaxHP}");
-        }
+        //if (boss != null)
+       // {
+        //    Debug.Log($"[Boss HP] {boss.CurrentHP} / {boss.MaxHP}");
+       // }
     }
 
 
