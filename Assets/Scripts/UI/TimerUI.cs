@@ -86,6 +86,13 @@ public class TimerUI : MonoBehaviour
     void OnTimerEnd()
     {
         Debug.Log("Timer End");
+
+        // 타이머가 0이 되었을 때 Player 쪽으로 GameOver 위임
+        Player player = FindFirstObjectByType<Player>();
+        if (player != null)
+        {
+            player.HandleTimerEnd();
+        }
     }
 
     // 외부에서 남은 시간을 수동으로 설정해서 바로 보이게 하고 싶을 때 사용

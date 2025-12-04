@@ -14,9 +14,19 @@ public class Player : MonoBehaviour
     float _velX;
 
     public SlidePanel panel;
+
+    // GameOver 및 HP 체크를 위해 GameManager 캐시
+    private GameManager gameManager;
+
     void Start()
     {
         _targetX = transform.position.x;
+
+        // GameManager 캐시
+        if (GameManager.gameManager != null)
+            gameManager = GameManager.gameManager;
+        else
+            gameManager = FindFirstObjectByType<GameManager>();
     }
 
     void Update()
@@ -50,6 +60,18 @@ public class Player : MonoBehaviour
         Vector3 pos = transform.position;
         pos.x = Mathf.SmoothDamp(pos.x, _targetX, ref _velX, smoothTime);
         transform.position = pos;
+
+        // ----- 게임 오버 조건(HP) 체크 -----
+        if (gameManager != null && !gameManager.isGameOver && !gameManager.isStageClear)
+        {
+            // 플레이어 HP가 0 이하이면 GameOver
+            if (gameManager.playerHp <= 0f)
+            {
+                gameManager.playerHp = 0f;   // 음수 방지
+                HandleGameOver();
+                return;
+            }
+        }
     }
 
     // 화면 가로(0 ~ Screen.width)를 xLimits 범위로 선형 매핑
@@ -112,4 +134,40 @@ public class Player : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
+    // TimerUI에서 타이머 종료 시 호출할 함수
+    public void HandleTimerEnd()
+    {
+        // 이미 클리어나 게임 오버 상태면 무시
+        if (gameManager != null && (gameManager.isGameOver || gameManager.isStageClear))
+            return;
+
+        // 필요하다면 여기에서 "타이머로 인해 끝났다" 같은 플래그를 따로 둘 수도 있음
+        HandleGameOver();
+    }
+
+    // 실제 GameOver 상태 세팅 + 씬 전환 담당
+    void HandleGameOver()
+    {
+        // GameManager 다시 한 번 확보 (혹시 null일 때 대비)
+        if (gameManager == null)
+        {
+            if (GameManager.gameManager != null)
+                gameManager = GameManager.gameManager;
+            else
+                gameManager = FindFirstObjectByType<GameManager>();
+        }
+
+        if (gameManager != null)
+        {
+            if (gameManager.isGameOver)
+                return; // 중복 GameOver 방지
+
+            gameManager.isGameOver = true;
+            gameManager.isStageClear = false;
+        }
+
+        // 실제 GameOver 씬 전환
+        SceneManager.LoadScene("GameOverScene");
+    }
+
 }

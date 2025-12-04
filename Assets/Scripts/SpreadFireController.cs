@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
+
 
 public class SpreadFireController : MonoBehaviour
 {
@@ -19,21 +21,64 @@ public class SpreadFireController : MonoBehaviour
     GameManager gm;
     float originalDamageMultiplier = 1f;
 
+ 
+
+    //스킬 사용 요구 포인트
+    [Header("Requirement")]
+    public int requiredSkillPoint_base = 1;
+    public int requiredSkillPoint = 1;
+
+
     Transform leftPoint, rightPoint;
+
     bool isActive = false;
+    public bool canClick = true;
 
     void Start()
     {
-        gm = GameManager.gameManager;
+        // 씬 인덱스
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+            //요구스킬값 = 베이스요구값 * 스테이지 인덱스값
+        requiredSkillPoint = requiredSkillPoint_base * sceneIndex;
+
+         gm = GameManager.gameManager;
+
+         if (spreadButton != null)
+            spreadButton.onClick.AddListener(Activate);
+    }
+    
+    //스킬 버튼 활성화
+    void Update()
+    {
+        if (gm == null) return;
+
+        // 유지시간 동안(isActive == true)에는 무조건 사용 불가
+        bool canUseSpread = (gm.skillPoint >= requiredSkillPoint) && !isActive;
 
         if (spreadButton != null)
-            spreadButton.onClick.AddListener(Activate);
+            spreadButton.interactable = canUseSpread;
     }
 
     public void Activate()
     {
-        if (!isActive) StartCoroutine(SpreadRoutine());
+        if (!isActive)
+            return;
+
+        if (gm.skillPoint < requiredSkillPoint)
+        {
+            Debug.Log($"스프레드 모드 사용 불가: 필요 {requiredSkillPoint}, 현재 {gm.skillPoint}");
+            return;
+        }
+
+        // 스킬 포인트 감소
+        gm.skillPoint -= requiredSkillPoint;
+
+
+        StartCoroutine(SpreadRoutine());
+    
     }
+
 
     IEnumerator SpreadRoutine()
     {

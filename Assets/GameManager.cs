@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Player Info")]
     public float playerHp;
+    public int MaxskillPoint = 10;
     public int skillPoint = 1;
 
     [Header("Player Damage")]
@@ -75,9 +76,17 @@ public class GameManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         panel = FindAnyObjectByType<PanelPairSpawnerSimple>();
+
+        // Restart 할때 상태 초기화
+        if (scene.name.StartsWith("Stage"))
+        {
+            isGameOver = false;
+            isStageClear = false;
+
+        }
     }
 
-    void Update()
+        void Update()
     {
         playTime += Time.deltaTime;
 
@@ -90,5 +99,19 @@ public class GameManager : MonoBehaviour
 
         if (isGameOver) return;
         if (isStageClear) return;
+    }
+    public void GameOver()
+    {
+        // 이미 게임 오버면 중복 호출 방지
+        if (isGameOver) return;
+
+        isGameOver = true;
+        isStageClear = false;
+
+        // 필요하다면 전체 시간 정지
+        // Time.timeScale = 0f;
+
+        //게임 오버 씬 불러오기
+        SceneManager.LoadScene("GameOverScene");
     }
 }

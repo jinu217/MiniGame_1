@@ -164,7 +164,7 @@ void Start()
         // 마지막 스테이지라면 엔딩이나 스타트로 이동할 수 있음 (선택)
         if (stageNum >= 5)
         {
-            SceneManager.LoadScene("Start");  // 임시
+            SceneManager.LoadScene("GameClear");
             return;
         }
 
