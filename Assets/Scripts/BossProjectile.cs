@@ -28,6 +28,7 @@ public class BossProjectile : MonoBehaviour
             if (player != null)
             {
                 GameManager.gameManager.playerHp -= damage; // HP 감소 // Modify: player.playerHp -> GameManager.gameManager.playerHp
+                Debug.Log("보스탄이 플레이어에게 " + damage + "만큼 데미지를 입혔습니다!");
                 if (GameManager.gameManager.playerHp <= 0) // Modify: player.playerHp -> GameManager.gameManager.playerHp 
                 {
                     // TODO: GameOver 처리 (씬 전환, UI 등)

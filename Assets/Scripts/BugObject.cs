@@ -52,6 +52,7 @@ public class BugObject : MonoBehaviour
         if (other.CompareTag("ArrivePoint") || other.CompareTag("Player"))
         {
             GameManager.gameManager.playerHp -= GameManager.gameManager.bugDamage;
+            Debug.Log("버그가 도착하여 플레이어에게 " + GameManager.gameManager.bugDamage + "만큼 데미지를 입혔습니다!");
             Destroy(gameObject);
         }
     }

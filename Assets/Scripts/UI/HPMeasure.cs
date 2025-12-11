@@ -8,16 +8,22 @@ public class HPMeasure : MonoBehaviour
     public TMP_Text hpText;     // HP 수치 표시용 Text (TextMeshPro)
     
     public float maxHP = 100;
+    float tmpHP;
 
     void Start()
     {
         GameManager.gameManager.playerHp = maxHP; // 시작 시 체력을 가득 채움
         UpdateHPBar();
+        tmpHP = GameManager.gameManager.playerHp;
     }
 
     void Update()
     {
-        UpdateHPBar();
+        if(tmpHP != GameManager.gameManager.playerHp)
+        {
+            UpdateHPBar();
+            tmpHP = GameManager.gameManager.playerHp;
+        }
         // 테스트: 스페이스바 누르면 체력 10 감소
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -29,6 +35,7 @@ public class HPMeasure : MonoBehaviour
     public void TakeDamage(int damage)
     {
         GameManager.gameManager.playerHp -= damage;
+        Debug.Log(damage + "만큼 데미지를 입었습니다!");
         if (GameManager.gameManager.playerHp < 0) GameManager.gameManager.playerHp = 0;
         UpdateHPBar();
     }
