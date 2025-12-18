@@ -27,6 +27,7 @@ public class BossManager : MonoBehaviour
     public static BossManager Instance { get; private set; }
     public BossBase CurrentBoss => boss;
 
+
     void Awake()
     {
         if (Instance != null && Instance != this)
