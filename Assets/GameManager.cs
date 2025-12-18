@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // 싱글톤
     public static GameManager gameManager;
     public static GameManager Instance => gameManager;
 
@@ -13,8 +12,8 @@ public class GameManager : MonoBehaviour
     public float playTime = 0f;
 
     [Header("Player Info")]
-    public float playerMaxHp = 10f;   // ✅ 추가: 최대 HP(인스펙터에서 조절)
-    public float playerHp = 10f;      // ✅ 초기값(안전하게 10으로 시작)
+    public float playerMaxHp = 10f;   
+    public float playerHp = 10f;     
     public int MaxskillPoint = 10;
     public int skillPoint = 1;
 
@@ -69,7 +68,6 @@ public class GameManager : MonoBehaviour
             panel = FindAnyObjectByType<PanelPairSpawnerSimple>();
         }
 
-        // ✅ 첫 시작에서도 HP 보정(혹시 인스펙터가 0이어도 최소 1)
         if (playerMaxHp <= 0f) playerMaxHp = 10f;
         if (playerHp <= 0f) playerHp = playerMaxHp;
     }
@@ -86,7 +84,7 @@ public class GameManager : MonoBehaviour
             isStageClear = false;
 
             if (playerMaxHp <= 0f) playerMaxHp = 10f;
-            playerHp = playerMaxHp;   // ✅ 핵심: 스테이지 시작하면 HP 무조건 채우기
+            playerHp = playerMaxHp;  
         }
     }
 
@@ -106,10 +104,6 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        // ✅ 누가 호출했는지 바로 찍어서 범인 추적
-        Debug.LogError("[GameOver 호출됨]\n" + System.Environment.StackTrace);
-
-        // 이미 게임 오버면 중복 호출 방지
         if (isGameOver) return;
 
         isGameOver = true;

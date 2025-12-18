@@ -149,7 +149,6 @@ public class BossManager : MonoBehaviour
 
         Debug.Log("Boss Down!");
 
-        // 현재 씬 이름으로 스테이지 번호 파싱
         string current = SceneManager.GetActiveScene().name;
         int stageNum = ParseStageNumber(current);
 
@@ -162,7 +161,6 @@ public class BossManager : MonoBehaviour
 
         string nextScene = "Stage" + (stageNum + 1);
 
-        // ✅ 씬 넘어가기 직전에 몇 스테이지로 가는지 로그
         Debug.Log($"-> Load Scene: {nextScene} (Stage {stageNum + 1})");
 
         SceneManager.LoadScene(nextScene);

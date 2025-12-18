@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
 
     private GameManager gameManager;
 
-    bool _canCheckHp = false; // ✅ 추가: 첫 프레임/초기화 타이밍 안전장치
+    bool _canCheckHp = false; 
 
     void Start()
     {
@@ -27,7 +27,6 @@ public class Player : MonoBehaviour
             ? GameManager.gameManager
             : FindFirstObjectByType<GameManager>();
 
-        // ✅ Start 직후 바로 체크하지 말고, 다음 프레임부터 체크
         StartCoroutine(EnableHpCheckNextFrame());
     }
 
@@ -61,7 +60,6 @@ public class Player : MonoBehaviour
         pos.x = Mathf.SmoothDamp(pos.x, _targetX, ref _velX, smoothTime);
         transform.position = pos;
 
-        // ✅ HP 체크는 (1) 다음 프레임부터 (2) Stage에서만 (3) 상태 정상일 때만
         if (!_canCheckHp) return;
 
         var sceneName = SceneManager.GetActiveScene().name;
