@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1934829493635163155}
   - component: {fileID: 3854337769873115597}
   m_Layer: 0
-  m_Name: HealKit
+  m_Name: TestHealKit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

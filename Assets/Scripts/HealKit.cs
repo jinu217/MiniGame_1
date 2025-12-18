@@ -21,6 +21,8 @@ public class HealKit : MonoBehaviour
         col = GetComponent<Collider>();
         rends = GetComponentsInChildren<Renderer>(true);
         if (rd != null) rd.isKinematic = false;
+        transform.rotation = Quaternion.Euler(-90f, 90f, 0f);
+        transform.localScale = new Vector3(10f, 10f, 10f);
     }
 
 

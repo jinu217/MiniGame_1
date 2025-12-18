@@ -398,7 +398,7 @@ MonoBehaviour:
   spawnPosY: 0.5
   spawnPosZ: 25
   bugObject: {fileID: 6172854856611452701, guid: 5c245228a3f718749b8d655ac2fb161f, type: 3}
-  healKit: {fileID: 6457037193558583839, guid: edf9e1d0fdc66fb4fb2a7d3770c9c2d0, type: 3}
+  healKit: {fileID: 2175666037878954361, guid: a8bb65d9b822edf4f98b00ad8e63389f, type: 3}
 --- !u!4 &73462181
 Transform:
   m_ObjectHideFlags: 0
@@ -673,6 +673,7 @@ MonoBehaviour:
   panel: {fileID: 352754257}
   playTime: 0
   playerHp: 0
+  MaxskillPoint: 10
   skillPoint: 0
   playerBaseDamage: 1
   damageMultiplier: 1
