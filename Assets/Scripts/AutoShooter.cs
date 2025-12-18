@@ -27,6 +27,8 @@ public class AutoShooter : MonoBehaviour
 
     GameManager gm;
 
+    public SpreadFireController spreadController;
+
     void Awake()
     {
         // GameManager 참조
@@ -49,10 +51,9 @@ public class AutoShooter : MonoBehaviour
             Fire();
             _nextFireTime = Time.time + fireRate;
         }
+
     }
 
-    /// </test>
-    
     void Fire()
     {
         // firePoints가 비어 있으면 기본 firePoint만 사용

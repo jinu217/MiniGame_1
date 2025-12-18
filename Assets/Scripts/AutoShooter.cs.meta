@@ -7,7 +7,9 @@ MonoImporter:
   - bulletPrefab: {instanceID: 0}
   - firePoint: {instanceID: 0}
   - PlayerShootSound: {fileID: 8300000, guid: 4310474905e266640852f43bd609a1a4, type: 3}
-  - audioSource: {instanceID: 0}
+  - SpreadShootSound: {fileID: 8300000, guid: af66162561d2eed40ad49268cab318bb, type: 3}
+  - audioSource: {fileID: -8987285944010858082, guid: 35ccb278cddd58c4198ba9a686dfdc0b, type: 3}
+  - spreadController: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
@@ -7,23 +7,21 @@ using UnityEngine.SceneManagement;
 public class SpreadFireController : MonoBehaviour
 {
     [Header("References")]
-    public AutoShooter shooter;       // AutoShooter ¿¬°á
-    public Transform baseFirePoint;   // ±âÁØ FirePoint (Á¤¸é)
-    public Button spreadButton;       // UI ¹öÆ° (¾øÀ¸¸é null °¡´É)
+    public AutoShooter shooter;       // AutoShooter ì—°ê²°
+    public Transform baseFirePoint;   // ê¸°ì¤€ FirePoint (ì •ë©´)
+    public Button spreadButton;       // UI ë²„íŠ¼ (ì—†ìœ¼ë©´ null ê°€ëŠ¥)
 
     [Header("Spread Settings")]
-    public float spreadAngle = 30f;   // ÁÂ¿ì °¢µµ(¡¾)
-    public float spreadDuration = 5f; // À¯Áö ½Ã°£
-    public float lateralOffset = 0.15f;// ÁÂ¿ì Æ÷ÀÎÆ® °¡·Î ¿ÀÇÁ¼Â(°ãÄ§ ¹æÁö)
+    public float spreadAngle = 30f;   // ì¢Œìš° ê°ë„(Â±)
+    public float spreadDuration = 5f; // ìœ ì§€ ì‹œê°„
+    public float lateralOffset = 0.15f;// ì¢Œìš° í¬ì¸íŠ¸ ê°€ë¡œ ì˜¤í”„ì…‹(ê²¹ì¹¨ ë°©ì§€)
 
     [Header("Damage Buff Settings")]
-    public float spreadDamageMultiplier = 2f;   // ½ºÇÁ·¹µå Áß¿¡ °öÇØÁÙ ¹èÀ² (2¹è)
+    public float spreadDamageMultiplier = 2f;   // ìŠ¤í”„ë ˆë“œ ì¤‘ì— ê³±í•´ì¤„ ë°°ìœ¨ (2ë°°)
     GameManager gm;
     float originalDamageMultiplier = 1f;
 
- 
-
-    //½ºÅ³ »ç¿ë ¿ä±¸ Æ÷ÀÎÆ®
+    //ìŠ¤í‚¬ ì‚¬ìš© ìš”êµ¬ í¬ì¸íŠ¸
     [Header("Requirement")]
     public int requiredSkillPoint_base = 1;
     public int requiredSkillPoint = 1;
@@ -36,24 +34,25 @@ public class SpreadFireController : MonoBehaviour
 
     void Start()
     {
-        // ¾À ÀÎµ¦½º
+        // ì”¬ ì¸ë±ìŠ¤
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-            //¿ä±¸½ºÅ³°ª = º£ÀÌ½º¿ä±¸°ª * ½ºÅ×ÀÌÁö ÀÎµ¦½º°ª
+            //ìš”êµ¬ìŠ¤í‚¬ê°’ = ë² ì´ìŠ¤ìš”êµ¬ê°’ * ìŠ¤í…Œì´ì§€ ì¸ë±ìŠ¤ê°’
         requiredSkillPoint = requiredSkillPoint_base * sceneIndex;
 
          gm = GameManager.gameManager;
 
          if (spreadButton != null)
             spreadButton.onClick.AddListener(Activate);
+
     }
     
-    //½ºÅ³ ¹öÆ° È°¼ºÈ­
+    //ìŠ¤í‚¬ ë²„íŠ¼ í™œì„±í™”
     void Update()
     {
         if (gm == null) return;
 
-        // À¯Áö½Ã°£ µ¿¾È(isActive == true)¿¡´Â ¹«Á¶°Ç »ç¿ë ºÒ°¡
+        // ìœ ì§€ì‹œê°„ ë™ì•ˆ(isActive == true)ì—ëŠ” ë¬´ì¡°ê±´ ì‚¬ìš© ë¶ˆê°€
         bool canUseSpread = (gm.skillPoint >= requiredSkillPoint) && !isActive;
 
         if (spreadButton != null)
@@ -62,16 +61,16 @@ public class SpreadFireController : MonoBehaviour
 
     public void Activate()
     {
-        if (!isActive)
+        if (isActive)
             return;
 
         if (gm.skillPoint < requiredSkillPoint)
         {
-            Debug.Log($"½ºÇÁ·¹µå ¸ðµå »ç¿ë ºÒ°¡: ÇÊ¿ä {requiredSkillPoint}, ÇöÀç {gm.skillPoint}");
+            Debug.Log($"ìŠ¤í”„ë ˆë“œ ëª¨ë“œ ì‚¬ìš© ë¶ˆê°€: í•„ìš” {requiredSkillPoint}, í˜„ìž¬ {gm.skillPoint}");
             return;
         }
 
-        // ½ºÅ³ Æ÷ÀÎÆ® °¨¼Ò
+        // ìŠ¤í‚¬ í¬ì¸íŠ¸ ê°ì†Œ
         gm.skillPoint -= requiredSkillPoint;
 
 
@@ -84,51 +83,52 @@ public class SpreadFireController : MonoBehaviour
     {
         isActive = true;
 
-        //AutoShooter¿¡ ½ºÇÁ·¹µå ¸ðµå ½ÃÀÛ ¾Ë¸²
+        //AutoShooterì— ìŠ¤í”„ë ˆë“œ ëª¨ë“œ ì‹œìž‘ ì•Œë¦¼
         shooter.isSpreadMode = true;
 
-        // µ¥¹ÌÁö 2¹è Àû¿ë
+        // ë°ë¯¸ì§€ 2ë°° ì ìš©
         if (gm != null)
         {
             originalDamageMultiplier = gm.damageMultiplier;
             gm.damageMultiplier = originalDamageMultiplier * spreadDamageMultiplier;
         }
 
-        // ÁÂ/¿ì FirePoint »ý¼º (ºÎ¸ð µ¿ÀÏ, À§Ä¡/È¸ÀüÀº base º¹Á¦)
+        // ì¢Œ/ìš° FirePoint ìƒì„± (ë¶€ëª¨ ë™ì¼, ìœ„ì¹˜/íšŒì „ì€ base ë³µì œ)
         leftPoint = Instantiate(baseFirePoint, baseFirePoint.parent);
         rightPoint = Instantiate(baseFirePoint, baseFirePoint.parent);
         leftPoint.name = "FirePoint_Left";
         rightPoint.name = "FirePoint_Right";
 
-        // °¢µµ È¸Àü Àû¿ë
+        // ê°ë„ íšŒì „ ì ìš©
         leftPoint.localRotation = baseFirePoint.localRotation * Quaternion.Euler(0, -spreadAngle, 0);
         rightPoint.localRotation = baseFirePoint.localRotation * Quaternion.Euler(0, spreadAngle, 0);
 
-        // »ìÂ¦ ÁÂ¿ì·Î ÀÌµ¿½ÃÄÑ ½Ã°¢Àû/¹°¸®Àû °ãÄ§ ¹æÁö
+        // ì‚´ì§ ì¢Œìš°ë¡œ ì´ë™ì‹œì¼œ ì‹œê°ì /ë¬¼ë¦¬ì  ê²¹ì¹¨ ë°©ì§€
         leftPoint.localPosition += new Vector3(-lateralOffset, 0f, 0f);
         rightPoint.localPosition += new Vector3(lateralOffset, 0f, 0f);
 
-        // AutoShooter¿¡ 3°³ ¹ß»çÁ¡ µî·Ï (Á¤¸é + ÁÂ + ¿ì)
+        // AutoShooterì— 3ê°œ ë°œì‚¬ì  ë“±ë¡ (ì •ë©´ + ì¢Œ + ìš°)
         shooter.firePoints = new Transform[] { baseFirePoint, leftPoint, rightPoint };
 
 
-        // À¯Áö ½Ã°£
+        // ìœ ì§€ ì‹œê°„
         yield return new WaitForSeconds(spreadDuration);
 
-        // ÁÂ/¿ì »èÁ¦ + ¿øº¹
+        // ì¢Œ/ìš° ì‚­ì œ + ì›ë³µ
         if (leftPoint) Destroy(leftPoint.gameObject);
         if (rightPoint) Destroy(rightPoint.gameObject);
         shooter.firePoints = new Transform[] { baseFirePoint };
 
-        //µ¥¹ÌÁö º¹±¸
+        //ë°ë¯¸ì§€ ë³µêµ¬
         if (gm != null)
         {
             gm.damageMultiplier = originalDamageMultiplier;
         }
 
-        //AutoShooter¿¡ ½ºÇÁ·¹µå ¸ðµå Á¾·á ¾Ë¸²
+        //AutoShooterì— ìŠ¤í”„ë ˆë“œ ëª¨ë“œ ì¢…ë£Œ ì•Œë¦¼
         shooter.isSpreadMode = false;
 
         isActive = false;
     }
+
 }
