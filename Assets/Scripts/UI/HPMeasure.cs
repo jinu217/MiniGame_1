@@ -8,7 +8,7 @@ public class HPMeasure : MonoBehaviour
     public Image hpFillImage;   // HP바 Fill 이미지
     public TMP_Text hpText;     // HP 수치 표시용 Text (TextMeshPro)
     
-    public float maxHP = 100;
+    float maxHP;
     float tmpHP;
     bool hpFilledForFirstBoss = false;
 
@@ -18,6 +18,7 @@ public class HPMeasure : MonoBehaviour
         // GameManager.gameManager.playerHp = maxHP;
         UpdateHPBar();
         tmpHP = GameManager.gameManager.playerHp;
+        maxHP = GameManager.gameManager.playerMaxHp;
     }
 
     void Update()
@@ -75,11 +76,13 @@ public class HPMeasure : MonoBehaviour
     // HP바와 숫자 갱신
     void UpdateHPBar()
     {
-        if (hpFillImage != null)
-            hpFillImage.fillAmount = GameManager.gameManager.playerHp / maxHP;
+        float currentHP = GameManager.gameManager.playerHp;
+        float maxHP = GameManager.gameManager.playerMaxHp; // 항상 최신값 사용
+
+        if (hpFillImage != null && maxHP > 0)
+            hpFillImage.fillAmount = currentHP / maxHP;
 
         if (hpText != null)
-            hpText.text = GameManager.gameManager.playerHp + " / " + maxHP;
-        // 예: 80 / 100
+            hpText.text = currentHP + " / " + maxHP;
     }
 }
