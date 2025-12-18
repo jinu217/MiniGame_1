@@ -52,6 +52,10 @@ public class HPMeasure : MonoBehaviour
             UpdateHPBar();
             tmpHP = GameManager.gameManager.playerHp;
         }
+        if(GameManager.gameManager.playerHp > maxHP)
+        {
+            GameManager.gameManager.playerHp = maxHP;
+        }
         // 테스트: 스페이스바 누르면 체력 10 감소
         if (Input.GetKeyDown(KeyCode.Space))
         {
