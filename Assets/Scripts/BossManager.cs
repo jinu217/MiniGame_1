@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
 public class BossManager : MonoBehaviour
 {
@@ -13,7 +12,7 @@ public class BossManager : MonoBehaviour
     public float bossSpawnDelay = 10f;
 
     [Header("Stage Clear UI")]
-    public StageClearPanel stageClearPanel;   
+    public StageClearPanel stageClearPanel;  
 
     [Header("Pattern Overrides")]
     public bool overrideInterval = true;
@@ -27,7 +26,7 @@ public class BossManager : MonoBehaviour
     Coroutine spawnRoutine;
 
     bool bossSpawned = false;
-    bool ended = false; // ✅ 처치/타임오버로 게임 종료 상태
+    bool ended = false;
 
     public static BossManager Instance { get; private set; }
     public BossBase CurrentBoss => boss;
@@ -40,6 +39,13 @@ public class BossManager : MonoBehaviour
             return;
         }
         Instance = this;
+
+        EnsureStageClearPanel();
+        if (stageClearPanel != null)
+        {
+            stageClearPanel.gameObject.SetActive(true);
+            stageClearPanel.gameObject.SetActive(false); 
+        }
     }
 
     void Start()
@@ -54,6 +60,16 @@ public class BossManager : MonoBehaviour
         ended = false;
 
         spawnRoutine = StartCoroutine(SpawnBossAfterDelay());
+    }
+
+    void EnsureStageClearPanel()
+    {
+        if (stageClearPanel != null) return;
+
+        stageClearPanel = FindFirstObjectByType<StageClearPanel>(FindObjectsInactive.Include);
+
+        if (stageClearPanel == null)
+            Debug.LogError("[BossManager] StageClearPanel을 찾지 못했습니다.");
     }
 
     IEnumerator SpawnBossAfterDelay()
@@ -74,28 +90,11 @@ public class BossManager : MonoBehaviour
         boss.Init(config.maxHP);
 
         bossSpawned = true;
-
         timer = 0f;
         currentPhaseIndex = -1;
         ApplyPhase(0);
 
-        if (battleRoutine != null) StopCoroutine(battleRoutine);
         battleRoutine = StartCoroutine(BattleLoop());
-    }
-
-    void OnDisable()
-    {
-        if (spawnRoutine != null)
-        {
-            StopCoroutine(spawnRoutine);
-            spawnRoutine = null;
-        }
-
-        if (battleRoutine != null)
-        {
-            StopCoroutine(battleRoutine);
-            battleRoutine = null;
-        }
     }
 
     IEnumerator BattleLoop()
@@ -110,14 +109,7 @@ public class BossManager : MonoBehaviour
                 ApplyPhase(currentPhaseIndex + 1);
             }
 
-            // 보스가 Destroy되어 null이 되면 처치로 간주
-            if (bossSpawned && boss == null)
-            {
-                OnBossDefeated();
-                yield break;
-            }
-
-            if (boss != null && boss.IsDead)
+            if (bossSpawned && boss == null || (boss != null && boss.IsDead))
             {
                 OnBossDefeated();
                 yield break;
@@ -138,12 +130,13 @@ public class BossManager : MonoBehaviour
         currentPhaseIndex = index;
         var p = config.phases[index];
 
-        float interval = overrideInterval ? p.fireInterval : 0f;
-        float speed = overrideSpeed ? p.projectileSpeed : 0f;
-        int volley = overrideVolley ? p.volleyCount : 0;
-
         if (boss != null)
-            boss.SetPattern(p.pattern, interval, speed, volley);
+            boss.SetPattern(
+                p.pattern,
+                overrideInterval ? p.fireInterval : 0f,
+                overrideSpeed ? p.projectileSpeed : 0f,
+                overrideVolley ? p.volleyCount : 0
+            );
     }
 
     void OnBossDefeated()
@@ -153,15 +146,8 @@ public class BossManager : MonoBehaviour
 
         Debug.Log("Boss Down!");
 
-        // ✅ 씬 이동 X → 패널 띄우기(패널이 Time.timeScale=0 처리)
         if (stageClearPanel != null)
-        {
             stageClearPanel.Open();
-        }
-        else
-        {
-            Debug.LogError("[BossManager] stageClearPanel이 연결되지 않았습니다. (StageClear 패널을 BossManager에 연결하세요)");
-        }
     }
 
     void OnTimeOver()
@@ -170,9 +156,5 @@ public class BossManager : MonoBehaviour
         ended = true;
 
         Debug.Log("Time Over");
-        // TODO: 여기서도 게임오버 패널을 띄우고 싶으면 같은 방식으로 처리
-        // 예) gameOverPanel.Open();
     }
-
-    // (BossManager에서 더 이상 씬 넘기지 않으므로 ParseStageNumber는 필요 없어짐)
 }

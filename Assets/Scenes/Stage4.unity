@@ -364,7 +364,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpFillImage: {fileID: 125116573}
   hpText: {fileID: 1961973483}
-  maxHP: 100
 --- !u!1 &73462179
 GameObject:
   m_ObjectHideFlags: 0
@@ -1724,7 +1723,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &883339277
 RectTransform:
   m_ObjectHideFlags: 0
