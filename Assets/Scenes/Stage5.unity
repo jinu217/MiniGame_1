@@ -672,6 +672,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 352754257}
   playTime: 0
+  playerMaxHp: 10
   playerHp: 0
   MaxskillPoint: 10
   skillPoint: 0
@@ -1648,6 +1649,8 @@ MonoBehaviour:
   config: {fileID: 11400000, guid: c8ea3ce68cced96479c72a7d287df51d, type: 2}
   spawnPoint: {fileID: 1260979383}
   timeLimit: 35
+  bossSpawnDelay: 10
+  stageClearPanel: {fileID: 0}
   overrideInterval: 1
   overrideSpeed: 1
   overrideVolley: 1
