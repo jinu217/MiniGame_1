@@ -23,31 +23,6 @@ public class HPMeasure : MonoBehaviour
 
     void Update()
     {
-        // 1. 첫 번째 보스(과제) 등장 시 HP를 가득 채움 (한 번만)
-        if (!hpFilledForFirstBoss)
-        {
-            // BossBase를 상속받는 모든 보스 오브젝트 탐색
-            var boss = FindObjectOfType<BossBase>();
-            if (boss != null)
-            {
-                // BossConfig를 BossManager에서 참조
-                var bossManager = FindObjectOfType<BossManager>();
-                if (bossManager != null && bossManager.config != null && bossManager.config.phases != null)
-                {
-                    // phases에 PaperShot 패턴이 있으면 과제(1스테이지) 보스
-                    bool isFirstBoss = bossManager.config.phases.Any(phase => phase.pattern == BossPatternType.PaperShot);
-                    if (isFirstBoss)
-                    {
-                        GameManager.gameManager.playerHp = maxHP;
-                        UpdateHPBar();
-                        tmpHP = GameManager.gameManager.playerHp;
-                        hpFilledForFirstBoss = true;
-                        Debug.Log("첫 번째 보스(과제) 등장! 플레이어 HP를 가득 채움");
-                    }
-                }
-            }
-        }
-
         if(tmpHP != GameManager.gameManager.playerHp)
         {
             UpdateHPBar();

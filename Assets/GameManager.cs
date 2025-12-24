@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
             isStageClear = false;
 
             if (playerMaxHp <= 0f) playerMaxHp = 10f;
-            playerHp = playerMaxHp;  
+            //playerHp = playerMaxHp;  
         }
     }
 
