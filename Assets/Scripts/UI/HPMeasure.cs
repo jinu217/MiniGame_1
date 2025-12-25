@@ -10,7 +10,7 @@ public class HPMeasure : MonoBehaviour
     
     float maxHP;
     float tmpHP;
-    bool hpFilledForFirstBoss = false;
+    
 
     void Start()
     {

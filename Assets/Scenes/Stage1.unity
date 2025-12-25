@@ -255,6 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextStageButton: {fileID: 519087583}
   retryButton: {fileID: 586824086}
+  homeButton: {fileID: 0}
   lastStageNumber: 5
 --- !u!1 &46834038
 GameObject:
@@ -1545,6 +1546,7 @@ GameObject:
   - component: {fileID: 640248300}
   - component: {fileID: 640248302}
   - component: {fileID: 640248301}
+  - component: {fileID: 640248304}
   - component: {fileID: 640248303}
   m_Layer: 0
   m_Name: BossHpBarBackground
@@ -1587,7 +1589,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1626,6 +1628,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossHpBarFill: {fileID: 487690910}
   bossHpText: {fileID: 2026978760}
+--- !u!114 &640248304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640248299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b41eb531f4ffae4d87722b64c6e478b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetImage: {fileID: 640248301}
 --- !u!1 &646762022
 GameObject:
   m_ObjectHideFlags: 0
@@ -2147,6 +2162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextStageButton: {fileID: 519087583}
   retryButton: {fileID: 586824086}
+  homeButton: {fileID: 0}
   lastStageNumber: 5
 --- !u!1 &1080677338
 GameObject:
