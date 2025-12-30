@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class BossManager : MonoBehaviour
 {
@@ -10,9 +11,6 @@ public class BossManager : MonoBehaviour
 
     [Header("Boss Spawn Delay")]
     public float bossSpawnDelay = 10f;
-
-    [Header("Stage Clear UI")]
-    public StageClearPanel stageClearPanel;  
 
     [Header("Pattern Overrides")]
     public bool overrideInterval = true;
@@ -39,13 +37,6 @@ public class BossManager : MonoBehaviour
             return;
         }
         Instance = this;
-
-        EnsureStageClearPanel();
-        if (stageClearPanel != null)
-        {
-            stageClearPanel.gameObject.SetActive(true);
-            stageClearPanel.gameObject.SetActive(false); 
-        }
     }
 
     void Start()
@@ -60,16 +51,6 @@ public class BossManager : MonoBehaviour
         ended = false;
 
         spawnRoutine = StartCoroutine(SpawnBossAfterDelay());
-    }
-
-    void EnsureStageClearPanel()
-    {
-        if (stageClearPanel != null) return;
-
-        stageClearPanel = FindFirstObjectByType<StageClearPanel>(FindObjectsInactive.Include);
-
-        if (stageClearPanel == null)
-            Debug.LogError("[BossManager] StageClearPanel을 찾지 못했습니다.");
     }
 
     IEnumerator SpawnBossAfterDelay()
@@ -109,7 +90,7 @@ public class BossManager : MonoBehaviour
                 ApplyPhase(currentPhaseIndex + 1);
             }
 
-            if (bossSpawned && boss == null || (boss != null && boss.IsDead))
+            if ((bossSpawned && boss == null) || (boss != null && boss.IsDead))
             {
                 OnBossDefeated();
                 yield break;
@@ -146,8 +127,7 @@ public class BossManager : MonoBehaviour
 
         Debug.Log("Boss Down!");
 
-        if (stageClearPanel != null)
-            stageClearPanel.Open();
+        UIFlowManager.Instance?.OnBossDefeated();
     }
 
     void OnTimeOver()

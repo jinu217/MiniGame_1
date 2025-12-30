@@ -6,14 +6,13 @@ public class GameManager : MonoBehaviour
     public static GameManager gameManager;
     public static GameManager Instance => gameManager;
 
-    // 각 스테이지에 있는 패널 스포너
     public PanelPairSpawnerSimple panel;
 
     public float playTime = 0f;
 
     [Header("Player Info")]
-    public float playerMaxHp = 10f;   
-    public float playerHp = 10f;     
+    public float playerMaxHp = 10f;
+    public float playerHp = 10f;
     public int MaxskillPoint = 10;
     public int skillPoint = 1;
 
@@ -64,27 +63,22 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         if (panel == null)
-        {
             panel = FindAnyObjectByType<PanelPairSpawnerSimple>();
-        }
 
         if (playerMaxHp <= 0f) playerMaxHp = 10f;
         if (playerHp <= 0f) playerHp = playerMaxHp;
     }
 
-    // 새 씬 로드될 때 호출됨
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         panel = FindAnyObjectByType<PanelPairSpawnerSimple>();
 
-        // Stage 씬 진입 시 상태 초기화 + HP 리셋(핵심)
         if (scene.name.StartsWith("Stage"))
         {
             isGameOver = false;
             isStageClear = false;
 
             if (playerMaxHp <= 0f) playerMaxHp = 10f;
-            //playerHp = playerMaxHp;  
         }
     }
 
@@ -109,6 +103,6 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
         isStageClear = false;
 
-        SceneManager.LoadScene("GameOverScene");
+        UIFlowManager.Instance?.ShowGameOver();
     }
 }

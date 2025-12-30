@@ -7,7 +7,6 @@ public class StageClearPanel : MonoBehaviour
     [Header("Buttons")]
     public Button nextStageButton;
     public Button retryButton;
-    public Button homeButton;
 
     [Header("Stage Settings")]
     public int lastStageNumber = 5;
@@ -32,12 +31,6 @@ public class StageClearPanel : MonoBehaviour
             retryButton.onClick.RemoveListener(OnClickRetry);
             retryButton.onClick.AddListener(OnClickRetry);
         }
-
-        if (homeButton != null)
-        {
-            homeButton.onClick.RemoveListener(OnClickHome);
-            homeButton.onClick.AddListener(OnClickHome);
-        }
     }
 
     void OnDisable()
@@ -58,26 +51,19 @@ public class StageClearPanel : MonoBehaviour
         currentSceneName = SceneManager.GetActiveScene().name;
         int stageNum = ParseStageNumber(currentSceneName);
 
-        nextSceneName = (stageNum >= lastStageNumber)
-            ? "GameClear"
-            : ("Stage" + (stageNum + 1));
-
         if (stageNum >= lastStageNumber)
         {
-            if (nextStageButton) nextStageButton.gameObject.SetActive(false);
-            if (retryButton) retryButton.gameObject.SetActive(false);
-            if (homeButton) homeButton.gameObject.SetActive(true);
+            if (GameClearPanel.Instance != null)
+                GameClearPanel.Instance.Open();
         }
-        else
-        {
-            if (nextStageButton) nextStageButton.gameObject.SetActive(true);
-            if (retryButton) retryButton.gameObject.SetActive(true);
-            if (homeButton) homeButton.gameObject.SetActive(false);
-        }
+
+        nextSceneName = "Stage" + (stageNum + 1);
+
+        if (nextStageButton) nextStageButton.gameObject.SetActive(true);
+        if (retryButton) retryButton.gameObject.SetActive(true);
 
         transform.SetAsLastSibling();
         Time.timeScale = 0f;
-
     }
 
     void OnClickNextStage()
@@ -99,12 +85,6 @@ public class StageClearPanel : MonoBehaviour
 
         CloseForSceneChange();
         SceneManager.LoadScene(currentSceneName);
-    }
-
-    void OnClickHome()
-    {
-        CloseForSceneChange();
-        SceneManager.LoadScene("StartScene");
     }
 
     void CloseForSceneChange()
