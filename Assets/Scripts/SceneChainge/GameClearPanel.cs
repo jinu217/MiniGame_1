@@ -49,6 +49,10 @@ public class GameClearPanel : MonoBehaviour
     {
         Time.timeScale = 1f;
         gameObject.SetActive(false);
+
+        if (GameManager.Instance != null)
+            GameManager.Instance.ResetRunToFull();
+
         SceneManager.LoadScene("StartScene");
     }
 }

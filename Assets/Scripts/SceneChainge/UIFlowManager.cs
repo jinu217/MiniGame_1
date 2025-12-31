@@ -79,19 +79,16 @@ public class UIFlowManager : MonoBehaviour
     public void ShowGameOver()
     {
         if (gameOverPanel != null) gameOverPanel.Open();
-        else Debug.LogError("[UIFlowManager] GameOverPanel을 찾지 못했습니다.");
     }
 
     public void ShowStageClear()
     {
         if (stageClearPanel != null) stageClearPanel.Open();
-        else Debug.LogError("[UIFlowManager] StageClearPanel을 찾지 못했습니다.");
     }
 
     public void ShowGameClear()
     {
         if (gameClearPanel != null) gameClearPanel.Open();
-        else Debug.LogError("[UIFlowManager] GameClearPanel을 찾지 못했습니다.");
     }
 
     int ParseStageNumber(string sceneName)

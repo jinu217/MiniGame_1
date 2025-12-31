@@ -55,6 +55,7 @@ public class StageClearPanel : MonoBehaviour
         {
             if (GameClearPanel.Instance != null)
                 GameClearPanel.Instance.Open();
+            return;
         }
 
         nextSceneName = "Stage" + (stageNum + 1);
@@ -74,6 +75,9 @@ public class StageClearPanel : MonoBehaviour
             if (string.IsNullOrEmpty(nextSceneName)) return;
         }
 
+        if (GameManager.Instance != null)
+            GameManager.Instance.PrepareNextStageKeepHp();
+
         CloseForSceneChange();
         SceneManager.LoadScene(nextSceneName);
     }
@@ -82,6 +86,9 @@ public class StageClearPanel : MonoBehaviour
     {
         if (string.IsNullOrEmpty(currentSceneName))
             currentSceneName = SceneManager.GetActiveScene().name;
+
+        if (GameManager.Instance != null)
+            GameManager.Instance.PrepareRestartToStageStartHp();
 
         CloseForSceneChange();
         SceneManager.LoadScene(currentSceneName);

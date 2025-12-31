@@ -36,7 +36,6 @@ public class GameOverPanel : MonoBehaviour
         if (opened) return;
         opened = true;
 
-        // ✅ 부모까지 켜서(비활성화 시작해도) 확실히 표시
         Transform t = transform;
         while (t != null)
         {
@@ -53,6 +52,10 @@ public class GameOverPanel : MonoBehaviour
     {
         Time.timeScale = 1f;
         gameObject.SetActive(false);
+
+        if (GameManager.Instance != null)
+            GameManager.Instance.ResetRunToFull();
+
         SceneManager.LoadScene("StartScene");
     }
 
@@ -60,6 +63,10 @@ public class GameOverPanel : MonoBehaviour
     {
         Time.timeScale = 1f;
         gameObject.SetActive(false);
+
+        if (GameManager.Instance != null)
+            GameManager.Instance.PrepareRestartToStageStartHp();
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

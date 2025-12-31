@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     [Header("Player Info")]
     public float playerMaxHp = 10f;
     public float playerHp = 10f;
+
+    public float stageStartHp = 10f;
+
     public int MaxskillPoint = 10;
     public int skillPoint = 1;
 
@@ -38,6 +41,9 @@ public class GameManager : MonoBehaviour
     public bool isGameOver = false;
     public bool isStageClear = false;
 
+    enum HpInitMode { Keep, Half, Full }
+    HpInitMode pendingHpInit = HpInitMode.Keep;
+
     void Awake()
     {
         if (gameManager != null && gameManager != this)
@@ -62,24 +68,49 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        if (panel == null)
-            panel = FindAnyObjectByType<PanelPairSpawnerSimple>();
-
         if (playerMaxHp <= 0f) playerMaxHp = 10f;
-        if (playerHp <= 0f) playerHp = playerMaxHp;
+        playerHp = playerMaxHp;
+        stageStartHp = playerHp;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         panel = FindAnyObjectByType<PanelPairSpawnerSimple>();
+        Time.timeScale = 1f;
 
-        if (scene.name.StartsWith("Stage"))
+        if (playerMaxHp <= 0f) playerMaxHp = 10f;
+
+        if (scene.name == "StartScene")
         {
-            isGameOver = false;
-            isStageClear = false;
-
-            if (playerMaxHp <= 0f) playerMaxHp = 10f;
+            ResetRunToFull();
+            return;
         }
+
+        if (!scene.name.StartsWith("Stage"))
+            return;
+
+        isGameOver = false;
+        isStageClear = false;
+
+        switch (pendingHpInit)
+        {
+            case HpInitMode.Full:
+                playerHp = playerMaxHp;
+                break;
+
+            case HpInitMode.Half:
+                playerHp = Mathf.Ceil(playerMaxHp * 0.5f);
+                break;
+
+            case HpInitMode.Keep:
+            default:
+                playerHp = Mathf.Clamp(playerHp, 1f, playerMaxHp);
+                break;
+        }
+
+        stageStartHp = playerHp;
+
+        pendingHpInit = HpInitMode.Keep;
     }
 
     void Update()
@@ -96,13 +127,42 @@ public class GameManager : MonoBehaviour
         if (isStageClear) return;
     }
 
+    public void PrepareRestartToStageStartHp()
+    {
+        playerHp = stageStartHp;
+        pendingHpInit = HpInitMode.Keep;
+    }
+
+    public void PrepareNextStageKeepHp()
+    {
+        pendingHpInit = HpInitMode.Keep;
+    }
+
+    public void PrepareStartFullHp()
+    {
+        pendingHpInit = HpInitMode.Full;
+    }
+
+    public void ResetRunToFull()
+    {
+        isGameOver = false;
+        isStageClear = false;
+
+        playTime = 0f;
+        skillPoint = 1;
+        damageMultiplier = 1f;
+
+        playerHp = playerMaxHp;
+        stageStartHp = playerMaxHp;
+        pendingHpInit = HpInitMode.Keep;
+    }
+
     public void GameOver()
     {
         if (isGameOver) return;
 
         isGameOver = true;
         isStageClear = false;
-
         UIFlowManager.Instance?.ShowGameOver();
     }
 }
