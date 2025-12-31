@@ -46,7 +46,7 @@ public class AmmoSpawnerManual : MonoBehaviour
         int targetCount = Mathf.Max(0, gameManager.skillPoint);
         while (spawnedIcons.Count > targetCount)
             RemoveAmmoIcon();
-        while (spawnedIcons.Count < targetCount)
+        while (spawnedIcons.Count < targetCount && spawnedIcons.Count < gameManager.MaxskillPoint)
             AddAmmoIcon();
     }
 
@@ -74,8 +74,15 @@ public class AmmoSpawnerManual : MonoBehaviour
         GameObject icon = Instantiate(ammoIconPrefab, ammoContainer);
         spawnedIcons.Add(icon);
         int index = spawnedIcons.Count - 1;
+
+        int row = index / 2;
+        int col = index % 2;
+
+        float x = (col == 0) ? 16f : -16f;
+        float y = row * iconHeight; // spacing ¾øÀÌ
+
         RectTransform rt = icon.GetComponent<RectTransform>();
-        rt.anchoredPosition = new Vector2(0, index * (iconHeight + spacing));
+        rt.anchoredPosition = new Vector2(x, y);
     }
 
     void RemoveAmmoIcon()

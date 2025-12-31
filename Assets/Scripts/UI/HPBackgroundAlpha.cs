@@ -25,7 +25,7 @@ public class HPBackgroundAlpha : MonoBehaviour
         BossManager bossManager = null;
         while (bossManager == null)
         {
-            bossManager = FindObjectOfType<BossManager>();
+            bossManager = FindFirstObjectByType<BossManager>();
             if (bossManager == null)
                 yield return null;
         }
