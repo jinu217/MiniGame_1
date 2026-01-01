@@ -389,7 +389,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 73462181}
-  - component: {fileID: 73462180}
+  - component: {fileID: 73462182}
   m_Layer: 0
   m_Name: ObjectSpawner
   m_TagString: Untagged
@@ -397,23 +397,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &73462180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 73462179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a245b9f27bd6024e86e50cb7f3a0247, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPosX: 0
-  spawnPosY: 0.5
-  spawnPosZ: 25
-  bugObject: {fileID: 6172854856611452701, guid: 5c245228a3f718749b8d655ac2fb161f, type: 3}
-  healKit: {fileID: 2175666037878954361, guid: a8bb65d9b822edf4f98b00ad8e63389f, type: 3}
 --- !u!4 &73462181
 Transform:
   m_ObjectHideFlags: 0
@@ -429,6 +412,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &73462182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73462179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a245b9f27bd6024e86e50cb7f3a0247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPosX: 0
+  spawnPosY: 0.5
+  spawnPosZ: 35
+  bugObject: {fileID: 6172854856611452701, guid: 5c245228a3f718749b8d655ac2fb161f, type: 3}
+  healKit: {fileID: 8443673178999352726, guid: cdd22592da4f00a4d89e60881abd3a43, type: 3}
 --- !u!1 &125116569
 GameObject:
   m_ObjectHideFlags: 0

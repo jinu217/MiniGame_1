@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 5c66189784d423344aef1d70553b755a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5c66189784d423344aef1d70553b755a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5c66189784d423344aef1d70553b755a, type: 3}
       propertyPath: m_LocalScale.z
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5c66189784d423344aef1d70553b755a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -105,7 +105,7 @@ CapsuleCollider:
   m_Radius: 0.1
   m_Height: 0.3
   m_Direction: 2
-  m_Center: {x: 0, y: -0.000000001597723, z: 0.053610682}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &9167281929044814109
 MonoBehaviour:
   m_ObjectHideFlags: 0

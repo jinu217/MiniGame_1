@@ -15,14 +15,15 @@ public class HealKit : MonoBehaviour
     Renderer[] rends;
 
 
+
     void Awake()
     {
         rd = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
         rends = GetComponentsInChildren<Renderer>(true);
         if (rd != null) rd.isKinematic = false;
-        transform.rotation = Quaternion.Euler(-90f, 90f, 0f);
-        transform.localScale = new Vector3(10f, 10f, 10f);
+        transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+        transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
 
