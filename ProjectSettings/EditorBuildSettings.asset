@@ -13,22 +13,23 @@ EditorBuildSettings:
     guid: db72c45eda84ba6478a6269cab050290
   - enabled: 1
     path: Assets/Scenes/Stage2.unity
-    guid: 185b46bb322bdac4e93dfc3d13101432
+    guid: ab6a3fcab411f4b4f9097ba5a66b98c0
   - enabled: 1
     path: Assets/Scenes/Stage3.unity
-    guid: 1b8a3f67505c36849b8fa7a3f35e7d09
+    guid: fc495ef5194aada47b6ca522399a4d18
   - enabled: 1
     path: Assets/Scenes/Stage4.unity
-    guid: 01405194dd4c2b943a3a33ff918c568e
+    guid: eaa0a55859042d547bbb371e754212de
   - enabled: 1
     path: Assets/Scenes/Stage5.unity
-    guid: c278b6de76e91134ca3c179f45ee6d49
-  - enabled: 1
+    guid: 5c39b7e835fb2d64dad8eb9eedbc2240
+  - enabled: 0
     path: Assets/Scenes/GameOverScene.unity
     guid: 3574ef37e3c57024e807a4487c5781d9
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameClear.unity
     guid: a9a02ba1df2add7479d99d2cdda3ba6b
   m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 1bf4e31258d1ae74f8a6493aaa288307, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

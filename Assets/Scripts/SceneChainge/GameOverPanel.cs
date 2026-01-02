@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 
 public class GameOverPanel : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameOverPanel : MonoBehaviour
     public Button restartButton;
 
     bool opened = false;
+    Coroutine pauseRoutine;
 
     void Awake()
     {
@@ -28,7 +30,12 @@ public class GameOverPanel : MonoBehaviour
     void OnDisable()
     {
         opened = false;
-        Time.timeScale = 1f;
+
+        if (pauseRoutine != null)
+        {
+            StopCoroutine(pauseRoutine);
+            pauseRoutine = null;
+        }
     }
 
     public void Open()
@@ -36,23 +43,25 @@ public class GameOverPanel : MonoBehaviour
         if (opened) return;
         opened = true;
 
-        Transform t = transform;
-        while (t != null)
-        {
-            if (!t.gameObject.activeSelf)
-                t.gameObject.SetActive(true);
-            t = t.parent;
-        }
+        if (!gameObject.activeSelf)
+            gameObject.SetActive(true);
 
         transform.SetAsLastSibling();
+
+        if (pauseRoutine != null) StopCoroutine(pauseRoutine);
+        pauseRoutine = StartCoroutine(PauseNextFrame());
+    }
+
+    IEnumerator PauseNextFrame()
+    {
+        yield return null;
         Time.timeScale = 0f;
+        pauseRoutine = null;
     }
 
     void OnClickHome()
     {
-        Time.timeScale = 1f;
-        gameObject.SetActive(false);
-
+        Close();
         if (GameManager.Instance != null)
             GameManager.Instance.ResetRunToFull();
 
@@ -61,12 +70,24 @@ public class GameOverPanel : MonoBehaviour
 
     void OnClickRestart()
     {
-        Time.timeScale = 1f;
-        gameObject.SetActive(false);
-
+        Close();
         if (GameManager.Instance != null)
             GameManager.Instance.PrepareRestartToStageStartHp();
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void Close()
+    {
+        Time.timeScale = 1f;
+
+        if (pauseRoutine != null)
+        {
+            StopCoroutine(pauseRoutine);
+            pauseRoutine = null;
+        }
+
+        gameObject.SetActive(false);
+        opened = false;
     }
 }

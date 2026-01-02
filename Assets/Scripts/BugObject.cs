@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.Android.Types;
 using UnityEngine;
 
 public class BugObject : MonoBehaviour

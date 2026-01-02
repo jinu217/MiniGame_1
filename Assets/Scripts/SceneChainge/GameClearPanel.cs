@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 
 public class GameClearPanel : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class GameClearPanel : MonoBehaviour
     public static GameClearPanel Instance { get; private set; }
 
     bool opened = false;
+    Coroutine pauseRoutine;
 
     void Awake()
     {
@@ -24,8 +26,13 @@ public class GameClearPanel : MonoBehaviour
 
     void OnDisable()
     {
-        Time.timeScale = 1f;
         opened = false;
+
+        if (pauseRoutine != null)
+        {
+            StopCoroutine(pauseRoutine);
+            pauseRoutine = null;
+        }
     }
 
     public void Open()
@@ -33,26 +40,43 @@ public class GameClearPanel : MonoBehaviour
         if (opened) return;
         opened = true;
 
-        Transform t = transform;
-        while (t != null)
-        {
-            if (!t.gameObject.activeSelf)
-                t.gameObject.SetActive(true);
-            t = t.parent;
-        }
+        if (!gameObject.activeSelf)
+            gameObject.SetActive(true);
 
         transform.SetAsLastSibling();
+
+        if (pauseRoutine != null) StopCoroutine(pauseRoutine);
+        pauseRoutine = StartCoroutine(PauseNextFrame());
+    }
+
+    IEnumerator PauseNextFrame()
+    {
+        yield return null;
         Time.timeScale = 0f;
+        pauseRoutine = null;
     }
 
     void OnClickHome()
     {
-        Time.timeScale = 1f;
-        gameObject.SetActive(false);
+        Close();
 
         if (GameManager.Instance != null)
             GameManager.Instance.ResetRunToFull();
 
         SceneManager.LoadScene("StartScene");
+    }
+
+    void Close()
+    {
+        Time.timeScale = 1f;
+
+        if (pauseRoutine != null)
+        {
+            StopCoroutine(pauseRoutine);
+            pauseRoutine = null;
+        }
+
+        gameObject.SetActive(false);
+        opened = false;
     }
 }

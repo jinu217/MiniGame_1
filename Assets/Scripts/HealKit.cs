@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.Android.Types;
 using UnityEngine;
 public class HealKit : MonoBehaviour
 {
@@ -31,7 +30,7 @@ public class HealKit : MonoBehaviour
     {
         if (rd != null && !isHiding)
         {
-            rd.linearVelocity = Vector3.back * healKitSpeed; // Z- ¹æÇâ ÀüÁø
+            rd.linearVelocity = Vector3.back * healKitSpeed; // Z- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
     }

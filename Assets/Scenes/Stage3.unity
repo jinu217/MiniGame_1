@@ -364,7 +364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpFillImage: {fileID: 125116573}
   hpText: {fileID: 1961973483}
---- !u!1 &73462179
+--- !u!1 &69886296
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -372,42 +372,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 73462181}
-  - component: {fileID: 73462180}
+  - component: {fileID: 69886298}
+  - component: {fileID: 69886297}
   m_Layer: 0
-  m_Name: ObjectSpawner
+  m_Name: UIFlowManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &73462180
+--- !u!114 &69886297
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 73462179}
+  m_GameObject: {fileID: 69886296}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a245b9f27bd6024e86e50cb7f3a0247, type: 3}
+  m_Script: {fileID: 11500000, guid: 216bdc8680354f343a7928bc89124cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPosX: 0
-  spawnPosY: 0.5
-  spawnPosZ: 25
-  bugObject: {fileID: 6172854856611452701, guid: 5c245228a3f718749b8d655ac2fb161f, type: 3}
-  healKit: {fileID: 2175666037878954361, guid: a8bb65d9b822edf4f98b00ad8e63389f, type: 3}
---- !u!4 &73462181
+  stageClearPanel: {fileID: 0}
+  gameOverPanel: {fileID: 0}
+  gameClearPanel: {fileID: 0}
+  lastStageNumber: 5
+--- !u!4 &69886298
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 73462179}
+  m_GameObject: {fileID: 69886296}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 122.53488, y: 191.48201, z: 8.900157}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1521,6 +1520,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 651203674}
   m_CullTransparentMesh: 1
+--- !u!1 &778358039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 778358041}
+  - component: {fileID: 778358040}
+  m_Layer: 0
+  m_Name: ObjectSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &778358040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778358039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e94750fb1432e74cb9477ac3ca4b781, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPosX: 0
+  spawnPosY: 0.5
+  spawnPosZ: 50
+  bugObject: {fileID: 6172854856611452701, guid: 5c245228a3f718749b8d655ac2fb161f, type: 3}
+  healKit: {fileID: 8443673178999352726, guid: cdd22592da4f00a4d89e60881abd3a43, type: 3}
+--- !u!4 &778358041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778358039}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -3009,5 +3057,6 @@ SceneRoots:
   - {fileID: 923242687}
   - {fileID: 832575519}
   - {fileID: 1173755647}
-  - {fileID: 73462181}
+  - {fileID: 778358041}
   - {fileID: 234717754}
+  - {fileID: 69886298}

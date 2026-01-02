@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 
 public class StageClearPanel : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class StageClearPanel : MonoBehaviour
 
     string nextSceneName;
     string currentSceneName;
+
+    Coroutine pauseRoutine;
 
     void Awake()
     {
@@ -35,18 +38,17 @@ public class StageClearPanel : MonoBehaviour
 
     void OnDisable()
     {
-        Time.timeScale = 1f;
+        if (pauseRoutine != null)
+        {
+            StopCoroutine(pauseRoutine);
+            pauseRoutine = null;
+        }
     }
 
     public void Open()
     {
-        Transform t = transform;
-        while (t != null)
-        {
-            if (!t.gameObject.activeSelf)
-                t.gameObject.SetActive(true);
-            t = t.parent;
-        }
+        if (!gameObject.activeSelf)
+            gameObject.SetActive(true);
 
         currentSceneName = SceneManager.GetActiveScene().name;
         int stageNum = ParseStageNumber(currentSceneName);
@@ -55,6 +57,8 @@ public class StageClearPanel : MonoBehaviour
         {
             if (GameClearPanel.Instance != null)
                 GameClearPanel.Instance.Open();
+            else
+                Debug.LogWarning("[StageClearPanel] GameClearPanel.Instance is null");
             return;
         }
 
@@ -64,15 +68,25 @@ public class StageClearPanel : MonoBehaviour
         if (retryButton) retryButton.gameObject.SetActive(true);
 
         transform.SetAsLastSibling();
+
+        if (pauseRoutine != null) StopCoroutine(pauseRoutine);
+        pauseRoutine = StartCoroutine(PauseNextFrame());
+    }
+
+    IEnumerator PauseNextFrame()
+    {
+        yield return null;
         Time.timeScale = 0f;
+        pauseRoutine = null;
     }
 
     void OnClickNextStage()
     {
         if (string.IsNullOrEmpty(nextSceneName))
         {
-            Open();
-            if (string.IsNullOrEmpty(nextSceneName)) return;
+            currentSceneName = SceneManager.GetActiveScene().name;
+            int stageNum = ParseStageNumber(currentSceneName);
+            nextSceneName = "Stage" + (stageNum + 1);
         }
 
         if (GameManager.Instance != null)
@@ -97,6 +111,13 @@ public class StageClearPanel : MonoBehaviour
     void CloseForSceneChange()
     {
         Time.timeScale = 1f;
+
+        if (pauseRoutine != null)
+        {
+            StopCoroutine(pauseRoutine);
+            pauseRoutine = null;
+        }
+
         gameObject.SetActive(false);
     }
 
