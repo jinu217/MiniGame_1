@@ -23,5 +23,18 @@ public class PlayerBullet : MonoBehaviour
             Destroy(other.gameObject);   // 보스탄 제거
             Destroy(gameObject);         // 내 탄도 제거
         }
+
+        if (other.CompareTag("HealKit"))
+        {
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+            GameManager.gameManager.playerHp += GameManager.gameManager.healValue;
+        }
+
+        if (other.CompareTag("Bug"))
+        {
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+        }
     }
 }

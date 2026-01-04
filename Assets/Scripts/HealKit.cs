@@ -40,13 +40,6 @@ public class HealKit : MonoBehaviour
     {
         if (isHiding) return;
 
-
-        if (other.CompareTag("PlayerBullet"))
-        {
-            Destroy(gameObject);
-            GameManager.gameManager.playerHp += GameManager.gameManager.healValue;
-        }
-
         if (other.CompareTag("ArrivePoint") || other.CompareTag("Player"))
         {
             Destroy(gameObject);

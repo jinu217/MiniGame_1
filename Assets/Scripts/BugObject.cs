@@ -42,11 +42,6 @@ public class BugObject : MonoBehaviour
         if (isHiding) return;
 
 
-        if (other.CompareTag("PlayerBullet"))
-        {
-            //killCount++;
-            Destroy(gameObject);
-        }
 
         if (other.CompareTag("ArrivePoint") || other.CompareTag("Player"))
         {

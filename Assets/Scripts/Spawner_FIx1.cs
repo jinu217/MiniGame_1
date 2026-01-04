@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public float spawnPosX;
+    public float bugX;
+    public float healKitX;
     public float spawnPosY = 0.5f;
-    public float spawnPosZ = 50f;
+    public float spawnPosZ = 30f;
 
     public GameObject bugObject;
     public GameObject healKit;
 
+    
 
     private void Start()
     {
@@ -22,33 +24,56 @@ public class Spawner : MonoBehaviour
     {
         if (obj == null) yield break;
 
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
+
         // 원래 태그 저장
         string originalTag = obj.tag;
 
-        // 렌더러만 끄기 (물리는 유지)
+        // Z축 물리 이동 잠금 (선택이지만 강력 추천)
+        if (rb != null)
+            rb.constraints |= RigidbodyConstraints.FreezePositionZ;
+
+        // 렌더러 끄기
         foreach (var r in obj.GetComponentsInChildren<Renderer>())
             r.enabled = false;
 
         // 태그 변경
         obj.tag = tempTag;
 
-        yield return new WaitForSeconds(seconds);
+        float elapsed = 0f;
+        while (elapsed < seconds)
+        {
+            if (obj == null) yield break;
+
+            // 숨김 상태 동안 Z 강제 고정
+            Vector3 pos = obj.transform.position;
+            pos.z = spawnPosZ;
+            obj.transform.position = pos;
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
 
         if (obj == null) yield break;
 
-        // 복구
+        // Z축 물리 이동 해제
+        if (rb != null)
+            rb.constraints &= ~RigidbodyConstraints.FreezePositionZ;
+
+        // 렌더러 복구
         foreach (var r in obj.GetComponentsInChildren<Renderer>())
             r.enabled = true;
 
+        // 태그 복구
         obj.tag = originalTag;
     }
 
     public GameObject BugSpawn()
     {
 
-        float cloneX = Random.Range(-2f, 2f);
+        bugX = Random.Range(-2f, 2f);
 
-        Vector3 clonePos = new Vector3(cloneX, spawnPosY, spawnPosZ);
+        Vector3 clonePos = new Vector3(bugX, spawnPosY, spawnPosZ);
         GameObject bug = Instantiate(bugObject, clonePos, transform.rotation);
         bug.name = bugObject.name;
 
@@ -64,10 +89,14 @@ public class Spawner : MonoBehaviour
     }
     public GameObject HealKitSpawn()
     {
-        float cloneX = Random.Range(-2f, 2f); ;
-        var allBug = FindObjectsByType<BugObject>(FindObjectsSortMode.None); //    BugObject ã  
+        healKitX = Random.Range(-2f, 2f);
 
-        Vector3 clonePos = new Vector3(cloneX, spawnPosY, spawnPosZ);
+        while (Mathf.Abs(bugX - healKitX) < 0.5)
+        {
+            healKitX = Random.Range(-2f, 2f);
+        }
+
+        Vector3 clonePos = new Vector3(healKitX, spawnPosY, spawnPosZ);
 
         GameObject hk = Instantiate(healKit, clonePos, transform.rotation);
         hk.name = healKit.name;
