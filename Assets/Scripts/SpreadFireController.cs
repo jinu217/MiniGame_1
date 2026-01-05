@@ -10,6 +10,8 @@ public class SpreadFireController : MonoBehaviour
     public AutoShooter shooter;       // AutoShooter 연결
     public Transform baseFirePoint;   // 기준 FirePoint (정면)
     public Button spreadButton;       // UI 버튼 (없으면 null 가능)
+    public ButtonImage buttonImage; // 인스펙터에서 할당
+
 
     [Header("Spread Settings")]
     public float spreadAngle = 30f;   // 좌우 각도(±)
@@ -57,6 +59,15 @@ public class SpreadFireController : MonoBehaviour
 
         if (spreadButton != null)
             spreadButton.interactable = canUseSpread;
+
+        // 버튼 이미지도 같이 변경
+        if (buttonImage != null)
+        {
+            if (canUseSpread)
+                buttonImage.SetImageToSprite1();
+            else
+                buttonImage.SetImageToSprite2();
+        }
     }
 
     public void Activate()
@@ -72,7 +83,6 @@ public class SpreadFireController : MonoBehaviour
 
         // 스킬 포인트 감소
         gm.skillPoint -= requiredSkillPoint;
-
 
         StartCoroutine(SpreadRoutine());
     
@@ -127,6 +137,15 @@ public class SpreadFireController : MonoBehaviour
 
         //AutoShooter에 스프레드 모드 종료 알림
         shooter.isSpreadMode = false;
+
+        if (gm.skillPoint < requiredSkillPoint)
+        {
+            buttonImage.SetImageToSprite2();
+        }
+        else
+        {
+            buttonImage.SetImageToSprite1();
+        }
 
         isActive = false;
     }
