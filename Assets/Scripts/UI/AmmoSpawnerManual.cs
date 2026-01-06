@@ -1,23 +1,22 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class AmmoSpawnerManual : MonoBehaviour
 {
-    public GameObject ammoIconPrefab;   // 총알 아이콘 프리팹 연결용
-    public RectTransform ammoContainer; // 아이콘들이 쌓일 부모 객체
-    public float iconHeight = 32f;      // 아이콘 높이
-    public float spacing = 5f;          // 아이콘 간격
-    public float iconUpdateTerm = 0.1f; // 아이콘 추가/삭제 간격(초)
+    public Image targetImage;
+    public float iconUpdateTerm = 0.2f;
 
-    private List<GameObject> spawnedIcons = new List<GameObject>();
-    private GameManager gameManager;    // GameManager 참조
-    private int lastSkillPoint = -1;    // 이전 skillPoint 값 저장
-    private Coroutine updateRoutine;    // 코루틴 중복 방지
+    private GameManager gameManager;
+    private int lastSkillPoint = -1;
+    private int targetSkillPoint = -1;
+    private Coroutine updateRoutine;
+
+    public Sprite[] barSprites;
 
     void Start()
     {
-        gameManager = GameManager.gameManager; // 싱글톤 인스턴스 사용
+        gameManager = GameManager.gameManager;
         if (gameManager == null)
         {
             Debug.LogError("GameManager 오브젝트를 찾을 수 없습니다!");
@@ -25,82 +24,43 @@ public class AmmoSpawnerManual : MonoBehaviour
             return;
         }
         lastSkillPoint = gameManager.skillPoint;
-        UpdateAmmoIconsInstant();
+        targetSkillPoint = lastSkillPoint;
+        SetImageToSprite(lastSkillPoint);
     }
 
     void Update()
     {
         if (gameManager == null) return;
-        if (gameManager.skillPoint != lastSkillPoint)
+        if (gameManager.skillPoint != targetSkillPoint)
         {
-            if (updateRoutine != null)
-                StopCoroutine(updateRoutine);
-            updateRoutine = StartCoroutine(UpdateAmmoIconsSmooth(gameManager.skillPoint));
-            lastSkillPoint = gameManager.skillPoint;
+            targetSkillPoint = gameManager.skillPoint;
+            if (updateRoutine == null)
+                updateRoutine = StartCoroutine(UpdateAmmoIconsSmooth());
         }
     }
 
-    // 즉시 동기화(초기화용)
-    void UpdateAmmoIconsInstant()
+    public void SetImageToSprite(int a)
     {
-        int targetCount = Mathf.Max(0, gameManager.skillPoint);
-        while (spawnedIcons.Count > targetCount)
-            RemoveAmmoIcon();
-        while (spawnedIcons.Count < targetCount && spawnedIcons.Count < gameManager.MaxskillPoint)
-            AddAmmoIcon();
+        if (targetImage == null || barSprites == null || barSprites.Length == 0)
+            return;
+
+        int idx = Mathf.Clamp(a, 0, barSprites.Length - 1);
+        if (barSprites[idx] != null)
+            targetImage.sprite = barSprites[idx];
     }
 
-    // 순차적으로 아이콘을 추가/삭제
-    IEnumerator UpdateAmmoIconsSmooth(int targetCount)
+    IEnumerator UpdateAmmoIconsSmooth()
     {
-        targetCount = Mathf.Max(0, targetCount);
-        // 아이콘이 더 많으면 한 개씩 제거
-        while (spawnedIcons.Count > targetCount)
+        while (lastSkillPoint != targetSkillPoint)
         {
-            RemoveAmmoIcon();
-            yield return new WaitForSeconds(iconUpdateTerm);
-        }
-        // 아이콘이 더 적으면 한 개씩 추가
-        while (spawnedIcons.Count < targetCount)
-        {
-            AddAmmoIcon();
+            if (lastSkillPoint < targetSkillPoint)
+                lastSkillPoint++;
+            else if (lastSkillPoint > targetSkillPoint)
+                lastSkillPoint--;
+
+            SetImageToSprite(lastSkillPoint);
             yield return new WaitForSeconds(iconUpdateTerm);
         }
         updateRoutine = null;
-    }
-
-    void AddAmmoIcon()
-    {
-        GameObject icon = Instantiate(ammoIconPrefab, ammoContainer);
-        spawnedIcons.Add(icon);
-        int index = spawnedIcons.Count - 1;
-
-        int row = index / 2;
-        int col = index % 2;
-
-        float x = (col == 0) ? 16f : -16f;
-        float y = row * iconHeight; // spacing 없이
-
-        RectTransform rt = icon.GetComponent<RectTransform>();
-        rt.anchoredPosition = new Vector2(x, y);
-    }
-
-    void RemoveAmmoIcon()
-    {
-        if (spawnedIcons.Count > 0)
-        {
-            GameObject icon = spawnedIcons[spawnedIcons.Count - 1];
-            spawnedIcons.RemoveAt(spawnedIcons.Count - 1);
-            Destroy(icon);
-        }
-    }
-
-    public void ClearAllAmmoIcons()
-    {
-        foreach (var icon in spawnedIcons)
-        {
-            Destroy(icon);
-        }
-        spawnedIcons.Clear();
     }
 }
