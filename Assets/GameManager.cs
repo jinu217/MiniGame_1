@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        if (playerMaxHp <= 0f) playerMaxHp = 10f;
+        ApplyStageMaxHP(SceneManager.GetActiveScene().buildIndex);
         playerHp = playerMaxHp;
         stageStartHp = playerHp;
     }
@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
         panel = FindAnyObjectByType<PanelPairSpawnerSimple>();
         Time.timeScale = 1f;
 
-        if (playerMaxHp <= 0f) playerMaxHp = 10f;
+        ApplyStageMaxHP(scene.buildIndex);
 
         if (scene.name == "StartScene")
         {
@@ -111,6 +111,21 @@ public class GameManager : MonoBehaviour
         stageStartHp = playerHp;
 
         pendingHpInit = HpInitMode.Keep;
+    }
+
+    private void ApplyStageMaxHP(int index)
+    {
+        switch (index)
+        {
+            case 1: playerMaxHp = 60f; break;
+            case 2: playerMaxHp = 66f; break;
+            case 3: playerMaxHp = 72f; break;
+            case 4: playerMaxHp = 78f; break;
+            case 5: playerMaxHp = 84f; break;
+            // 기본값 설정 (필요 시)
+            default: if (index > 0) playerMaxHp = 10f; break;
+        }
+        Debug.Log($"Stage {index} 로드: MaxHP가 {playerMaxHp}로 설정되었습니다.");
     }
 
     void Update()
