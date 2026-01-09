@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
  
-public class Boss_TeamVillain : BossBase
+public class Boss_Stage2 : BossBase
 {
     [Header("Mixed Settings (20s 이후)")]
     [SerializeField] int   fanEvery        = 3;     // 몇 번마다 부채꼴

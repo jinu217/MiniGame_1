@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class TimerTest : MonoBehaviour
 {
-    public TimerUI timerUI; // Inspector¿¡¼­ TimerUI ¿¬°á
+    public TimerUI timerUI; // Inspectorï¿½ï¿½ï¿½ï¿½ TimerUI ï¿½ï¿½ï¿½ï¿½
 
     void Start()
     {
-        // °ÔÀÓ ½ÃÀÛÇÏÀÚ¸¶ÀÚ 30ÃÊ Å¸ÀÌ¸Ó ½ÃÀÛ
-        timerUI.StartTimer(30f);
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ 30ï¿½ï¿½ Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+        timerUI.StartTimer(140f);
     }
 }
 

@@ -7,10 +7,10 @@ public class BossManager : MonoBehaviour
     [Header("Config")]
     public BossConfig config;
     public Transform spawnPoint;
-    public float timeLimit = 35f;
+    public float timeLimit = 140f;
 
     [Header("Boss Spawn Delay")]
-    public float bossSpawnDelay = 10f;
+    public float bossSpawnDelay = 90f;
 
     [Header("Pattern Overrides")]
     public bool overrideInterval = true;

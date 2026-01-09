@@ -1694,8 +1694,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: ba5bff096b863974d97eadf90ecab626, type: 2}
   spawnPoint: {fileID: 1260979383}
-  timeLimit: 35
-  bossSpawnDelay: 10
+  timeLimit: 50
+  bossSpawnDelay: 90
   overrideInterval: 1
   overrideSpeed: 1
   overrideVolley: 1

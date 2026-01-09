@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3365551736410843845}
   - component: {fileID: 2542116455559876189}
   m_Layer: 10
-  m_Name: BossBullet
+  m_Name: BossBullet 3
   m_TagString: BossBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,4 +150,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 6
-  damage: 1
+  damage: 20

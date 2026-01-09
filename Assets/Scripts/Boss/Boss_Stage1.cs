@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
  
-public class Boss_Assignment : BossBase
+public class Boss_Stage1 : BossBase
 {
     protected override void FireOnce()
     {

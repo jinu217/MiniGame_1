@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
  
-public class Boss_ExamMaster : BossBase
+public class Boss_Stage3 : BossBase
 {
     [Header("Phase1 (Basic)")]
     [SerializeField] float p1Gap = 0.12f; // 줄지어 간격

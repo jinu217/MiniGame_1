@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 5891923430366357518}
-  projectilePrefab: {fileID: 1431659776582274526, guid: 66487f71e281a5644b837968d3466aea, type: 3}
+  projectilePrefab: {fileID: 1431659776582274526, guid: 35e7a559fe6b159459e000d26dcb7257, type: 3}
   hp: 0
   fireInterval: 2
   projSpeed: 15
@@ -165,6 +165,9 @@ MonoBehaviour:
   p2GrowDuration: 1.15
   p2AccelPerSecond: 35
   p2InitialSpeedRate: 0.5
+  p2VolleyFixed: 4
+  p2FastInterval: 0.6
+  p2SlowInterval: 1.5
 --- !u!1 &6456301016380435622
 GameObject:
   m_ObjectHideFlags: 0

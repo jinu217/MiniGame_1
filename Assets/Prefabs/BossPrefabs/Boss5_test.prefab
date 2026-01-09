@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 5891923430366357518}
-  projectilePrefab: {fileID: 1431659776582274526, guid: 66487f71e281a5644b837968d3466aea, type: 3}
+  projectilePrefab: {fileID: 1431659776582274526, guid: d59f360d759765b489c3402650be2a56, type: 3}
   hp: 0
   fireInterval: 2
   projSpeed: 15
