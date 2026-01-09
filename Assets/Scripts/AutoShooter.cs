@@ -9,7 +9,7 @@ public class AutoShooter : MonoBehaviour
     public Transform firePoint;       // 기본 총구 위치
     public Transform[] firePoints;    // 스프레드 등 다중 발사 지원
     public float bulletSpeed = 15f;   // 총알 속도
-    public float fireRate = 0.5f;    // 발사 간격(초)
+    public float fireRate = 0.25f;    // 발사 간격(초)
 
     [Header("Sound Settings")]
     public AudioClip PlayerShootSound; // 총소리 클립
