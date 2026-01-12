@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro; // TextMeshPro 네임스페이스 추가
 
 public class BossHPUI : MonoBehaviour
 {
     public Image bossHpBarFill;
-    public Text bossHpText;
+    public TextMeshProUGUI bossHpText; // 타입 변경
 
     void Update()
     {

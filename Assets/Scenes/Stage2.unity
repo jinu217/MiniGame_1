@@ -1387,7 +1387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossHpBarFill: {fileID: 487690910}
-  bossHpText: {fileID: 2026978760}
+  bossHpText: {fileID: 0}
 --- !u!114 &640248304
 MonoBehaviour:
   m_ObjectHideFlags: 0
