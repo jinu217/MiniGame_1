@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 #if TMP_PRESENT
 using TMPro;
 #endif
@@ -8,7 +9,7 @@ public class TimerUI : MonoBehaviour
 {
     [Header("텍스트 UI 연결")]
     public bool useTMP = false;    // TextMeshPro 사용 여부 (true면 TMP, false면 유니티 기본 Text 사용)
-    public Text timerTextLegacy;   // 유니티 기본 UI Text
+    public TextMeshProUGUI timerTextLegacy;   // 유니티 기본 UI Text
 #if TMP_PRESENT
     public TextMeshProUGUI timerTextTMP; // TMP 텍스트 (TMP 패키지 있을 때만 사용)
 #endif
