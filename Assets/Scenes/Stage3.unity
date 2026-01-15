@@ -2377,6 +2377,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StageClear
       objectReference: {fileID: 0}
+    - target: {fileID: 6582825580035990062, guid: 86b6effdfaaedb940a53eafb26900916, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9112164386809461353, guid: 86b6effdfaaedb940a53eafb26900916, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -2847,7 +2851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35c862cb77bbd454395b11ff73bd230a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 35c862cb77bbd454395b11ff73bd230a, type: 3}
       propertyPath: m_LocalPosition.y

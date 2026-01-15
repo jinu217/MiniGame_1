@@ -152,6 +152,7 @@ MonoBehaviour:
   playTime: 0
   playerMaxHp: 10
   playerHp: 10
+  stageStartHp: 10
   MaxskillPoint: 10
   skillPoint: 1
   playerBaseDamage: 1
@@ -563,10 +564,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 519783446}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2, y: -153}
-  m_SizeDelta: {x: 105, y: 57.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 3.5, y: 163}
+  m_SizeDelta: {x: 224, y: 122}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &523735385
 MonoBehaviour:
@@ -695,10 +696,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 519783446}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 80, y: 200}
-  m_SizeDelta: {x: 20, y: 20}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -56, y: -66}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &586946454
 MonoBehaviour:
@@ -937,8 +938,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.4, y: 57.5}
-  m_SizeDelta: {x: 176, y: 146}
+  m_AnchoredPosition: {x: -6, y: 122}
+  m_SizeDelta: {x: 380, y: 303}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1580735608
 MonoBehaviour:
