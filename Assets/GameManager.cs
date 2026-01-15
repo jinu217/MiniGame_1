@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Bug Info")]
     public float bugSpawnCycle = 1f;
+    public float bugHp = 2;
     public int bugDamage = 1;
 
     [Header("Healkit Info")]

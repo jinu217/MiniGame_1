@@ -29,7 +29,7 @@ public class Spawner : MonoBehaviour
         // 원래 태그 저장
         string originalTag = obj.tag;
 
-        // Z축 물리 이동 잠금 (선택이지만 강력 추천)
+        // Z축 물리 이동 잠금
         if (rb != null)
             rb.constraints |= RigidbodyConstraints.FreezePositionZ;
 
@@ -70,7 +70,6 @@ public class Spawner : MonoBehaviour
 
     public GameObject BugSpawn()
     {
-
         bugX = Random.Range(-2f, 2f);
 
         Vector3 clonePos = new Vector3(bugX, spawnPosY, spawnPosZ);

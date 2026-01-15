@@ -1,9 +1,13 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
 {
     [Header("Fallback (GM 없을 때만 사용)")]
     [SerializeField] int fallbackDamage = 1;
+
+    public BugObject bugObject;
+
 
     void OnTriggerEnter(Collider other)
     {
@@ -24,16 +28,23 @@ public class PlayerBullet : MonoBehaviour
             Destroy(gameObject);         // 내 탄도 제거
         }
 
-        if (other.CompareTag("HealKit"))
+        if (other.CompareTag("HealKit")) // 힐킷 상호작용
         {
             Destroy(other.gameObject);
             Destroy(gameObject);
             GameManager.gameManager.playerHp += GameManager.gameManager.healValue;
         }
 
-        if (other.CompareTag("Bug"))
+        if (other.CompareTag("Bug")) // 버그 상호작용
         {
-            Destroy(other.gameObject);
+            var bug = other.GetComponent<BugObject>();
+            if (bug != null)
+            {
+                int dmg = fallbackDamage;
+                if (GameManager.gameManager != null)
+                    dmg = GameManager.gameManager.CurrentPlayerDamage;
+                bug.TakeDamage(dmg);
+            }
             Destroy(gameObject);
         }
     }

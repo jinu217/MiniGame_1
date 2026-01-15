@@ -4,13 +4,14 @@ using UnityEngine;
 public class BugObject : MonoBehaviour
 {
     public float bugSpeed = 10f;
-    
-    //public int killCount = 0;
 
+    //public int killCount = 0;
+    public float bugHp;
     public bool isArrive;
     public void Arrive() => isArrive = true;
 
     bool isHiding;
+    public bool isDistroy = false;
 
     Rigidbody rd;
     Collider col;
@@ -18,12 +19,13 @@ public class BugObject : MonoBehaviour
 
     void Awake()
     {
+        bugHp = GameManager.gameManager.bugHp;
         rd = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
         rends = GetComponentsInChildren<Renderer>(true);
         if (rd != null) rd.isKinematic = false;
         transform.rotation = Quaternion.Euler(-90f, 180f, 0f);
-        transform.localScale =   new Vector3(0.5f, 0.5f, 0.5f);
+        transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
 
 
@@ -41,8 +43,6 @@ public class BugObject : MonoBehaviour
     {
         if (isHiding) return;
 
-
-
         if (other.CompareTag("ArrivePoint") || other.CompareTag("Player"))
         {
             GameManager.gameManager.playerHp -= GameManager.gameManager.bugDamage;
@@ -50,6 +50,10 @@ public class BugObject : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-
+    public void TakeDamage(int dmg)
+    {
+        bugHp -= dmg;
+        if (bugHp <= 0)
+            Destroy(gameObject);
+    }
 }
