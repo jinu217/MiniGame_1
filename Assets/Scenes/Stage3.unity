@@ -693,6 +693,7 @@ MonoBehaviour:
   playerBaseDamage: 1
   damageMultiplier: 1
   bugSpawnCycle: 1
+  bugHp: 2
   bugDamage: 1
   healKitSpawnCycle: 2
   healValue: 1
@@ -1631,8 +1632,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 3fdab9f7e4881b74c96837c91ed2eb84, type: 2}
   spawnPoint: {fileID: 1260979383}
-  timeLimit: 50
-  bossSpawnDelay: 90
+  timeLimit: 40
+  bossSpawnDelay: 50
   overrideInterval: 1
   overrideSpeed: 1
   overrideVolley: 1
