@@ -15,6 +15,8 @@ public class AutoShooter : MonoBehaviour
     public AudioClip PlayerShootSound; // 총소리 클립
     public AudioClip SpreadShootSound; // 스프레드 모드 총소리 클립
     public AudioSource audioSource; // 재생용 AudioSource
+    public float Volume = 0.25f; //총소리 볼륨 크기
+
 
     [HideInInspector]
     public bool isSpreadMode = false;
@@ -94,9 +96,9 @@ public class AutoShooter : MonoBehaviour
         if (audioSource != null)
         {
             if (isSpreadMode && SpreadShootSound != null)
-                audioSource.PlayOneShot(SpreadShootSound, 1f);     //스프레드 모드 소리, 볼륨 값
+                audioSource.PlayOneShot(SpreadShootSound, Volume);     //스프레드 모드 소리, 볼륨 값
             else if (PlayerShootSound != null)
-                audioSource.PlayOneShot(PlayerShootSound, 1f);     // 기본 소리, 볼륨 값
+                audioSource.PlayOneShot(PlayerShootSound, Volume);     // 기본 소리, 볼륨 값
         }
 
     }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -10,9 +11,15 @@ public class GameManager : MonoBehaviour
 
     public float playTime = 0f;
 
+    [Header("shuting sound")]
+    public AudioClip healSound;
+    public AudioClip BugHitSound;
+    public AudioClip BossHitSound;
+    public AudioClip PlayerTakeDmg;
+
     [Header("Player Info")]
     public float playerMaxHp = 10f;
-    public float playerHp = 10f;
+    public float playerHp = 60f;
 
     public float stageStartHp = 10f;
 
@@ -92,23 +99,28 @@ public class GameManager : MonoBehaviour
 
         isGameOver = false;
         isStageClear = false;
-
-        switch (pendingHpInit)
+        if (scene.buildIndex == 1 && pendingHpInit == HpInitMode.Keep)
         {
-            case HpInitMode.Full:
-                playerHp = playerMaxHp;
-                break;
-
-            case HpInitMode.Half:
-                playerHp = Mathf.Ceil(playerMaxHp * 0.5f);
-                break;
-
-            case HpInitMode.Keep:
-            default:
-                playerHp = Mathf.Clamp(playerHp, 1f, playerMaxHp);
-                break;
+            playerHp = playerMaxHp;
         }
+        else
+        {
+            switch (pendingHpInit)
+            {
+                case HpInitMode.Full:
+                    playerHp = playerMaxHp;
+                    break;
 
+                case HpInitMode.Half:
+                    playerHp = Mathf.Ceil(playerMaxHp * 0.5f);
+                    break;
+
+                case HpInitMode.Keep:
+                default:
+                    playerHp = Mathf.Clamp(playerHp, 1f, playerMaxHp);
+                    break;
+            }
+        }
         stageStartHp = playerHp;
 
         pendingHpInit = HpInitMode.Keep;
@@ -180,5 +192,17 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
         isStageClear = false;
         UIFlowManager.Instance?.ShowGameOver();
+    }
+    public void PlaySoundAtPlayer(AudioClip clip, float volume = 1.0f)
+    {
+        if (clip == null) return;
+
+        // "Player" 태그를 가진 오브젝트를 찾습니다.
+        GameObject player = GameObject.FindWithTag("Player");
+
+        Vector3 spawnPos = (player != null) ? player.transform.position : Camera.main.transform.position;
+
+        AudioSource.PlayClipAtPoint(clip, spawnPos, volume);
+    
     }
 }

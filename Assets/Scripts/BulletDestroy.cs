@@ -7,6 +7,10 @@ public class PlayerBullet : MonoBehaviour
     [SerializeField] int fallbackDamage = 1;
 
     public BugObject bugObject;
+    public float BugHitSoundVolume;
+    public float healSoundVolume;
+    public float BossHitSoundVolume;
+
 
 
     void OnTriggerEnter(Collider other)
@@ -14,6 +18,9 @@ public class PlayerBullet : MonoBehaviour
         var boss = other.GetComponentInParent<BossBase>();
         if (boss != null)
         {
+            GameManager.gameManager.PlaySoundAtPlayer(GameManager.gameManager.BossHitSound, BossHitSoundVolume);
+
+
             int dmg = fallbackDamage;
             if (GameManager.gameManager != null)
                 dmg = GameManager.gameManager.CurrentPlayerDamage;
@@ -30,6 +37,8 @@ public class PlayerBullet : MonoBehaviour
 
         if (other.CompareTag("HealKit")) // 힐킷 상호작용
         {
+            GameManager.gameManager.PlaySoundAtPlayer(GameManager.gameManager.healSound, healSoundVolume);
+
             Destroy(other.gameObject);
             Destroy(gameObject);
             GameManager.gameManager.playerHp += GameManager.gameManager.healValue;
@@ -37,6 +46,9 @@ public class PlayerBullet : MonoBehaviour
 
         if (other.CompareTag("Bug")) // 버그 상호작용
         {
+            // 버그 죽일때 소리
+            GameManager.gameManager.PlaySoundAtPlayer(GameManager.gameManager.BugHitSound, BugHitSoundVolume);
+
             var bug = other.GetComponent<BugObject>();
             if (bug != null)
             {
