@@ -8,10 +8,13 @@ public class BugObject : MonoBehaviour
     //public int killCount = 0;
     public float bugHp;
     public bool isArrive;
+    public bool isBugLarge;
     public void Arrive() => isArrive = true;
 
     bool isHiding;
     public bool isDistroy = false;
+
+    public Spawner spawner;
 
     Rigidbody rd;
     Collider col;
@@ -35,7 +38,6 @@ public class BugObject : MonoBehaviour
         {
             rd.linearVelocity = Vector3.back * bugSpeed; // Z- 방향 전진
         }
-
     }
 
 
@@ -50,6 +52,17 @@ public class BugObject : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void BugLarge(bool large)
+    {
+        isBugLarge = large;
+
+        if (large)
+            bugHp = GameManager.gameManager.bugHp * 2f;
+        else
+            bugHp = GameManager.gameManager.bugHp;
+    }
+
     public void TakeDamage(int dmg)
     {
         bugHp -= dmg;

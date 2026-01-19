@@ -427,7 +427,9 @@ MonoBehaviour:
   healKitX: 0
   spawnPosY: 0.5
   spawnPosZ: 25
-  bugObject: {fileID: 6172854856611452701, guid: 5c245228a3f718749b8d655ac2fb161f, type: 3}
+  bugSpawnCount: 0
+  normalBug: {fileID: 6172854856611452701, guid: 5c245228a3f718749b8d655ac2fb161f, type: 3}
+  largeBug: {fileID: 6172854856611452701, guid: cd3ff2cd64a8ae64b8654100111fce13, type: 3}
   healKit: {fileID: 8443673178999352726, guid: cdd22592da4f00a4d89e60881abd3a43, type: 3}
 --- !u!1 &125116569
 GameObject:
