@@ -7,9 +7,9 @@ public class PlayerBullet : MonoBehaviour
     [SerializeField] int fallbackDamage = 1;
 
     public BugObject bugObject;
-    public float BugHitSoundVolume;
-    public float healSoundVolume;
-    public float BossHitSoundVolume;
+    public float BugHitSoundVolume = 1.7f;
+    public float healSoundVolume = 1.0f;
+    public float BossHitSoundVolume = 1.5f;
 
 
 
