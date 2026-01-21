@@ -6,7 +6,8 @@ public class Spawner : MonoBehaviour
 {
     public float bugX;
     public float healKitX;
-    public float spawnPosY = 0.5f;
+    public float bugSpawnPosY = 0.5f;
+    public float healSpawnPosY = 0.5f;
     public float spawnPosZ = 30f;
 
     public int bugSpawnCount = 0;
@@ -79,11 +80,21 @@ public class Spawner : MonoBehaviour
 
         bool large = (bugSpawnCount % 3 == 0); // 3,6,9,
 
-        Vector3 clonePos = new Vector3(bugX, spawnPosY, spawnPosZ);
+        if (large)
+        {
+            bugSpawnPosY = 3.5f;
+        }
+        else
+        {
+            bugSpawnPosY = 0.5f;
+        }
+
+        Vector3 clonePos = new Vector3(bugX, bugSpawnPosY, spawnPosZ);
         GameObject bugToSpawn = large
             ? largeBug
             : normalBug;
-        GameObject bug = Instantiate(bugToSpawn, clonePos, transform.rotation);
+
+            GameObject bug = Instantiate(bugToSpawn, clonePos, bugToSpawn.transform.rotation);
         bug.name = normalBug.name;
 
         var bo = bug.GetComponent<BugObject>();
@@ -112,7 +123,7 @@ public class Spawner : MonoBehaviour
             healKitX = Random.Range(-2f, 2f);
         }
 
-        Vector3 clonePos = new Vector3(healKitX, spawnPosY, spawnPosZ);
+        Vector3 clonePos = new Vector3(healKitX, healSpawnPosY, spawnPosZ);
 
         GameObject hk = Instantiate(healKit, clonePos, transform.rotation);
         hk.name = healKit.name;

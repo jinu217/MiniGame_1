@@ -29,8 +29,7 @@ public class BugObject : MonoBehaviour
         col = GetComponent<Collider>();
         rends = GetComponentsInChildren<Renderer>(true);
         if (rd != null) rd.isKinematic = false;
-        transform.rotation = Quaternion.Euler(-90f, 180f, 0f);
-        transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        //transform.rotation = Quaternion.Euler(-90f, 180f, 0f);
     }
 
 
@@ -70,6 +69,7 @@ public class BugObject : MonoBehaviour
     public void TakeDamage(int dmg)
     {
         bugHp -= dmg;
+        Debug.Log(bugHp + "의 데미지!");
         if (bugHp <= 0)
             Destroy(gameObject);
     }
