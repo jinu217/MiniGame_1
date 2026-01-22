@@ -69,7 +69,7 @@ public class BugObject : MonoBehaviour
     public void TakeDamage(int dmg)
     {
         bugHp -= dmg;
-        Debug.Log(bugHp + "의 데미지!");
+        //Debug.Log(dmg + "의 데미지!");
         if (bugHp <= 0)
             Destroy(gameObject);
     }

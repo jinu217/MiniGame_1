@@ -427,7 +427,7 @@ MonoBehaviour:
   healKitX: 0
   bugSpawnPosY: 0.5
   healSpawnPosY: 0.5
-  spawnPosZ: 25
+  spawnPosZ: 35
   bugSpawnCount: 0
   normalBug: {fileID: 6172854856611452701, guid: 5c245228a3f718749b8d655ac2fb161f, type: 3}
   largeBug: {fileID: 3030554588344575450, guid: 00d7f354e85a7ee46a8c50ffb058f3fe, type: 3}

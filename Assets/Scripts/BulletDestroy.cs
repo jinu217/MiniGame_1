@@ -41,7 +41,11 @@ public class PlayerBullet : MonoBehaviour
 
             Destroy(other.gameObject);
             Destroy(gameObject);
-            GameManager.gameManager.playerHp += GameManager.gameManager.healValue;
+            //GameManager.gameManager.playerHp += GameManager.gameManager.healValue;
+
+            var healkit = other.GetComponent<HealKit>();
+
+            healkit.Heal(GameManager.gameManager.healValue);
         }
 
         if (other.CompareTag("Bug")) // 버그 상호작용

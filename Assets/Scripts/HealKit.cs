@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 public class HealKit : MonoBehaviour
 {
@@ -45,5 +46,12 @@ public class HealKit : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
+    public void Heal(int value)
+    {
+        if (GameManager.gameManager.playerHp >= GameManager.gameManager.playerMaxHp) return;
 
+        GameManager.gameManager.playerHp += value;
+
+    }
 }
