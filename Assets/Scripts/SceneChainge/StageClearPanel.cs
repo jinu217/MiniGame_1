@@ -46,9 +46,14 @@ public class StageClearPanel : MonoBehaviour
     }
 
     public void Open()
-    {
+    {   
         if (!gameObject.activeSelf)
             gameObject.SetActive(true);
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayClearBGM();
+        }
 
         currentSceneName = SceneManager.GetActiveScene().name;
         int stageNum = ParseStageNumber(currentSceneName);
