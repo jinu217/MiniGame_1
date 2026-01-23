@@ -23,7 +23,8 @@ public class BossManager : MonoBehaviour
     Coroutine battleRoutine;
     Coroutine spawnRoutine;
 
-    bool bossSpawned = false;
+    public bool bossSpawned = false;
+   
     bool ended = false;
 
     public static BossManager Instance { get; private set; }
