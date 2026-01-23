@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     public int bugDamage = 1;
 
     [Header("Healkit Info")]
-    public float healKitSpawnCycle = 2f;
+    public float healKitSpawnCycle = 5f;
     public int healValue = 1;
 
     [Header("Pannel Info")]

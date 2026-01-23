@@ -82,7 +82,7 @@ public class Spawner : MonoBehaviour
 
         if (large)
         {
-            bugSpawnPosY = 3.5f;
+            bugSpawnPosY = 0.5f;
         }
         else
         {
