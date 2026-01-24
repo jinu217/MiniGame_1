@@ -178,7 +178,11 @@ MonoBehaviour:
   PlayerShootSound: {fileID: 8300000, guid: 4310474905e266640852f43bd609a1a4, type: 3}
   SpreadShootSound: {fileID: 8300000, guid: af66162561d2eed40ad49268cab318bb, type: 3}
   audioSource: {fileID: 0}
+  Volume: 0.25
   isSpreadMode: 0
+  useStageDamage: 1
+  StageDamage: 1
+  spreadController: {fileID: 0}
 --- !u!114 &3619744795370887182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,9 +198,14 @@ MonoBehaviour:
   shooter: {fileID: 0}
   baseFirePoint: {fileID: 0}
   spreadButton: {fileID: 0}
-  spreadAngle: 45
+  buttonImage: {fileID: 0}
+  spreadAngle: 15
   spreadDuration: 5
   lateralOffset: 0.15
+  spreadDamageMultiplier: 2
+  requiredSkillPoint_base: 1
+  requiredSkillPoint: 1
+  canClick: 1
 --- !u!82 &4616172591177259293
 AudioSource:
   m_ObjectHideFlags: 0
