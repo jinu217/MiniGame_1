@@ -37,24 +37,32 @@ public class Player : MonoBehaviour
     }
 
     void Update()
-    {
+    {// 1. UI를 클릭/터치 중이라면 이동 로직 전체를 무시
+        if (IsPointerOverUI()) return;
+
+        // 2. 입력 처리 (PC + 모바일 통합)
+        bool isInput = false;
+        Vector2 inputPos = Vector2.zero;
+
 #if UNITY_EDITOR || UNITY_STANDALONE
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-            return;
-
         if (Input.GetMouseButton(0))
-            _targetX = Mathf.Clamp(ScreenToRange(Input.mousePosition.x), xLimits.x, xLimits.y);
-#else
-        if (Input.touchCount > 0)
         {
-            Touch t = Input.GetTouch(0);
-            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(t.fingerId))
-                return;
-
-            if (t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary || t.phase == TouchPhase.Began)
-                _targetX = Mathf.Clamp(ScreenToRange(t.position.x), xLimits.x, xLimits.y);
+            isInput = true;
+            inputPos = Input.mousePosition;
         }
+#else
+    if (Input.touchCount > 0)
+    {
+        Touch t = Input.GetTouch(0);
+        isInput = (t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary || t.phase == TouchPhase.Began);
+        inputPos = t.position;
+    }
 #endif
+
+        if (isInput)
+        {
+            _targetX = Mathf.Clamp(ScreenToRange(inputPos.x), xLimits.x, xLimits.y);
+        }
 
         Vector3 pos = transform.position;
         pos.x = Mathf.SmoothDamp(pos.x, _targetX, ref _velX, smoothTime);
@@ -129,5 +137,22 @@ public class Player : MonoBehaviour
 
         if (gameManager != null)
             gameManager.GameOver();
+    }
+
+    // UI 터치 여부를 확인하는 통합 함수
+    private bool IsPointerOverUI()
+    {
+        if (EventSystem.current == null) return false;
+
+        // PC용 검사
+        if (EventSystem.current.IsPointerOverGameObject()) return true;
+
+        // 모바일용 검사
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(i).fingerId))
+                return true;
+        }
+        return false;
     }
 }

@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
         panel = FindAnyObjectByType<PanelPairSpawnerSimple>();
         Time.timeScale = 1f;
 
+        // 1. 먼저 해당 스테이지의 MaxHP를 설정합니다.
         ApplyStageMaxHP(scene.buildIndex);
 
         if (scene.name == "StartScene")
@@ -94,36 +95,23 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        if (!scene.name.StartsWith("Stage"))
-            return;
-
-        isGameOver = false;
-        isStageClear = false;
-        if (scene.buildIndex == 1 && pendingHpInit == HpInitMode.Keep)
+        // "Stage"로 시작하는 씬일 경우
+        if (scene.name.StartsWith("Stage"))
         {
+            isGameOver = false;
+            isStageClear = false;
+
+            // 2. [수정됨] 이전 스테이지 체력과 상관없이 항상 최대 체력으로 설정
             playerHp = playerMaxHp;
+
+            // 스테이지 시작 시점의 체력 기록 (재시작 시 활용)
+            stageStartHp = playerHp;
+
+            skillPoint = 2;
+
+            // 예약 상태 초기화
+            pendingHpInit = HpInitMode.Keep;
         }
-        else
-        {
-            switch (pendingHpInit)
-            {
-                case HpInitMode.Full:
-                    playerHp = playerMaxHp;
-                    break;
-
-                case HpInitMode.Half:
-                    playerHp = Mathf.Ceil(playerMaxHp * 0.5f);
-                    break;
-
-                case HpInitMode.Keep:
-                default:
-                    playerHp = Mathf.Clamp(playerHp, 1f, playerMaxHp);
-                    break;
-            }
-        }
-        stageStartHp = playerHp;
-
-        pendingHpInit = HpInitMode.Keep;
     }
 
     private void ApplyStageMaxHP(int index)

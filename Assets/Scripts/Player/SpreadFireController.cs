@@ -14,7 +14,7 @@ public class SpreadFireController : MonoBehaviour
 
 
     [Header("Spread Settings")]
-    public float spreadAngle = 30f;   // 좌우 각도(±)
+    public float spreadAngle = 15f;   // 좌우 각도(±)
     public float spreadDuration = 5f; // 유지 시간
     public float lateralOffset = 0.15f;// 좌우 포인트 가로 오프셋(겹침 방지)
 
