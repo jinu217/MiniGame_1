@@ -20,16 +20,19 @@ public class BugObject : MonoBehaviour
 
     Rigidbody rd;
     Collider col;
-    Renderer[] rends;
+    Renderer rends;
+    Color origin;
 
     void Awake()
     {
         bugHp = GameManager.gameManager.bugHp;
         rd = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
-        rends = GetComponentsInChildren<Renderer>(true);
+        rends = GetComponent<Renderer>();
+        origin = rends.material.color;
         if (rd != null) rd.isKinematic = false;
         //transform.rotation = Quaternion.Euler(-90f, 180f, 0f);
+      
     }
 
 
@@ -56,6 +59,11 @@ public class BugObject : MonoBehaviour
         }
     }
 
+    public void Flash()
+    {
+        StartCoroutine(FlashRoutine());
+    }
+
     public void BugLarge(bool large)
     {
         isBugLarge = large;
@@ -68,9 +76,18 @@ public class BugObject : MonoBehaviour
 
     public void TakeDamage(int dmg)
     {
+        Flash();
         bugHp -= dmg;
         //Debug.Log(dmg + "의 데미지!");
         if (bugHp <= 0)
             Destroy(gameObject);
+    }
+
+
+    IEnumerator FlashRoutine()
+    {
+        rends.material.color = Color.red;   // 🔴 순간 변경
+        yield return new WaitForSeconds(0.1f);
+        rends.material.color = origin;      // 원복
     }
 }
