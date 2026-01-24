@@ -2700,6 +2700,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stage2
       objectReference: {fileID: 0}
+    - target: {fileID: 1106312572487113537, guid: 5f7a14c6ee03ba546be2f12c4f5acb87, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740201262035984335, guid: 5f7a14c6ee03ba546be2f12c4f5acb87, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740201262035984335, guid: 5f7a14c6ee03ba546be2f12c4f5acb87, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6459840444927457175, guid: 5f7a14c6ee03ba546be2f12c4f5acb87, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
