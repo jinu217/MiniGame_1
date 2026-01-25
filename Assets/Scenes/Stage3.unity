@@ -1119,7 +1119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1308,10 +1308,10 @@ MonoBehaviour:
   healKitX: 0
   bugSpawnPosY: 0.5
   healSpawnPosY: 0.5
-  spawnPosZ: 25
+  spawnPosZ: 35
   bugSpawnCount: 0
   normalBug: {fileID: 6172854856611452701, guid: 5c245228a3f718749b8d655ac2fb161f, type: 3}
-  largeBug: {fileID: 3030554588344575450, guid: 00d7f354e85a7ee46a8c50ffb058f3fe, type: 3}
+  largeBug: {fileID: 265141457989057486, guid: a735163475204ed47b627254b8810fe3, type: 3}
   healKit: {fileID: 8443673178999352726, guid: cdd22592da4f00a4d89e60881abd3a43, type: 3}
 --- !u!4 &778358041
 Transform:

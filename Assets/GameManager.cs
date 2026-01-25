@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     [Header("Bug Info")]
     public float bugSpawnCycle = 1f;
     public float bugHp = 2;
-    public int bugDamage = 1;
+    public int bugDamage = 2;
 
     [Header("Healkit Info")]
     public float healKitSpawnCycle = 5f;
@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviour
 
         // 1. 먼저 해당 스테이지의 MaxHP를 설정합니다.
         ApplyStageMaxHP(scene.buildIndex);
+        ApplyStageBug(scene.buildIndex);
 
         if (scene.name == "StartScene")
         {
@@ -129,7 +130,28 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Stage {index} 로드: MaxHP가 {playerMaxHp}로 설정되었습니다.");
     }
 
-    void Update()
+    private void ApplyStageBug(int index)
+    {
+        switch (index)
+        {
+            case 1: bugHp = 2f; break;
+            case 2: bugHp = 4f; break;
+            case 3: bugHp = 6f; break;
+            case 4: bugHp = 8f; break;
+            case 5: bugHp = 10f; break;
+        }
+        switch (index)
+        {
+            case 1: bugDamage = 2; break;
+            case 2: bugDamage = 3; break;
+            case 3: bugDamage = 4; break;
+            case 4: bugDamage = 5; break;
+            case 5: bugDamage = 6; break;
+
+
+        }
+    }
+        void Update()
     {
         playTime += Time.deltaTime;
 
