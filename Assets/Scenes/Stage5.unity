@@ -3067,14 +3067,14 @@ RectTransform:
   m_GameObject: {fileID: 2085331420}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalScale: {x: 6, y: 6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1080677342}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 200, y: 160}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -50, y: -300}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2085331422
@@ -3097,7 +3097,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 071bba8d06f57914aacc8bd5c6ea05c9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c252cfe05b8565547808a37749a8f102, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3122,19 +3122,19 @@ MonoBehaviour:
   targetImage: {fileID: 2085331422}
   iconUpdateTerm: 0.2
   barSprites:
-  - {fileID: 21300000, guid: 071bba8d06f57914aacc8bd5c6ea05c9, type: 3}
-  - {fileID: 21300000, guid: 8f61fd013199ae54f992e4e65f44d4c3, type: 3}
-  - {fileID: 21300000, guid: 8bd338e96709c594fad0028f383d084e, type: 3}
-  - {fileID: 21300000, guid: f77bf6ae082bb634795a0da99de6403e, type: 3}
-  - {fileID: 21300000, guid: b03d1fd5cf55a114c98bd3868974be43, type: 3}
-  - {fileID: 21300000, guid: c1e1098932a5cb1479a56f02e037fac0, type: 3}
-  - {fileID: 21300000, guid: e1fa5c02a4e773f43a55e6e6b05c15d4, type: 3}
-  - {fileID: 21300000, guid: c6c353d7fcbb8eb4e8f2840c340e9ce1, type: 3}
-  - {fileID: 21300000, guid: 0a52d4ee6da7c1749b3c9ac5fe2c85dd, type: 3}
-  - {fileID: 21300000, guid: 98f06210b09372746ae2aca20d24d4ac, type: 3}
-  - {fileID: 21300000, guid: f5c2f1b6a7bbe3f41b0ee4493764bb12, type: 3}
-  - {fileID: 21300000, guid: afc742c22c07e514b94a9c045b8f99ea, type: 3}
-  - {fileID: 21300000, guid: 59d9c50f4727fb8469ecb768f3418d69, type: 3}
+  - {fileID: 21300000, guid: d856bbdb12ec118459743b94e26d8e7e, type: 3}
+  - {fileID: 21300000, guid: f9a571b91e718374284e5e4995eb200b, type: 3}
+  - {fileID: 21300000, guid: c252cfe05b8565547808a37749a8f102, type: 3}
+  - {fileID: 21300000, guid: 2e7ca0432c93b674fae5450f15e73de5, type: 3}
+  - {fileID: 21300000, guid: 081f1c56133b38f4b9a31c92aed8d490, type: 3}
+  - {fileID: 21300000, guid: d1c5e1532a7d53b4fad5e58da525f817, type: 3}
+  - {fileID: 21300000, guid: 053919c6a0c74c44180449539944e975, type: 3}
+  - {fileID: 21300000, guid: 343bf2e3f5715464cbf49fb28d17a4e7, type: 3}
+  - {fileID: 21300000, guid: 676395dd021487d448be91bbe4b2e9b6, type: 3}
+  - {fileID: 21300000, guid: f5f041a168f049e41a035a8e325facc0, type: 3}
+  - {fileID: 21300000, guid: d985bf7a0695f3d4ba6e466d89663331, type: 3}
+  - {fileID: 21300000, guid: 5e33cf1db16f4e84f98e61749c4ef5ef, type: 3}
+  - {fileID: 21300000, guid: 284c2879e2bdd8d41a67c7c61172a933, type: 3}
 --- !u!222 &2085331424
 CanvasRenderer:
   m_ObjectHideFlags: 0
