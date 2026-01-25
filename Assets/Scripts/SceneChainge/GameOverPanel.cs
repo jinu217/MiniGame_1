@@ -70,6 +70,9 @@ public class GameOverPanel : MonoBehaviour
 
     void OnClickRestart()
     {
+        PlayerPrefs.SetInt("ShowStoryOnStage1", 0);
+        PlayerPrefs.Save();
+
         Close();
         if (GameManager.Instance != null)
             GameManager.Instance.PrepareRestartToStageStartHp();
