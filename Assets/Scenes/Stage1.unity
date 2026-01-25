@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 52238701}
   - component: {fileID: 52238702}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HpMeasure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 252969340}
   - component: {fileID: 252969342}
   - component: {fileID: 252969341}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HpBarBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -595,7 +595,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -631,7 +631,7 @@ GameObject:
   - component: {fileID: 307157965}
   - component: {fileID: 307157964}
   - component: {fileID: 307157966}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TimerPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -892,7 +892,7 @@ GameObject:
   - component: {fileID: 353634518}
   - component: {fileID: 353634520}
   - component: {fileID: 353634519}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HpBarFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1300,7 +1300,7 @@ GameObject:
   - component: {fileID: 487690909}
   - component: {fileID: 487690911}
   - component: {fileID: 487690910}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BossHpBarFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1377,7 +1377,7 @@ GameObject:
   - component: {fileID: 640248301}
   - component: {fileID: 640248304}
   - component: {fileID: 640248303}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BossHpBarBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1481,7 +1481,7 @@ GameObject:
   - component: {fileID: 727992708}
   - component: {fileID: 727992710}
   - component: {fileID: 727992709}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HpText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1746,7 +1746,7 @@ GameObject:
   - component: {fileID: 762976119}
   - component: {fileID: 762976118}
   - component: {fileID: 762976117}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TimerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1883,7 +1883,7 @@ GameObject:
   - component: {fileID: 789099315}
   - component: {fileID: 789099316}
   - component: {fileID: 789099314}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Stackbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1923,7 +1923,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2181,7 +2181,7 @@ GameObject:
   - component: {fileID: 843763453}
   - component: {fileID: 843763452}
   - component: {fileID: 843763451}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2361,7 +2361,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 96e692adcf85f3346bdfee9205158dc9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f5dc3f20d3462d64facaf1a9fd67f9c7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2564,7 +2564,7 @@ GameObject:
   - component: {fileID: 1080677341}
   - component: {fileID: 1080677340}
   - component: {fileID: 1080677339}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UI_Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3196,7 +3196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1744502457}
   - component: {fileID: 1744502458}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TimeTestObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3671,7 +3671,7 @@ GameObject:
   - component: {fileID: 2119687152}
   - component: {fileID: 2119687154}
   - component: {fileID: 2119687153}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HpText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
