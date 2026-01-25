@@ -23,6 +23,7 @@ public class AmmoSpawnerManual : MonoBehaviour
             enabled = false;
             return;
         }
+        gameManager.skillPoint = 2; // 시작 시 스킬 포인트를 2로 고정
         lastSkillPoint = gameManager.skillPoint;
         targetSkillPoint = lastSkillPoint;
         SetImageToSprite(lastSkillPoint);
