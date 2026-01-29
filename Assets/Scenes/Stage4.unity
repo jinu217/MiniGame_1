@@ -470,7 +470,7 @@ MonoBehaviour:
   bugSpawnCycle: 1
   bugHp: 2
   bugDamage: 1
-  healKitSpawnCycle: 2
+  healKitSpawnCycle: 4
   healValue: 1
   plusPanelPoint: 0
   minusPanelPoint: 0
