@@ -40,9 +40,24 @@ public class SpreadFireController : MonoBehaviour
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
 
             //요구스킬값 = 베이스요구값 * 스테이지 인덱스값
-        requiredSkillPoint = requiredSkillPoint_base * sceneIndex;
-
-         gm = GameManager.gameManager;
+        switch (sceneIndex) {
+            case 1:
+                requiredSkillPoint = requiredSkillPoint_base * 1;
+                break;
+            case 2:
+                requiredSkillPoint = requiredSkillPoint_base * 2;
+                break;
+            case 3:
+                requiredSkillPoint = requiredSkillPoint_base * 2;
+                break;
+            case 4:
+                requiredSkillPoint = requiredSkillPoint_base * 3;
+                break;
+            case 5:
+                requiredSkillPoint = requiredSkillPoint_base * 3;
+                break;
+        }
+        gm = GameManager.gameManager;
 
          if (spreadButton != null)
             spreadButton.onClick.AddListener(Activate);

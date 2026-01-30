@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour
     public AudioClip PlayerTakeDmg;
 
     [Header("Player Info")]
-    public float playerMaxHp = 10f;
-    public float playerHp = 60f;
+    public float playerMaxHp = 63f;
+    public float playerHp = 63f;
 
     public float stageStartHp = 10f;
 
@@ -119,11 +119,11 @@ public class GameManager : MonoBehaviour
     {
         switch (index)
         {
-            case 1: playerMaxHp = 60f; break;
-            case 2: playerMaxHp = 66f; break;
-            case 3: playerMaxHp = 72f; break;
-            case 4: playerMaxHp = 78f; break;
-            case 5: playerMaxHp = 84f; break;
+            case 1: playerMaxHp = 63f; break;
+            case 2: playerMaxHp = 80f; break;
+            case 3: playerMaxHp = 104f; break;
+            case 4: playerMaxHp = 130f; break;
+            case 5: playerMaxHp = 153f; break;
             // 기본값 설정 (필요 시)
             default: if (index > 0) playerMaxHp = 10f; break;
         }

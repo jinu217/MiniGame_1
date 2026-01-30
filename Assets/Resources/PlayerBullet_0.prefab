@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 8252855664787088497}
   - component: {fileID: 4096751742772153304}
   - component: {fileID: 1881178963188232850}
-  - component: {fileID: -122748399083240417}
-  - component: {fileID: 6389114088889053569}
-  - component: {fileID: -8377270859132107101}
-  - component: {fileID: -6156037787546408993}
-  m_Layer: 7
+  - component: {fileID: 5939900950213797957}
+  - component: {fileID: 2393276845314170888}
+  - component: {fileID: 5883176963688202465}
+  - component: {fileID: 7181269294908309342}
+  m_Layer: 0
   m_Name: PlayerBullet_0
-  m_TagString: PlayerBullet
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 7919557357837782519}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -44,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7919557357837782519}
-  m_Mesh: {fileID: 2210965410299338194, guid: 683fb96bdb397af4f99895a6006125bf, type: 3}
+  m_Mesh: {fileID: 2210965410299338194, guid: 34d2e9a287fcc39428d22fb5507cd39b, type: 3}
 --- !u!23 &1881178963188232850
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3016479151454471876, guid: 683fb96bdb397af4f99895a6006125bf, type: 3}
+  - {fileID: -3846018093981099296, guid: 34d2e9a287fcc39428d22fb5507cd39b, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -90,7 +90,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &-122748399083240417
+--- !u!136 &5939900950213797957
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,11 +109,11 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.007
   m_Height: 0.0062499996
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &6389114088889053569
+--- !u!54 &2393276845314170888
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,7 +140,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &-8377270859132107101
+--- !u!114 &5883176963688202465
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,7 +157,7 @@ MonoBehaviour:
   BugHitSoundVolume: 1.7
   healSoundVolume: 1
   BossHitSoundVolume: 1.5
---- !u!82 &-6156037787546408993
+--- !u!82 &7181269294908309342
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
