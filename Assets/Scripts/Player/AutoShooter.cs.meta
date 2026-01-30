@@ -4,7 +4,6 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - bulletPrefab: {instanceID: 0}
   - firePoint: {instanceID: 0}
   - PlayerShootSound: {fileID: 8300000, guid: 4310474905e266640852f43bd609a1a4, type: 3}
   - SpreadShootSound: {fileID: 8300000, guid: af66162561d2eed40ad49268cab318bb, type: 3}

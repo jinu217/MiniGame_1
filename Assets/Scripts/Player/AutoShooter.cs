@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class AutoShooter : MonoBehaviour
 {
     [Header("Bullet Settings")]
-    public GameObject bulletPrefab;   // 발사할 총알 프리팹
+    GameObject[] bulletPrefabs;
     public Transform firePoint;       // 기본 총구 위치
     public Transform[] firePoints;    // 스프레드 등 다중 발사 지원
     public float bulletSpeed = 15f;   // 총알 속도
@@ -33,6 +33,10 @@ public class AutoShooter : MonoBehaviour
 
     void Awake()
     {
+        bulletPrefabs = new GameObject[2];
+        bulletPrefabs[0] = Resources.Load<GameObject>("PlayerBullet_0");
+        bulletPrefabs[1] = Resources.Load<GameObject>("PlayerBullet_1");
+
         // GameManager 참조
         gm = GameManager.gameManager;
 
@@ -62,12 +66,19 @@ public class AutoShooter : MonoBehaviour
         if (firePoints == null || firePoints.Length == 0)
             firePoints = new Transform[] { firePoint };
 
+        if (bulletPrefabs == null || bulletPrefabs.Length == 0) return;
+
         foreach (var point in firePoints)
         {
             if (!point) continue;
 
-            // 각 FirePoint를 기준으로 총알 생성
-            GameObject bullet = Instantiate(bulletPrefab, point.position, point.rotation);
+            // 2. 실행 시점에 0번 혹은 1번 인덱스를 무작위로 선택
+            int randomIndex = Random.Range(0, bulletPrefabs.Length);
+
+            // 3. 선택된 랜덤 프리팹(PlayerBullet0 또는 1)을 생성
+            GameObject bullet = Instantiate(bulletPrefabs[randomIndex], point.position, point.rotation);
+            Debug.Log(bullet.name + " 생성됨!");
+
             bullet.tag = "PlayerBullet";
 
             // Rigidbody 보장 + 설정
