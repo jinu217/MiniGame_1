@@ -7,7 +7,7 @@ public class TimerTest : MonoBehaviour
     void Start()
     {
         // ���� �������ڸ��� 30�� Ÿ�̸� ����
-        timerUI.StartTimer(90f);
+        timerUI.StartTimer(75f);
     }
 }
 
