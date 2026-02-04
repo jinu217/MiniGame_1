@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bug
       objectReference: {fileID: 0}
+    - target: {fileID: 6745302439343835087, guid: f61f11f6f41c8854d9c2ec405e19e424, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 24a509f9c7229e04098a84ec6d1ea2de, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -516098083770646512, guid: f61f11f6f41c8854d9c2ec405e19e424, type: 3}
@@ -134,4 +138,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bugSpeed: 10
+  bugHp: 0
   isArrive: 0
+  isBugLarge: 0
+  isDistroy: 0
+  spawner: {fileID: 0}
+  PlayerTakeDmgSoundVolume: 1.7
