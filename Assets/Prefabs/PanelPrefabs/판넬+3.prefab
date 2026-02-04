@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\uD310\uB12C+3"
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e669a007177c66b40bd883f04660dd72, type: 3}
+      propertyPath: m_TagString
+      value: PlusPanel
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -2845779275431937956, guid: e669a007177c66b40bd883f04660dd72, type: 3}
