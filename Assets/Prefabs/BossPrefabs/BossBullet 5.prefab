@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 6
-  damage: 27
+  damage: 17
 --- !u!1001 &3927973535007975450
 PrefabInstance:
   m_ObjectHideFlags: 0

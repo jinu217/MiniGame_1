@@ -854,9 +854,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 979e05360eb63eb449abd11496e3255a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plus1panel: {fileID: 5764952900602005635, guid: 1ab68f7676067bc42978698ed005471c, type: 3}
-  plus2panel: {fileID: 6729930378906434771, guid: d5b65fd81f6d711458d0529f0badcb0e, type: 3}
-  plus3panel: {fileID: 1511828456644724786, guid: dbbd3b614ac2f364d9dd11c1a7dd9153, type: 3}
+  plus1panel: {fileID: 628714409664210672, guid: 1ab68f7676067bc42978698ed005471c, type: 3}
+  plus2panel: {fileID: 756989567616761902, guid: d5b65fd81f6d711458d0529f0badcb0e, type: 3}
+  plus3panel: {fileID: 2756750092048834148, guid: dbbd3b614ac2f364d9dd11c1a7dd9153, type: 3}
   minus1panel: {fileID: 7206203843440603001, guid: 00c9895bd08a4844ba7c99f8b5f9c6ec, type: 3}
   minus2panel: {fileID: 4266161168170014539, guid: f80f3b9d7e70450479bebb57fc003827, type: 3}
   interval: 10
@@ -1505,7 +1505,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 57, y: 50}
-  m_SizeDelta: {x: 80, y: 50}
+  m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &727992709
 MonoBehaviour:
@@ -2411,7 +2411,7 @@ MonoBehaviour:
   config: {fileID: 11400000, guid: 091d6eee22772904c9c3b2d62948d20b, type: 2}
   spawnPoint: {fileID: 1260979383}
   timeLimit: 40
-  bossSpawnDelay: 50
+  bossSpawnDelay: 35
   overrideInterval: 1
   overrideSpeed: 1
   overrideVolley: 1
